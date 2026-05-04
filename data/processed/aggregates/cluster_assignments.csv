@@ -1,0 +1,17 @@
+ofns_desc,cluster,heuristic,cluster_label
+ARSON,3,unclassified,Steady
+BURGLARY,3,steady_state,Steady
+CRIMINAL MISCHIEF & RELATED OF,1,violent_concentration,Surge
+DANGEROUS DRUGS,1,violent_concentration,Surge
+DANGEROUS WEAPONS,1,violent_concentration,Surge
+FELONY ASSAULT,1,violent_concentration,Surge
+FORGERY,1,violent_concentration,Surge
+GRAND LARCENY,1,steady_state,Surge
+GRAND LARCENY OF MOTOR VEHICLE,1,property_surge,Surge
+MISCELLANEOUS PENAL LAW,1,violent_concentration,Surge
+MURDER & NON-NEGL. MANSLAUGHTER,3,unclassified,Steady
+POSSESSION OF STOLEN PROPERTY,1,property_surge,Surge
+RAPE,2,declining,Decline
+ROBBERY,1,steady_state,Surge
+SEX CRIMES,2,declining,Decline
+THEFT-FRAUD,2,declining,Decline

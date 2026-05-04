@@ -38,3 +38,19 @@ npm-debug.log*
 # Runtime data
 *.pid
 *.seed
+
+# Project-specific: large data caches (regenerate from SODA)
+data/raw/
+data/interim/
+data/cache.duckdb
+data/processed/cuts/*.png
+data/processed/cuts/*.html
+*.parquet
+# Exception: keep the small aggregate parquets used by the chart script
+!data/processed/aggregates/*.parquet
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Project venv
+.venv/
