@@ -16,6 +16,7 @@
 
   function loadScript(src) {
     return new Promise(function (resolve, reject) {
+      if (window.Plot) { resolve(); return; }
       const s = document.createElement("script");
       s.src = src;
       s.onload = resolve;
@@ -49,57 +50,55 @@
     return geojson;
   }
 
-  function renderPlot(container, geojson) {
+  /**
+   * Renders the choropleth and returns the Plot SVG element WITHOUT touching
+   * any container. Accepts an explicit width so it can work off-DOM.
+   * Returns null if Plot is unavailable or throws.
+   */
+  function renderPlotStandalone(geojson, width) {
     var Plot = window.Plot;
-    if (!Plot) return;
-    var plot = Plot.plot({
-      width: container.clientWidth || 700,
-      height: 600,
-      projection: {
-        type: "mercator",
-        domain: geojson,
-      },
-      color: {
-        type: "linear",
-        scheme: "Oranges",
-        domain: [-50, 0, 100, 200],
-        label: "Percent change in felony assault, 2017 to 2024",
-      },
-      marks: [
-        Plot.geo(geojson, {
-          fill: function (d) { return d.properties.pct_change; },
-          stroke: "#fff",
-          strokeWidth: 0.5,
-          title: function (d) {
-            var p = d.properties;
-            return "Precinct " + p.precinct +
-                   "\n2017: " + (p.count_2017 != null ? p.count_2017 : "?") +
-                   "\n2024: " + (p.count_2024 != null ? p.count_2024 : "?") +
-                   "\nChange: " + (p.pct_change != null ? p.pct_change + "%" : "?");
-          },
-        }),
-      ],
-    });
-    container.innerHTML = "";
-    container.appendChild(plot);
-    // Render the color legend separately so the choropleth SVG contains only
-    // choropleth paths — keeping the path-index zip with geojson.features reliable.
-    var legendEl = Plot.legend({
-      color: {
-        type: "linear",
-        scheme: "Oranges",
-        domain: [-50, 0, 100, 200],
-        label: "Percent change in felony assault, 2017 to 2024",
-      },
-    });
-    legendEl.style.marginTop = "8px";
-    container.appendChild(legendEl);
+    if (!Plot) return null;
+    try {
+      var plot = Plot.plot({
+        width: width || 700,
+        height: 600,
+        projection: {
+          type: "mercator",
+          domain: geojson,
+        },
+        color: {
+          type: "linear",
+          scheme: "Oranges",
+          domain: [-50, 0, 100, 200],
+          label: "Percent change in felony assault, 2017 to 2024",
+        },
+        marks: [
+          Plot.geo(geojson, {
+            fill: function (d) { return d.properties.pct_change; },
+            stroke: "#fff",
+            strokeWidth: 0.5,
+            title: function (d) {
+              var p = d.properties;
+              return "Precinct " + p.precinct +
+                     "\n2017: " + (p.count_2017 != null ? p.count_2017 : "?") +
+                     "\n2024: " + (p.count_2024 != null ? p.count_2024 : "?") +
+                     "\nChange: " + (p.pct_change != null ? p.pct_change + "%" : "?");
+            },
+          }),
+        ],
+      });
+      return plot;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function setMapAriaLabel(container) {
     var svg = container.querySelector("svg");
     if (svg) {
       svg.setAttribute("role", "img");
       svg.setAttribute("aria-label", "NYC precinct map: percent change in felony assault from 2017 to 2024, broken down by police precinct.");
     }
-    attachPinHandlers(container, geojson);
   }
 
   // Click-to-pin: clicking a precinct pins a sticky tooltip with its info;
@@ -191,29 +190,74 @@
   async function init() {
     var figure = document.getElementById(CONTAINER_ID);
     if (!figure) return;
-    var figcaption = figure.querySelector("figcaption");
-    var captionText = figcaption ? figcaption.outerHTML : "";
+    var figureWidth = figure.clientWidth || 720;
 
     try {
       await loadScript(PLOT_CDN);
       if (!window.Plot) throw new Error("Observable Plot did not load");
       var geojson = await loadData();
+
+      // Build the plot in a detached div first — no DOM changes yet
       var renderTarget = document.createElement("div");
       renderTarget.className = "chart-06-render";
+
+      // Render off-DOM by passing width explicitly
+      var plot = renderPlotStandalone(geojson, figureWidth);
+      if (!plot) throw new Error("Plot.plot returned no element");
+      renderTarget.appendChild(plot);
+
+      var legendEl = window.Plot.legend({
+        color: {
+          type: "linear",
+          scheme: "Oranges",
+          domain: [-50, 0, 100, 200],
+          label: "Percent change in felony assault, 2017 to 2024",
+        },
+      });
+      legendEl.style.marginTop = "8px";
+      renderTarget.appendChild(legendEl);
+
+      setMapAriaLabel(renderTarget);
+      attachPinHandlers(renderTarget, geojson);
+
+      // Preserve figcaption
+      var originalCaption = figure.querySelector("figcaption");
+      var captionClone = originalCaption ? originalCaption.cloneNode(true) : null;
+
+      // Success — atomically replace
       figure.innerHTML = "";
       figure.appendChild(renderTarget);
-      if (captionText) figure.insertAdjacentHTML("beforeend", captionText);
-      renderPlot(renderTarget, geojson);
+      if (captionClone) figure.appendChild(captionClone);
+
       // Re-render on resize (debounced).
       var resizeTimer;
       window.addEventListener("resize", function () {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function () {
-          renderPlot(renderTarget, geojson);
+          var newPlot = renderPlotStandalone(geojson, renderTarget.clientWidth || figureWidth);
+          if (newPlot) {
+            renderTarget.innerHTML = "";
+            renderTarget.appendChild(newPlot);
+            // re-add legend
+            var newLegend = window.Plot.legend({
+              color: {
+                type: "linear",
+                scheme: "Oranges",
+                domain: [-50, 0, 100, 200],
+                label: "Percent change in felony assault, 2017 to 2024",
+              },
+            });
+            newLegend.style.marginTop = "8px";
+            renderTarget.appendChild(newLegend);
+            setMapAriaLabel(renderTarget);
+            attachPinHandlers(renderTarget, geojson);
+          }
         }, 200);
       });
     } catch (err) {
       console.warn("Chart 06 interactive render failed; static PNG fallback in use.", err);
+      figure.dataset.renderError = err.message || String(err);
+      // Original innerHTML untouched; PNG fallback visible
     }
   }
 
