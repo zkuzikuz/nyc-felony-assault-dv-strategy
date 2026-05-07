@@ -354,3 +354,39 @@ body {
 @media (max-width: 720px) {
   .site-footer .footer-grid { grid-template-columns: 1fr; gap: var(--space-3); }
 }
+
+/* ---------- precinct-map pinned tooltip ---------- */
+.chart-06-render { position: relative; }
+.precinct-pin-tip {
+  position: absolute;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 10px 14px;
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  min-width: 140px;
+  pointer-events: auto;
+}
+.precinct-pin-tip strong { color: #fff; font-size: 13px; }
+.precinct-pin-tip .pct { color: var(--orange); font-weight: 700; margin-top: 4px; }
+.precinct-pin-tip .unpin-btn {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 2px 6px;
+  line-height: 1;
+}
+.precinct-pin-tip .unpin-btn:hover { color: var(--orange); }
+.chart-06-render svg path.pinned {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
