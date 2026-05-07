@@ -850,7 +850,7 @@ def chart_14_baselines():
     axes[2].set_ylim(0, 100)
 
     # Panel 4 — National context: NYC orange, peers mute
-    bench = ["NYC\n(adjusted)", "US national\n(2010->2024)", "24-city avg\n(since 2019)", "LA\n(2024 YoY)"]
+    bench = ["NYC", "US", "24-city", "LA"]
     bench_vals = [decade_adj, 1.5, 4, -10]
     bench_colors = [C_ASSAULT, C_NEUTRAL, C_NEUTRAL, C_NEUTRAL]
     axes[3].bar(bench, bench_vals, color=bench_colors, width=0.55)
