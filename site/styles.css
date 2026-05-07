@@ -336,3 +336,21 @@ body {
   justify-content: center;
   border: 1.5px solid var(--orange);
 }
+
+.site-footer { text-align: left; }
+.site-footer .footer-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+.site-footer .footer-bio { font-size: 14px; line-height: 1.6; color: var(--ink); }
+.site-footer .footer-bio strong { color: var(--ink); font-weight: 600; }
+.site-footer .footer-meta { font-size: 12px; line-height: 1.7; color: var(--mute); }
+.site-footer .footer-copyright { margin-top: var(--space-2); font-size: 11px; color: #aaa; }
+
+@media (max-width: 720px) {
+  .site-footer .footer-grid { grid-template-columns: 1fr; gap: var(--space-3); }
+}
