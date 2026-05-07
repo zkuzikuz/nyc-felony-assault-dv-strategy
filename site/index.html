@@ -303,7 +303,35 @@
     <li><a href="https://help.neighborhoodscout.com/support/solutions/articles/25000001997-what-is-the-crime-index-">NeighborhoodScout: <em>What is the Crime Index?</em></a></li>
   </ul>
 </section>
-        <section id="methodology"><h2>Methodology</h2><!-- Task 10 --></section>
+        <section id="methodology">
+  <h2>Methodology</h2>
+
+  <p>This memo started as Phase 0 evidence discovery and ended up as a published artifact. What follows is an honest walk through how it was built, aimed at a reader who's curious whether they should trust the analysis.</p>
+
+  <h3>Data sources</h3>
+  <p>The primary data is NYPD's Complaint Data Historic dataset (qgea-i56i, on NYC OpenData), which covers every NYPD-recorded complaint from 2006 through the most recent year. Domestic-violence-specific figures come from the New York State Division of Criminal Justice Services DV feed, accessed via Vital City's published analysis (NYPD's public dataset does not contain a victim-relationship field, so we rely on the DCJS feed where Vital City does the underlying joins). B-HEARD operational data comes from NYC Comptroller Lander's 2024 audit. Mental-health system context comes from the Manhattan Institute's <em>Systems Under Strain</em> deinstitutionalization paper and the NY State Comptroller's March 2024 inpatient-capacity report (which uses Office of Mental Health data). NYC DV-spending data comes from NYC City Council Finance Committee HRA reports. National benchmarks come from FBI Uniform Crime Reporting and the Council on Criminal Justice's 24-city year-end 2024 update. Source studies for the recommended programs come from peer-reviewed criminology literature: Koppa 2024 (<em>Journal of Economic Behavior &amp; Organization</em>), Sechrist and Weil 2018 (NIJ), Sherman and Berk 1984 (<em>American Sociological Review</em>), Braga and Weisburd 2019 (Campbell systematic review), and Cheng et al. 2021 (meta-analysis).</p>
+
+  <h3>The analytical pipeline</h3>
+  <p>Python 3.11 with pandas, geopandas, and DuckDB. Raw data is hive-partitioned parquet under <code>data/raw/</code>; small aggregate parquets and CSVs (per-precinct counts, sub-category drill, indexed time series) are committed to the repo for reproducibility. Charts are rendered by <code>scripts/render_sketches.py</code> (matplotlib for static, Observable Plot at runtime for the two interactive charts).</p>
+
+  <h3>Three rounds of adversarial review</h3>
+  <p>The Phase 0 memo went through three rounds of adversarial critique before publication. Each round, a fresh reviewer attacked the memo with no continuity from prior rounds. Round 1: skeptical hiring manager (would they put this down on a first read?). Round 2: methodological peer reviewer (where is the methodology weak, where are the citations sloppy?). Round 3: hostile policy critic (what's the most damaging fair attack?). Critiques the memo could rebut became sharpenings; critiques that survived rebuttal became research questions for a separate, neutrally framed research agent. The recommendation visibly changed across the three rounds: from "deploy a domestic-violence Crisis Management System port" through "deploy LAP and OFDVI" to the current "lead with housing and B-HEARD; pilot LAP and OFDVI third with safeguards and a sunset." Each reframe traded confidence for defensibility.</p>
+
+  <h3>Independent research and verification on load-bearing claims</h3>
+  <p>Four high-stakes claims got research-then-verify agent pairs (a research agent finds the evidence; an independent verification agent re-reads the cited sources and reports confirm / dispute / inconclusive). The B-HEARD precinct count was corrected from "28" to the verified 31, sourced to the Comptroller audit's Appendix II. The "NYC vs national outlier" framing was independently confirmed against FBI UCR, the Council on Criminal Justice 24-city sample, and per-city year-end data from Los Angeles, Chicago, and Philadelphia. The DV-spending trajectory was reconstructed from NYC Council Finance Committee HRA reports across FY15 through FY26 with explicit Consumer Price Index adjustment. The long-run cost-offset estimate was disputed in verification (several unit costs were sensitive to marginal-versus-average accounting, and federal payer share isn't NYC-borne), so the memo flags those numbers as illustrative rather than estimable.</p>
+
+  <h3>Source audit</h3>
+  <p>Every cited URL was classified by reputability category (government, peer-reviewed academic, university research center, reputable news, reputable nonprofit, partisan think tank, Wikipedia, other). Load-bearing claims were independently fact-checked against their cited sources. Where a source was partisan-tilted (Manhattan Institute on deinstitutionalization), a primary government cite was paired alongside it (NY State Comptroller using OMH data). Where a citation was structurally one source reported three times (the DV split appearing in Vital City, Brennan Center, and Gothamist, all citing DCJS), the memo says so.</p>
+
+  <h3>AI-tool transparency</h3>
+  <p>This memo and the analysis behind it were built with the assistance of <a href="https://claude.com/claude-code">Claude Code</a>, an Anthropic-built agentic coding tool. Claude Code drafted prose, ran statistical analyses through the project's Python stack, dispatched independent research and verification agents, and surfaced findings the author would not have caught alone. The author directs intent, makes every decision, edits every paragraph, and is solely responsible for the recommendation. The use of AI tools is named here, not hidden, because the methodology is part of the work.</p>
+
+  <h3>Limits of the analysis</h3>
+  <p>See the appendix's <a href="#appendix">Limits of the data</a> note. Briefly: NYPD does not publish a victim-relationship field, so the DV split is not directly reproducible from the NYPD dataset alone; the HRA "Domestic Violence Services" budget line conflates ENDGBV operations with DV shelter contracts; the long-run cost-offset estimate is illustrative, not estimable; and FBI Uniform Crime Reporting and NIBRS are not the same as NY State Penal Law definitions, so cross-jurisdiction comparisons require a methodological asterisk.</p>
+
+  <h3>Reproducibility</h3>
+  <p>The full source repository is on GitHub (link in footer). All aggregate parquet files and CSVs that drive the charts are committed. Raw NYPD data is regenerable from NYC OpenData with a free SODA application token. The memo, the chart-rendering scripts, the build script for this site, and the round-by-round adversarial critique transcripts are all in the repo.</p>
+</section>
         <section id="appendix"><h2>Appendix</h2><!-- Task 11 --></section>
       </main>
 
