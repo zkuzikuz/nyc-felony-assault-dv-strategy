@@ -46,7 +46,9 @@
       <div class="byline">By Zarren Kuzma &middot; May 2026 &middot; <a href="#methodology">Phase 0 Evidence Memo</a></div>
       <figure class="hero-figure">
         <img src="assets/charts/01-hero.png" alt="Headline chart: the +72% felony-assault headline overstates the rise. After stripping out the 2010 strangulation reclassification, the real behavioral rise is +47% from 2010 to 2024.">
-        <figcaption>The +72% headline NYC's reporting would produce overstates the rise. Strip out the 2010 first-degree-strangulation reclassification and the real behavioral rise is about 47%.</figcaption>
+        <figcaption>The +72% headline NYC's reporting would produce overstates the rise. Strip out the 2010 first-degree-strangulation reclassification and the real behavioral rise is about 47%.
+          <p class="source">Source: <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i">NYPD Complaint Data Historic</a>. Strangulation 1st (NYPL §121.13) was created November 2010; subtracted from both endpoints. Dots mark actual data years (2010, 2014, 2019, 2024); line interpolates between.</p>
+        </figcaption>
       </figure>
     </section>
 
@@ -100,35 +102,45 @@
 
   <figure>
     <img src="assets/charts/02-majors.png" alt="Bar chart: felony assault dwarfs other violent-felony categories. 29,501 felony-assault reports in 2024, vs 16,567 robberies, 1,534 rapes, and 363 murders.">
-    <figcaption>Felony assault dwarfs other violent-felony categories in 2024. Source: NYPD Complaint Data Historic.</figcaption>
+    <figcaption>Felony assault dwarfs other violent-felony categories in 2024.
+      <p class="source">Source: <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i">NYPD Complaint Data Historic</a>. Comparison covers the four violent-felony categories. Grand Larceny is larger overall (47,808 in 2024) but is a property crime, not a violent one.</p>
+    </figcaption>
   </figure>
 
   <p><strong>Domestic violence is the dominant driver of the rise.</strong> Vital City's analysis of NYPD data, citing the New York State Division of Criminal Justice Services (DCJS) DV feed, finds that domestic and elder assault rose about 73% from 2017 to 2024. Other felony assault grew about 40% over the same period. About 39% of NYC felony assault involves members of the same household, which works out to roughly 11,500 of the 29,501 cases in 2024. NYPD's public dataset does not contain a victim-relationship field, so the household-share figure is sourced from the DCJS feed.</p>
 
   <figure>
     <img src="assets/charts/03-dv-split.png" alt="Two-panel chart. Left: bar chart showing DV-related assault grew 73% from 2017 to 2024 vs 40% for other felony assault. Right: pie chart showing 11,505 DV-related cases (39%) and 17,996 other (61%) of 29,501 total.">
-    <figcaption>DV-related felony assault grew nearly twice as fast as other felony assault since 2017. Source: Vital City analysis of NYPD data, citing the DCJS DV feed.</figcaption>
+    <figcaption>DV-related felony assault grew nearly twice as fast as other felony assault since 2017.
+      <p class="source">Sources: <a href="https://vitalcitynyc.org/articles/crime-in-new-york-city-trends-statistics">Vital City analysis</a> of NYPD data, citing the <a href="https://www.criminaljustice.ny.gov/crimnet/ojsa/domestic-violence-data.html">NY Division of Criminal Justice Services DV feed</a>. NYPD's public dataset has no victim-relationship field, so the DV share is sourced from the DCJS feed. Stacked bar applies Vital City's ~39% household-share figure to the 2024 total.</p>
+    </figcaption>
   </figure>
 
   <p><strong>Felony assault is the only violent-felony category showing a sustained rise.</strong> Indexed to 2017 equal to 1.0, felony assault has risen every year through 2024, ending at 1.46. Murder spiked during the pandemic and has since declined. Robbery and rape have stayed roughly flat. This is not a generalized public-safety deterioration. It is a specific, sustained pattern in felony assault, driven by DV inside the catch-all "Assault 2/1/Unclassified" sub-category.</p>
 
   <figure>
     <img src="assets/charts/05-trajectories.png" alt="Line chart: felony assault, indexed to 2017, rises every year through 2024 to 1.46. Murder spikes around 2020 and declines. Robbery and rape stay near 1.0.">
-    <figcaption>Felony assault has risen every year since 2017. Murder spiked in the pandemic; robbery and rape are roughly flat. Source: NYPD Complaint Data Historic.</figcaption>
+    <figcaption>Felony assault has risen every year since 2017. Murder spiked in the pandemic; robbery and rape are roughly flat.
+      <p class="source">Source: <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i">NYPD Complaint Data Historic</a>. Each line indexed to its 2017 value. Chart shows only the four violent-felony categories — property and non-violent felonies are not included.</p>
+    </figcaption>
   </figure>
 
   <p><strong>The rise is not a national trend.</strong> The national aggravated-assault rate was roughly flat from 2010 to 2024 (FBI Uniform Crime Reporting: about 252 per 100,000 in 2010, about 256 per 100,000 in 2024 after the year's decline). The CCJ 24-city sample shows about 4% growth since 2019. The same sample posted a 4% year-over-year decline in 2024 while NYC ended the year up 5.8%. Peer cities are flattening or falling at exactly the moment NYC is still rising. Among individual peer cities, Los Angeles posted a roughly 10% year-over-year decline in 2024. Chicago was at multi-year highs through 2024 then down 16% in early 2025. Philadelphia's gun-related aggravated-assault counts fell sharply in 2024. Houston's 9% one-year rise is the high-end peer outlier. National Incident-Based Reporting System (NIBRS) data show the DV share of violent crime drifting from 25.6% in 2020 to 27.5% in 2024, a modest movement compared with NYC's 73% DV-related growth. Definitional differences (NY "felony assault" versus FBI "aggravated assault"), the FBI's transition from older Uniform Crime Reporting to NIBRS in 2021, and NYC's strangulation reclassification narrow the gap but do not close it.</p>
 
   <figure id="chart-14-container" data-chart="multi-baseline" aria-label="Multi-baseline view: how NYC's felony-assault rise looks at different time scales versus national peers.">
     <img src="assets/charts/14-baselines.png" alt="Four-panel comparison. Left to right: NYC 1-year +5.8%, NYC 5-year +41.4%, NYC decade headline +72% / adjusted +47%, and a national-context panel showing NYC adjusted +47%, US national +2%, 24-city avg +4%, and LA 2024 year-over-year minus 10%.">
-    <figcaption>Four windows on the same metric. The decade scale puts NYC well above any peer benchmark. Source: NYPD; FBI; Council on Criminal Justice; LAPD 2024 year-end.</figcaption>
+    <figcaption>Four windows on the same metric. The decade scale puts NYC well above any peer benchmark.
+      <p class="source">Sources: NYC — <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i">NYPD Complaint Data Historic</a>; adjusted decade subtracts Strangulation 1st (NYPL §121.13) from both endpoints. National — <a href="https://www.fbi.gov/news/press-releases/fbi-releases-2024-reported-crimes-in-the-nation-statistics">FBI 2024 release</a>. 24-city average — <a href="https://counciloncj.org/crime-trends-in-u-s-cities-year-end-2024-update/">Council on Criminal Justice Year-End 2024</a>; the same panel was −4% YoY in 2024. LA — <a href="https://mayor.lacity.gov/news/lapd-releases-2024-end-year-crime-statistics-city-los-angeles">LAPD 2024 EOY release</a>.</p>
+    </figcaption>
   </figure>
 
   <p><strong>The rise is broadly distributed, not concentrated.</strong> Of NYC's 78 precincts, 76 saw growth in felony-assault counts between 2017 and 2024. The largest single precinct accounted for only about 6% of the citywide increase. The top 10 together accounted for roughly 36%. The lever is categorical, not geographic. A citywide intervention is more appropriate than a hot-spots strategy.</p>
 
   <figure id="chart-06-container" data-chart="precinct-map" aria-label="NYC precinct map: percent change in felony assault from 2017 to 2024, broken down by police precinct.">
     <img src="assets/charts/06-precinct-growth.png" alt="NYC choropleth map of felony-assault percent change per precinct, 2017 to 2024. 76 of 78 precincts saw growth; the largest contributor is about 6% of citywide growth, the top 10 about 36%.">
-    <figcaption>76 of 78 precincts grew between 2017 and 2024. The rise is broadly distributed, not concentrated in a few hot spots. Source: NYPD Complaint Data Historic.</figcaption>
+    <figcaption>76 of 78 precincts grew between 2017 and 2024. The rise is broadly distributed, not concentrated in a few hot spots. 76 of 78 precincts grew between 2017 and 2024. The largest single precinct accounts for 6% of citywide growth; the top 10 precincts account for 36%. The rise is broadly distributed.
+      <p class="source">Sources: <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i">NYPD Complaint Data Historic</a>; <a href="https://data.cityofnewyork.us/Public-Safety/Police-Precincts/78dh-3ptz">NYC Police Precincts geojson</a>. % change computed per precinct between 2017 and 2024. Concentration shares = each precinct's share of the citywide absolute increase.</p>
+    </figcaption>
   </figure>
 </section>
 <section id="response">
@@ -140,7 +152,9 @@
 
   <figure>
     <img src="assets/charts/04-stacked.png" alt="Stacked bar chart, 2010 to 2024. Bars show DV-driven cases inside the catch-all (magenta) doubling from about 6,800 to 11,800; the rest of the catch-all (orange) growing more modestly; assault on police steady; Strangulation 1st (navy) appearing in 2010 and contributing about 35% of the headline rise; small new sub-categories accounting for the rest.">
-    <figcaption>Felony-assault sub-categories, 2010 to 2024. The DV-driven share of the catch-all (magenta) accounts for most of the actual behavioral rise; Strangulation 1st (navy) is a 2010 statutory creation that explains roughly 35% of the headline figure. Source: NYPD Complaint Data Historic, drilled to pd_cd.</figcaption>
+    <figcaption>Felony-assault sub-categories, 2010 to 2024. The DV-driven share of the catch-all (magenta) accounts for most of the actual behavioral rise; Strangulation 1st (navy) is a 2010 statutory creation that explains roughly 35% of the headline figure.
+      <p class="source">Sources: <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i">NYPD Complaint Data Historic</a> drilled by pd_cd for sub-category counts. DV share applies <a href="https://vitalcitynyc.org/articles/crime-in-new-york-city-trends-statistics">Vital City's</a> ~39% household-share estimate to total felony-assault count per year, capped at catch-all size. Strangulation 1st = NYPL §121.13 (created November 2010). Bars at actual data years.</p>
+    </figcaption>
   </figure>
 
   <p><strong>Investment in DV prevention has not kept pace with the rise.</strong> The Human Resources Administration's (HRA) "Domestic Violence Services" program area, which consolidates the Mayor's Office to End Gender-Based Violence (ENDGBV) operations, the Family Justice Centers, the Teen Relationship Abuse Prevention Program (Teen RAPP), microgrants, and DV shelter contracts, grew about 28% nominally from FY17 ($131.5M adopted) to FY24 ($168.5M adopted). Inflation, measured by the Consumer Price Index for Urban Consumers, was approximately 28% over the same window. In real terms, spending on DV services is flat. Over the same period, DV-related felony assault rose about 73%. Real spending per DV-related case therefore fell roughly 42%. The NYC City Council requested expansions in three consecutive budget cycles: $4.8M in DV Housing Stability Microgrants in the FY24 budget response, and $8.3M across DV legal services, the HOME+ permanent-supportive-housing program (NYC's program for placing DV survivors and other priority populations into permanent supportive units), and microgrants in FY26. Each was zeroed out in the Mayor's Executive Budget. Mayor Adams' January 2024 Women's Agenda announced $43M across all gender-equity programs, multi-year and multi-agency; the DV-specific share included survivor-security alarms at $186K. The transfer of the Office of Crime Victim Services to ENDGBV (about $23.6M baselined FY26 forward) is the largest real expansion of ENDGBV's portfolio in the period, but it is a function transfer from MOCJ, not new dedicated DV funding.</p>
@@ -181,36 +195,48 @@
 
   <figure>
     <img src="assets/charts/07-beds.png" alt="Stacked horizontal bar chart. Today: 100 Bridge to Home beds plus 900 Safe Haven beds, total 1,000, against a 2,000-person target. Recommended: 200 Bridge to Home beds plus 1,800 Safe Haven beds, total 2,000.">
-    <figcaption>NYC has fewer than 100 supportive-housing beds against a 2,000-person target. Source: NYC Mayor's January 2025 Care, Community, Action announcement.</figcaption>
+    <figcaption>NYC has fewer than 100 supportive-housing beds against a 2,000-person target.
+      <p class="source">Source: <a href="https://www.nyc.gov/mayors-office/news/2025/01/mayor-adams-takes-unprecedented-action-curb-street-homelessness-support-people-severe">NYC Mayor's January 2025 Care, Community, Action announcement</a>. BTH = Bridge to Home (long-term supportive housing); Safe Haven = transitional shelter. Tsemberis Pathways-to-Housing RCT and replications underpin the supportive-housing evidence base.</p>
+    </figcaption>
   </figure>
 
   <figure>
     <img src="assets/charts/08-distal.png" alt="Two indexed lines, both at 100 in 2014. NY State inpatient psychiatric beds drop to 75 by 2021 (a 25% decline). NYC felony assault rises to 146 by 2024 (a 46% increase).">
-    <figcaption>As New York State inpatient psychiatric capacity contracted, NYC felony assault rose. Sources: Manhattan Institute and NY State Comptroller (psych beds); NYPD Complaint Data Historic (felony assault).</figcaption>
+    <figcaption>As New York State inpatient psychiatric capacity contracted, NYC felony assault rose.
+      <p class="source">Sources: NY State psych beds — <a href="https://manhattan.institute/article/systems-under-strain-deinstitutionalization-in-new-york-state-and-city-2025-update">Manhattan Institute deinstitutionalization paper</a>, 2014 and 2021 documented endpoints only. NYC felony assault — <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i">NYPD Complaint Data Historic</a>. Numbers next to each dot show index value (top) and raw count (bottom).</p>
+    </figcaption>
   </figure>
 
   <p><strong>Lever 2: Expand B-HEARD to 24-hour operations and implement audit-recommended cause-tracking.</strong> B-HEARD operates in 31 of 78 precincts. The 2024 Comptroller audit found that 35% of in-hours eligible calls did not get a B-HEARD team and explicitly did not track why. About 14,200 overnight calls fall outside the program's scope. There are two distinct fixes. Extend operating hours to overnight, which adds about 14,000 reachable calls per year (a structural fix). Implement the audit-recommended cause-tracking, which is what would let the city size a fix to the in-hours gap (an operational fix). The combined cost is roughly $30 to $50M annually beyond the current B-HEARD budget, plus or minus 50%.</p>
 
   <figure>
     <img src="assets/charts/09-bheard-breakdown.png" alt="Three-segment horizontal bar of B-HEARD eligibility outcomes per year. Got B-HEARD: 24,071 (47%). In-hours unserved with untracked cause: 13,042 (25%). Overnight unserved (program does not operate): 14,200 (28%).">
-    <figcaption>How B-HEARD eligible calls split each year. The 35% in-hours unserved gap has untracked causes. The 14,200 overnight calls fall outside the program's hours by design. Source: NYC Comptroller 2024 audit.</figcaption>
+    <figcaption>How B-HEARD eligible calls split each year. The 35% in-hours unserved gap has untracked causes. The 14,200 overnight calls fall outside the program's hours by design.
+      <p class="source">Source: <a href="https://comptroller.nyc.gov/wp-content/uploads/2025/05/MG24-060A.pdf">NYC Comptroller 2024 B-HEARD audit</a>. Each segment width is proportional to call volume in FY24. Numbers are from the audit's Appendix II.</p>
+    </figcaption>
   </figure>
 
   <figure>
     <img src="assets/charts/10-bheard-coverage.png" alt="Map of NYC police precincts. The 31 covered by B-HEARD are highlighted, concentrated in northern Manhattan, the Bronx, central Brooklyn, and parts of Queens. Staten Island and most of southern Brooklyn and Queens are uncovered.">
-    <figcaption>B-HEARD currently operates in 31 of NYC's 78 precincts. Source: NYC Comptroller 2024 audit, Appendix II; reaffirmed by the Mayor's Office November 2025 release on the H+H operational transition.</figcaption>
+    <figcaption>B-HEARD currently operates in 31 of NYC's 78 precincts.
+      <p class="source">Sources: B-HEARD precinct list — <a href="https://comptroller.nyc.gov/wp-content/uploads/2025/05/MG24-060A.pdf">NYC Comptroller 2024 audit Appendix II</a>; reaffirmed by <a href="https://www.nyc.gov/mayors-office/news/2025/11/mayor-adams-announces-new-model-to-have-new-york-city-s-911-ment">NYC Mayor's Office November 2025 release</a>. Felony-assault counts per precinct — <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i">NYPD Complaint Data Historic</a>. Precinct boundaries — <a href="https://data.cityofnewyork.us/Public-Safety/Police-Precincts/78dh-3ptz">NYC OpenData Police Precincts</a>.</p>
+    </figcaption>
   </figure>
 
   <p><strong>Lever 3: Pilot LAP and a NYC OFDVI program in four to six precincts.</strong> Among the DV-specific policing and advocacy interventions, LAP and OFDVI are the strongest-evidence options. They also carry implementation risks that the source studies did not measure. The pilot is meant to gather rigorous evidence about what works in NYC, not to deploy a known formula citywide.</p>
 
   <figure>
     <img src="assets/charts/12-dv-rank.png" alt="Horizontal bar chart ranking DV intervention effects. LAP (Maryland, Koppa JEBO 2024): 35-45% reduction in female intimate-partner-homicide rate. Mandatory arrest (MDVE): 5-21%. OFDVI (High Point): 12-28%. Batterer programs: -5 to +5% (null). CVI for DV: untested.">
-    <figcaption>DV-intervention effect sizes, ranked. Sources: Koppa 2024 (Maryland LAP); Sherman and Berk MDVE; Sechrist and Weil 2018 (High Point OFDVI); Cheng et al. 2021 meta-analysis; Cure Violence Global.</figcaption>
+    <figcaption>DV-intervention effect sizes, ranked.
+      <p class="source">Sources: <a href="https://www.sciencedirect.com/science/article/abs/pii/S0167268123004018">Koppa 2024</a>; <a href="https://www.jstor.org/stable/2095575">Sherman &amp; Berk MDVE</a>; <a href="https://pubmed.ncbi.nlm.nih.gov/29332533/">Sechrist &amp; Weil 2018</a>; <a href="https://pubmed.ncbi.nlm.nih.gov/31359840/">Cheng et al. 2021 meta-analysis</a>; <a href="https://cvg.org/what-we-do/">Cure Violence Global</a>. Cost figures are order-of-magnitude estimates for a NYC pilot at 4–6 precincts.</p>
+    </figcaption>
   </figure>
 
   <figure>
     <img src="assets/charts/13-quadrant.png" alt="Two-by-two scatterplot. X axis: evidence quality. Y axis: DV relevance. LAP and OFDVI are in the top-right quadrant (DV-evaluated, strong evidence). CMS is bottom-right (strong evidence, not for DV). CMS-for-DV is top-left (DV-relevant but untested).">
-    <figcaption>LAP and OFDVI are the only programs with both strong evidence and direct DV relevance. The other DV-relevant options are untested; the other strong-evidence options target gun or street violence, not DV. Source: derived from this memo's "What NYC has tried" review.</figcaption>
+    <figcaption>LAP and OFDVI are the only programs with both strong evidence and direct DV relevance. The other DV-relevant options are untested; the other strong-evidence options target gun or street violence, not DV.
+      <p class="source">Acronym key — LAP: Lethality Assessment Program. OFDVI: Offender-Focused Domestic Violence Initiative (High Point model). MDVE: Minneapolis Domestic Violence Experiment (Sherman &amp; Berk RCT). CMS: NYC Crisis Management System (Cure Violence-aligned). B-HEARD: Behavioral Health Emergency Assistance Response Division. BAM: Becoming a Man (Heller et al. RCT).</p>
+    </figcaption>
   </figure>
 
   <p>Three intervention categories are not in the recommendation. Community Violence Intervention adapted to DV is excluded because there is no published DV evaluation; the city would be running a research bet, not a deployment. Batterer-intervention programs are excluded because rigorous studies show null effects on re-offending. Hot-spots policing is excluded because it relies on a "place as driver" assumption (the idea that crime concentrates at specific street blocks) that does not fit DV; DV is driven by household relationships, not by place, and 76 of NYC's 78 precincts are showing growth, not a few hot blocks. A fuller note on hot-spots policing is in the appendix. Mandatory arrest is already in place in New York State, so it is not a lever NYC could choose to add.</p>
@@ -234,7 +260,9 @@
 
   <figure>
     <img src="assets/charts/11-timeline.png" alt="Gantt-style timeline. Months 0-6: pilot design and staffing. Months 6-12: implementation in 4-6 precincts. Months 12-30: data collection. Months 24-30: evaluation. Month 30 marks the binding sunset gate.">
-    <figcaption>Pilot timeline. The sunset gate at month 30 is binding through procurement-contract structure: funding ends automatically if the pre-registered endpoint is not met.</figcaption>
+    <figcaption>Pilot timeline. The sunset gate at month 30 is binding through procurement-contract structure: funding ends automatically if the pre-registered endpoint is not met.
+      <p class="source">Derived from memo Section 3 design constraints. Civil-liberties impact assessment precedes precinct rollout. Interim evaluation at month 18 informs course-correction. Phase-1 endpoint at month 30 is the binding decision point — Callaway-Sant'Anna staggered difference-in-differences with formal pretrend tests on DV-felony rate change in matched comparison precincts.</p>
+    </figcaption>
   </figure>
 
   <p>Pilot annual cost is roughly $3 to $8M for LAP, $2 to $5M for OFDVI, and $1 to $2M for evaluation, for a combined total of $6 to $15M per year, about 0.3% of NYC's $4.22B FY26 projected budget gap. Small in absolute terms, but it has to displace something. Plausible funding sources include reallocation from the NYPD operating budget (politically contentious), MOCJ discretionary funds, federal grant pass-throughs from the DOJ Office on Violence Against Women, and a philanthropic match (the NYC Fund for Public Health, the Robin Hood Foundation, or a similar partner).</p>

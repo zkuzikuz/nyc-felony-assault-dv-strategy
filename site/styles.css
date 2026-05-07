@@ -432,6 +432,27 @@ body {
   margin-top: var(--space-2);
 }
 
+/* ---------- figcaption source line ---------- */
+figcaption .source {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--mute);
+  font-style: italic;
+  line-height: 1.5;
+  margin-top: var(--space-2);
+  margin-bottom: 0;
+}
+figcaption .source a {
+  color: var(--mute);
+  text-decoration: underline;
+  text-decoration-color: var(--light);
+  text-underline-offset: 2px;
+}
+figcaption .source a:hover {
+  color: var(--ink);
+  text-decoration-color: var(--ink);
+}
+
 /* ---------- focus styles ---------- */
 a:focus-visible, button:focus-visible {
   outline: 2px solid var(--orange);

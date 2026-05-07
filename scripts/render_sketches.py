@@ -408,7 +408,7 @@ def chart_06_precinct_growth():
     merged = gdf.merge(pivot[["pct_change"]],
                        left_on=id_col, right_index=True, how="left")
 
-    fig, ax = plt.subplots(figsize=(11, 9))
+    fig, ax = plt.subplots(figsize=(11, 11))
     ax.set_facecolor(C_BG)
     cmap = plt.colormaps["OrRd"]
     vmin, vmax = -50, 200
@@ -417,18 +417,12 @@ def chart_06_precinct_growth():
                 missing_kwds={"color": "#EEEEEE"})
     ax.set_axis_off()
 
-    callout = (f"How concentrated is the rise?\n"
-               f"  • {n_pos} of 78 precincts saw growth\n"
-               f"  • Largest single precinct: {top1_share:.0f}% of citywide growth\n"
-               f"  • Top 10 precincts: {top10_share:.0f}% of citywide growth\n\n"
-               "The rise is broadly distributed.")
-    ax.text(0.02, 0.04, callout, transform=ax.transAxes, fontsize=10,
-            color=C_NEUTRAL, fontfamily="sans-serif",
-            bbox=dict(boxstyle="round,pad=0.6", fc=C_BG, ec=C_LIGHT))
+    # Inset stats box removed — content moved to HTML figcaption
 
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=vmin, vmax=vmax))
     sm._A = []
-    cbar = fig.colorbar(sm, ax=ax, fraction=0.035, pad=0.02, orientation="horizontal")
+    cbar = fig.colorbar(sm, ax=ax, fraction=0.025, pad=0.01, orientation="horizontal",
+                        shrink=0.6, aspect=30)
     cbar.set_label("% change in felony assault, 2017 to 2024", fontsize=8,
                    fontfamily="sans-serif", color=C_NEUTRAL)
 
@@ -436,7 +430,7 @@ def chart_06_precinct_growth():
                title="No single precinct drove the citywide felony-assault rise.",
                subtitle=f"{n_pos} of 78 precincts grew between 2017 and 2024 — the rise is broadly distributed, not concentrated in a few hot spots.",
                source=f"Sources: NYPD Complaint Data Historic ({URL_NYPD_HISTORIC}); NYC Police Precincts geojson ({URL_NYPD_PRECINCTS}). % change computed per precinct between 2017 and 2024. Concentration shares = each precinct's share of the citywide absolute increase.",
-               top=0.84, bottom=0.14, left=0.04, right=0.96)
+               top=0.88, bottom=0.08, left=0.04, right=0.96)
 
 
 # ---------------------------------------------------------------------------
@@ -691,9 +685,9 @@ def chart_11_timeline():
 
     chart_save(fig, "11_timeline.png",
                title="The pilot has a binding fund-or-de-fund decision at month 30.",
-               subtitle="If the pre-registered endpoint is not met, funding ends automatically — the sunset is encoded in procurement-contract language, not aspirational.",
+               subtitle="If the pre-registered endpoint is not met, funding ends automatically. The sunset is encoded in procurement-contract language.",
                source="Derived from memo Section 3 design constraints. Civil-liberties impact assessment precedes precinct rollout. Interim evaluation at month 18 informs course-correction. Phase-1 endpoint at month 30 is the binding decision point — Callaway-Sant'Anna staggered difference-in-differences with formal pretrend tests on DV-felony rate change in matched comparison precincts.",
-               top=0.82, left=0.24)
+               top=0.82, bottom=0.14, left=0.24)
 
 
 # ---------------------------------------------------------------------------
@@ -824,35 +818,36 @@ def chart_14_baselines():
     decade_adj = ((fa.loc[2024] - strang_2024) / (fa.loc[2010] - strang_2010) - 1) * 100
 
     fig, axes = plt.subplots(1, 4, figsize=(15, 5.6))
+    fig.subplots_adjust(wspace=0.30)
 
     # Panel 1 — 1-year (mute/neutral — small move)
     axes[0].bar(["1-year"], [yoy_pct], color=C_ASSAULT, width=0.5)
     axes[0].text(0, yoy_pct + 0.6, f"{yoy_pct:+.1f}%", ha="center",
-                 fontsize=18, fontweight="bold", color=C_ASSAULT,
+                 fontsize=12, fontweight="bold", color=C_ASSAULT,
                  fontfamily="sans-serif")
-    axes[0].set_title("NYC: 1-year\n(2023->2024)", fontsize=10)
+    axes[0].set_title("NYC: 1-year\n(2023->2024)", fontsize=10, pad=8)
     axes[0].set_ylim(0, 22)
     axes[0].set_ylabel("% change in felony / aggravated assault")
 
     # Panel 2 — 5-year (orange)
     axes[1].bar(["5-year"], [five_pct], color=C_ASSAULT, width=0.5)
     axes[1].text(0, five_pct + 1.0, f"{five_pct:+.1f}%", ha="center",
-                 fontsize=18, fontweight="bold", color=C_ASSAULT,
+                 fontsize=12, fontweight="bold", color=C_ASSAULT,
                  fontfamily="sans-serif")
-    axes[1].set_title("NYC: 5-year\n(2019->2024)", fontsize=10)
+    axes[1].set_title("NYC: 5-year\n(2019->2024)", fontsize=10, pad=8)
     axes[1].set_ylim(0, 55)
 
     # Panel 3 — Decade (headline gray, adjusted orange)
     axes[2].bar(["headline", "adjusted"], [decade_naive, decade_adj],
                 color=[C_LIGHT, C_ASSAULT], width=0.5)
     axes[2].text(0, decade_naive + 2.0, f"{decade_naive:+.0f}%", ha="center",
-                 fontsize=15, fontweight="bold", color=C_NEUTRAL,
+                 fontsize=12, fontweight="bold", color=C_NEUTRAL,
                  fontfamily="sans-serif")
     axes[2].text(1, decade_adj + 2.0, f"{decade_adj:+.0f}%", ha="center",
-                 fontsize=15, fontweight="bold", color=C_ASSAULT,
+                 fontsize=12, fontweight="bold", color=C_ASSAULT,
                  fontfamily="sans-serif")
-    axes[2].set_title("NYC: decade\n(2010->2024)", fontsize=10)
-    axes[2].set_ylim(0, 95)
+    axes[2].set_title("NYC: decade\n(2010->2024)", fontsize=10, pad=8)
+    axes[2].set_ylim(0, 100)
 
     # Panel 4 — National context: NYC orange, peers mute
     bench = ["NYC\n(adjusted)", "US national\n(2010->2024)", "24-city avg\n(since 2019)", "LA\n(2024 YoY)"]
@@ -860,13 +855,13 @@ def chart_14_baselines():
     bench_colors = [C_ASSAULT, C_NEUTRAL, C_NEUTRAL, C_NEUTRAL]
     axes[3].bar(bench, bench_vals, color=bench_colors, width=0.55)
     for i, v in enumerate(bench_vals):
-        offset = 2 if v >= 0 else -3
+        offset = 2 if v >= 0 else -4
         axes[3].text(i, v + offset, f"{v:+.0f}%", ha="center", fontsize=12,
                      fontweight="bold", color=bench_colors[i],
                      fontfamily="sans-serif")
     axes[3].axhline(0, color=C_LIGHT, lw=0.8)
-    axes[3].set_title("National context", fontsize=10)
-    axes[3].set_ylim(-15, 65)
+    axes[3].set_title("National context", fontsize=10, pad=8)
+    axes[3].set_ylim(-18, 72)
 
     chart_save(fig, "14_baselines.png",
                title="The choice of time window decides whether NYC's felony-assault rise looks small, big, or like an outlier.",

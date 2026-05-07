@@ -190,16 +190,19 @@ def editorial_save(
     subtitle: str,
     source: str,
     top: float = 0.84,
-    bottom: float = 0.16,
+    bottom: float = 0.10,
     left: float = 0.10,
     right: float = 0.94,
 ) -> None:
-    """Place editorial title/subtitle/source and save at retina DPI.
+    """Place editorial title/subtitle and save at retina DPI.
 
     Typography hierarchy:
       - Title   : Newsreader 17pt, weight 600, ink, left-aligned
       - Subtitle : Inter 11.5pt, weight 400, mute, left-aligned
-      - Source   : Inter 9pt, weight 400, mute, italic, left-aligned
+
+    Note: source text is no longer rendered into the PNG — it is placed
+    in the HTML <figcaption> elements instead.  The `source` parameter is
+    kept in the signature so callers do not need to change.
     """
     from pathlib import Path as _Path
 
@@ -229,16 +232,8 @@ def editorial_save(
         color=PALETTE["mute"],
         fontfamily="sans-serif",
     )
-    # Source — Inter sans italic
-    fig.text(
-        left, 0.04, source,
-        ha="left", va="bottom",
-        fontsize=9, fontweight="400",
-        color=PALETTE["mute"],
-        style="italic",
-        fontfamily="sans-serif",
-        wrap=True,
-    )
+    # Source text is intentionally NOT rendered into the PNG.
+    # It lives in the HTML <figcaption> elements (see site/index.html).
 
     fig.subplots_adjust(top=top, bottom=bottom, left=left, right=right)
 
