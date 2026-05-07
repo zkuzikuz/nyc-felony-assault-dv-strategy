@@ -57,3 +57,6 @@ data/processed/cuts/*.html
 
 # Brainstorming companion session artifacts
 .superpowers/
+
+# Auto-downloaded chart fonts (regenerable)
+figures/_fonts/

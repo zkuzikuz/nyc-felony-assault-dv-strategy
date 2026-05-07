@@ -22,55 +22,36 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+# --- Editorial theme (Phase 1) ---
+import sys as _sys
+import pathlib as _pathlib
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parent))
+from _chart_theme import setup_fonts, apply_theme, editorial_save, PALETTE
+
+setup_fonts()
+apply_theme()
+
 ROOT = Path(__file__).resolve().parents[1]
 AGG = ROOT / "data" / "processed" / "aggregates"
 GEO = ROOT / "data" / "geo"
 OUT = ROOT / "figures" / "sketches"
 OUT.mkdir(parents=True, exist_ok=True)
 
-# Palette
-C_ASSAULT = "#FF6319"
-C_DV = "#D8127B"
-C_STRUCTURAL = "#003C71"
-C_NEUTRAL = "#6B6B6B"
-C_LIGHT = "#CCCCCC"
-C_VLIGHT = "#E5E5E5"
-C_BG = "#FFFFFF"
+# --- Palette aliases (preserve all existing references unchanged) ---
+C_ASSAULT    = PALETTE["assault"]
+C_DV         = PALETTE["dv"]
+C_STRUCTURAL = PALETTE["structural"]
+C_NEUTRAL    = PALETTE["neutral"]
+C_LIGHT      = PALETTE["light"]
+C_VLIGHT     = "#e0e0e0"          # slightly lighter variant still usable
+C_BG         = PALETTE["paper"]
 
-plt.rcParams.update({
-    "font.family": "DejaVu Sans",
-    "font.size": 10,
-    "axes.spines.top": False,
-    "axes.spines.right": False,
-    "axes.titleweight": "bold",
-    "figure.facecolor": C_BG,
-    "axes.facecolor": C_BG,
-})
-
-
-TITLE_Y = 0.965
-SUBTITLE_Y = 0.910  # fixed below title for consistent spacing across all charts
-SOURCE_Y = 0.04
-
-
+# --- chart_save forwards to editorial_save ---
 def chart_save(fig, name: str, *, title: str, subtitle: str, source: str,
-               top: float = 0.83, bottom: float = 0.18,
-               left: float = 0.10, right: float = 0.95):
-    """Place title (top), subtitle (fixed gap below title), source (bottom).
-
-    Subtitle position is constant across all charts so the visual rhythm holds.
-    Subtitles must fit in one line at the chart's width for consistent appearance.
-    """
-    fig.suptitle(title, fontsize=13, fontweight="bold", y=TITLE_Y)
-    fig.text(0.5, SUBTITLE_Y, subtitle, ha="center", fontsize=10,
-             color=C_NEUTRAL, style="italic")
-    fig.text(0.5, SOURCE_Y, source, ha="center", fontsize=8.5,
-             color=C_NEUTRAL, style="italic", wrap=True)
-    fig.subplots_adjust(top=top, bottom=bottom, left=left, right=right)
-    out = OUT / name
-    fig.savefig(out, dpi=110, facecolor=C_BG)
-    plt.close(fig)
-    print(f"  wrote {out.relative_to(ROOT)}")
+               top: float = 0.84, bottom: float = 0.16,
+               left: float = 0.10, right: float = 0.94):
+    editorial_save(fig, name, title=title, subtitle=subtitle, source=source,
+                   top=top, bottom=bottom, left=left, right=right)
 
 
 # Source URL constants
@@ -114,26 +95,36 @@ def chart_01_hero():
     pct_naive = (fa_total.iloc[-1] / fa_total.iloc[0] - 1) * 100
     pct_adj = (fa_excl.iloc[-1] / fa_excl.iloc[0] - 1) * 100
 
-    fig, (ax_num, ax_spark) = plt.subplots(1, 2, figsize=(13, 5.6),
-                                            gridspec_kw={"width_ratios": [1.1, 1.1]})
-    # Big-number panel
+    fig, (ax_num, ax_spark) = plt.subplots(
+        1, 2, figsize=(14, 5.8),
+        gridspec_kw={"width_ratios": [1.1, 1.1]},
+    )
+
+    # ---- Big-number panel ----
     ax_num.axis("off")
     tx = ax_num.transAxes
-    # Headline (light grey) — render it first; strikethrough drawn AFTER, on top, in heavy black
-    ax_num.text(0.5, 0.72, f"+{pct_naive:.0f}%", ha="center", fontsize=58,
-                color=C_LIGHT, fontweight="bold", transform=tx, zorder=2)
-    # Heavy black strikethrough on top
-    ax_num.plot([0.18, 0.82], [0.78, 0.85], color="#000000", lw=4.5,
-                transform=tx, zorder=5, solid_capstyle="round")
-    # Adjusted figure (orange)
-    ax_num.text(0.5, 0.34, f"+{pct_adj:.0f}%", ha="center", fontsize=82,
-                color=C_ASSAULT, fontweight="bold", transform=tx)
-    ax_num.text(0.5, 0.18, "real behavioral rise, 2010 to 2024",
-                ha="center", fontsize=12, color=C_ASSAULT, transform=tx)
-    ax_num.text(0.5, 0.10, "(strangulation reclassification removed)",
-                ha="center", fontsize=9, color=C_NEUTRAL, style="italic", transform=tx)
 
-    # Sparkline
+    # Struck-through naive headline (light grey)
+    ax_num.text(0.5, 0.72, f"+{pct_naive:.0f}%", ha="center", fontsize=58,
+                color=C_LIGHT, fontweight="bold", fontfamily="serif",
+                transform=tx, zorder=2)
+    # Heavy strikethrough slightly heavier than before
+    ax_num.plot([0.16, 0.84], [0.775, 0.845], color="#000000", lw=5.5,
+                transform=tx, zorder=5, solid_capstyle="round")
+
+    # Adjusted figure (orange) — vertically aligned with label below
+    ax_num.text(0.5, 0.34, f"+{pct_adj:.0f}%", ha="center", fontsize=82,
+                color=C_ASSAULT, fontweight="bold", fontfamily="serif",
+                transform=tx)
+    # "real behavioral rise" label — same horizontal centre as the number above
+    ax_num.text(0.5, 0.18, "real behavioral rise, 2010 to 2024",
+                ha="center", fontsize=12, color=C_ASSAULT,
+                fontfamily="sans-serif", transform=tx)
+    ax_num.text(0.5, 0.10, "(strangulation reclassification removed)",
+                ha="center", fontsize=9, color=C_NEUTRAL, style="italic",
+                fontfamily="sans-serif", transform=tx)
+
+    # ---- Sparkline ----
     data_years = fa_total.index.tolist()
     full_years = list(range(2010, 2025))
     naive_full = pd.Series(index=full_years, dtype=float)
@@ -143,13 +134,13 @@ def chart_01_hero():
     excl_full.loc[data_years] = fa_excl.values
     excl_full = excl_full.interpolate()
 
-    ax_spark.set_title("Annual felony-assault count, 2010-2024", fontsize=11)
+    ax_spark.set_title("Annual felony-assault count, 2010–2024", fontsize=11)
     ax_spark.legend(handles=[
         mpatches.Patch(color=C_LIGHT, label="naive total"),
         mpatches.Patch(color=C_ASSAULT, label="excluding Strangulation 1st"),
     ], loc="upper center", bbox_to_anchor=(0.5, 0.97), ncols=2, frameon=False, fontsize=9)
     ax_spark.plot(full_years, naive_full.values, lw=2.0, color=C_LIGHT)
-    ax_spark.plot(full_years, excl_full.values, lw=2.6, color=C_ASSAULT)
+    ax_spark.plot(full_years, excl_full.values, lw=3.0, color=C_ASSAULT)
     ax_spark.scatter(data_years, fa_total.values, s=38, color=C_LIGHT, zorder=3,
                      edgecolor="white", linewidth=1)
     ax_spark.scatter(data_years, fa_excl.values, s=42, color=C_ASSAULT, zorder=3,
@@ -157,7 +148,7 @@ def chart_01_hero():
     for y in data_years:
         ax_spark.annotate(f"{int(fa_total.loc[y]):,}", (y, fa_total.loc[y]),
                           textcoords="offset points", xytext=(0, 7), ha="center",
-                          fontsize=8.5, color=C_NEUTRAL)
+                          fontsize=8.5, color=C_NEUTRAL, fontfamily="sans-serif")
     even_year_axis(ax_spark, 2010, 2024, 2)
     ax_spark.set_ylabel("Reports per year")
 
@@ -165,16 +156,17 @@ def chart_01_hero():
                title="The +72% headline overstates how much NYC felony assault has actually grown.",
                subtitle="One-third of the headline rise is a 2010 statutory reclassification, not new behavior — the real behavioral increase is 47%.",
                source=f"Source: NYPD Complaint Data Historic ({URL_NYPD_HISTORIC}). Strangulation 1st (NYPL §121.13) was created November 2010; subtracted from both endpoints. Dots mark actual data years (2010, 2014, 2019, 2024); line interpolates between.",
-               top=0.78)
+               top=0.78, left=0.08, right=0.96)
 
 
 # ---------------------------------------------------------------------------
-# 02 — Situation (was 03)
+# 02 — Situation
 # ---------------------------------------------------------------------------
 def chart_02_situation():
     fy = pd.read_parquet(AGG / "felony_yearly.parquet")
     violent = ["MURDER & NON-NEGL. MANSLAUGHTER", "RAPE", "ROBBERY", "FELONY ASSAULT"]
     fy24 = fy[(fy.year == 2024) & (fy.ofns_desc.isin(violent))].copy()
+    # Sort ascending so Felony Assault lands on TOP (largest, plotted last in barh)
     fy24 = fy24.sort_values("n", ascending=True)
     label_map = {
         "MURDER & NON-NEGL. MANSLAUGHTER": "Murder",
@@ -186,13 +178,17 @@ def chart_02_situation():
     colors = [C_ASSAULT if c == "FELONY ASSAULT" else C_LIGHT for c in fy24.ofns_desc]
 
     fig, ax = plt.subplots(figsize=(11, 4.6))
-    ax.barh(fy24.label, fy24.n, color=colors, height=0.6)
+    ax.barh(fy24.label, fy24.n, color=colors, height=0.55)
     for y, (lab, val) in enumerate(zip(fy24.label, fy24.n)):
         ax.text(val + 400, y, f"{int(val):,}", va="center", fontsize=11,
                 color=C_ASSAULT if lab == "Felony Assault" else C_NEUTRAL,
-                fontweight="bold" if lab == "Felony Assault" else "normal")
+                fontweight="bold" if lab == "Felony Assault" else "normal",
+                fontfamily="sans-serif")
     ax.set_xlim(0, max(fy24.n) * 1.18)
-    ax.set_xlabel("2024 reports")
+    # No x-axis label — value labels at each bar make it redundant
+    ax.set_xlabel("")
+    ax.xaxis.grid(False)  # no vertical gridlines for horizontal bar chart
+    ax.yaxis.grid(False)
 
     chart_save(fig, "02_situation_majors.png",
                title="Felony assault is the largest violent-felony category in NYC.",
@@ -202,7 +198,7 @@ def chart_02_situation():
 
 
 # ---------------------------------------------------------------------------
-# 03 — DV split (was 02), now with absolute volumes
+# 03 — DV split — pie replaced with horizontal stacked bar
 # ---------------------------------------------------------------------------
 def chart_03_dv_split():
     # 2024 total felony assault = 29,501. About 40% involves the same household.
@@ -214,32 +210,52 @@ def chart_03_dv_split():
     fig, (ax_left, ax_right) = plt.subplots(1, 2, figsize=(13, 5.0),
                                             gridspec_kw={"width_ratios": [1.2, 1]})
 
-    # Left: growth rates
+    # ---- Left: growth rates ----
     cats = ["Domestic + elder assault", "Other felony assault"]
     pct = [73, 40]
     bars = ax_left.barh(cats, pct, color=[C_DV, C_NEUTRAL], height=0.55)
     for bar, v, c in zip(bars, pct, [C_DV, C_NEUTRAL]):
         ax_left.text(v + 1.5, bar.get_y() + bar.get_height() / 2, f"+{v}%",
-                     va="center", fontsize=18, fontweight="bold", color=c)
+                     va="center", fontsize=18, fontweight="bold", color=c,
+                     fontfamily="sans-serif")
     ax_left.set_xlim(0, 95)
     ax_left.set_xlabel("Growth, 2017 to 2024 (%)")
     ax_left.set_title("Growth rates", fontsize=11)
     ax_left.invert_yaxis()
+    ax_left.xaxis.grid(False)
+    ax_left.yaxis.grid(False)
 
-    # Right: 2024 absolute split
-    sizes = [dv_2024, other_2024]
-    labels = [f"DV / household\n{dv_2024:,} cases\n(~39%)",
-              f"Other felony assault\n{other_2024:,} cases\n(~61%)"]
-    colors = [C_DV, C_LIGHT]
-    ax_right.pie(sizes, labels=labels, colors=colors, startangle=90,
-                 wedgeprops={"edgecolor": "white", "linewidth": 2},
-                 textprops={"fontsize": 10})
+    # ---- Right: replace pie with horizontal stacked bar ----
     ax_right.set_title(f"2024 share of all {total_2024:,} felony assaults", fontsize=11)
+
+    # Single-row stacked bar
+    ax_right.barh(0, dv_2024, color=C_DV, height=0.55, label=f"DV / household ({dv_share*100:.0f}%)")
+    ax_right.barh(0, other_2024, left=dv_2024, color=C_LIGHT, height=0.55, label=f"Other ({(1-dv_share)*100:.0f}%)")
+
+    # Inline labels
+    ax_right.text(dv_2024 / 2, 0,
+                  f"DV / household\n{dv_2024:,} cases\n(~39%)",
+                  ha="center", va="center", fontsize=10, color="white",
+                  fontweight="bold", fontfamily="sans-serif")
+    ax_right.text(dv_2024 + other_2024 / 2, 0,
+                  f"Other felony assault\n{other_2024:,} cases\n(~61%)",
+                  ha="center", va="center", fontsize=10, color=PALETTE["ink"],
+                  fontweight="bold", fontfamily="sans-serif")
+
+    ax_right.set_xlim(0, total_2024 * 1.02)
+    ax_right.set_ylim(-0.6, 0.6)
+    ax_right.set_yticks([])
+    ax_right.set_xlabel("2024 felony-assault reports")
+    ax_right.xaxis.grid(False)
+    ax_right.yaxis.grid(False)
+    # Hide spines for stacked bar — it reads as a proportion, no axis needed
+    for spine in ax_right.spines.values():
+        spine.set_visible(False)
 
     chart_save(fig, "03_dv_split.png",
                title="Domestic violence is the dominant driver of NYC's felony-assault rise.",
                subtitle="DV grew nearly twice as fast as other felony assault since 2017 and accounts for roughly 11,500 of 29,501 cases in 2024.",
-               source=f"Sources: Vital City analysis of NYPD data ({URL_VITAL_CITY}), citing NY Division of Criminal Justice Services DV feed ({URL_DCJS}). NYPD's public dataset has no victim-relationship field, so the DV share is sourced from the DCJS feed. Pie applies Vital City's ~39% household-share figure to the 2024 total.",
+               source=f"Sources: Vital City analysis of NYPD data ({URL_VITAL_CITY}), citing NY Division of Criminal Justice Services DV feed ({URL_DCJS}). NYPD's public dataset has no victim-relationship field, so the DV share is sourced from the DCJS feed. Stacked bar applies Vital City's ~39% household-share figure to the 2024 total.",
                top=0.80, left=0.18)
 
 
@@ -254,18 +270,15 @@ def chart_04_complication_stacked():
     other = pivot.drop(columns=plot_cols, errors="ignore").sum(axis=1)
     pivot["OTHER NEW SUBCATS"] = other
 
-    # DV portion estimate within the catch-all (40% of total felony assault is DV;
-    # most DV is captured in PD_CD 109 Assault Unclassified).
     fig, ax = plt.subplots(figsize=(13, 6.0))
     bottoms = np.zeros(len(pivot))
     x = pivot.index.values
-    width = 1.4
+    width = 1.2  # narrower for breathing room
 
     # Layer 1: Assault 2/1/Unclassified split into DV-driven (magenta) and other (orange)
     catch_all = pivot["ASSAULT 2,1,UNCLASSIFIED"].values
     total_fa_per_year = pivot.sum(axis=1).values
     dv_layer = total_fa_per_year * 0.39   # ~39% DV share (Vital City)
-    # DV portion is at most the catch-all size
     dv_layer = np.minimum(dv_layer, catch_all)
     other_catch = catch_all - dv_layer
 
@@ -290,27 +303,28 @@ def chart_04_complication_stacked():
     baseline_2010 = pivot.loc[2010].sum()
     ax.axhline(baseline_2010, color=C_NEUTRAL, ls="--", lw=1, alpha=0.7)
     ax.text(2025.0, baseline_2010, f"  2010 baseline\n  {int(baseline_2010):,}",
-            va="center", fontsize=9, color=C_NEUTRAL)
+            va="center", fontsize=9, color=C_NEUTRAL, fontfamily="sans-serif")
     ax.annotate("Strangulation acts existed before 2010\nbut were charged under Assault 2nd\nor as a misdemeanor — the new class\nis statutory reclassification.",
                 xy=(2010.6, baseline_2010 + 700),
                 xytext=(2014.5, 27000),
-                fontsize=8.5, color=C_STRUCTURAL,
+                fontsize=8.5, color=C_STRUCTURAL, fontfamily="sans-serif",
                 arrowprops=dict(arrowstyle="->", color=C_STRUCTURAL, lw=1))
     ax.set_xticks([2010, 2014, 2019, 2024])
     ax.set_ylim(0, 34000)
     ax.set_xlim(2008.5, 2026.5)
     ax.set_ylabel("Annual count")
-    ax.legend(loc="upper left", frameon=False, fontsize=9)
+    # Legend upper-right, 2-column layout
+    ax.legend(loc="upper right", frameon=False, fontsize=9, ncols=2)
 
     chart_save(fig, "04_complication_stacked.png",
                title="The +72% headline includes a new felony class and a DV surge inside the catch-all.",
                subtitle="DV cases inside the catch-all (magenta) doubled since 2010, while Strangulation 1st (navy) is a 2010 statutory creation that accounts for ~35% of the headline rise.",
-               source=f"Sources: NYPD Complaint Data Historic ({URL_NYPD_HISTORIC}) drilled by pd_cd for sub-category counts. DV share applies Vital City's ~39% household-share estimate ({URL_VITAL_CITY}) to total felony-assault count per year, capped at catch-all size. Strangulation 1st = NYPL §121.13 (created November 2010). Bars at actual data years; widths = 1.4 years for visual breathing room.",
+               source=f"Sources: NYPD Complaint Data Historic ({URL_NYPD_HISTORIC}) drilled by pd_cd for sub-category counts. DV share applies Vital City's ~39% household-share estimate ({URL_VITAL_CITY}) to total felony-assault count per year, capped at catch-all size. Strangulation 1st = NYPL §121.13 (created November 2010). Bars at actual data years; widths = 1.2 years for visual breathing room.",
                top=0.78)
 
 
 # ---------------------------------------------------------------------------
-# 05 — Trajectories with violent-vs-other recolor
+# 05 — Trajectories — focal line thicker, direct-labeled endpoints, faint peers
 # ---------------------------------------------------------------------------
 def chart_05_trajectories():
     fy = pd.read_parquet(AGG / "felony_yearly.parquet")
@@ -321,7 +335,7 @@ def chart_05_trajectories():
     base17 = fy[fy.year == 2017].set_index("ofns_desc")["n"]
     fy["index_2017"] = fy.apply(lambda r: r.n / base17.get(r.ofns_desc, np.nan), axis=1)
     label_map = {
-        "FELONY ASSAULT": "Felony Assault (DV-driven)",
+        "FELONY ASSAULT": "Felony Assault\n(DV-driven)",
         "ROBBERY": "Robbery",
         "MURDER & NON-NEGL. MANSLAUGHTER": "Murder",
         "RAPE": "Rape",
@@ -331,28 +345,30 @@ def chart_05_trajectories():
     for ofns, group in fy.groupby("ofns_desc"):
         g = group.sort_values("year")
         if ofns == focal:
-            color, lw, zorder = C_ASSAULT, 3.2, 5
+            color, lw, zorder = C_ASSAULT, 3.0, 5
+            font_size = 10.5
+            fw = "bold"
         else:
-            color, lw, zorder = C_STRUCTURAL, 2.2, 4
+            # Faint gray for non-focal lines
+            color, lw, zorder = "#AAAAAA", 1.2, 4
+            font_size = 9.5
+            fw = "normal"
         ax.plot(g.year, g.index_2017, color=color, lw=lw, zorder=zorder)
-        weight = "bold" if ofns == focal else "normal"
+        # Direct-label endpoint — no legend needed
         ax.text(g.year.iloc[-1] + 0.15, g.index_2017.iloc[-1],
                 label_map.get(ofns, ofns.title()),
-                fontsize=10.5, color=color, va="center", fontweight=weight)
+                fontsize=font_size, color=color, va="center", fontweight=fw,
+                fontfamily="sans-serif")
 
     ax.axhline(1.0, color=C_NEUTRAL, lw=0.8, alpha=0.4)
     ax.axvline(2020, color=C_NEUTRAL, lw=0.8, alpha=0.3, ls=":")
-    ax.text(2020, 0.55, "COVID", fontsize=8, color=C_NEUTRAL, ha="center")
+    ax.text(2020, 0.55, "COVID", fontsize=8, color=C_NEUTRAL, ha="center",
+            fontfamily="sans-serif")
     ax.set_xticks(list(range(2017, 2025)))
-    ax.set_xlim(2016.7, 2025.6)
+    ax.set_xlim(2016.7, 2025.8)
     ax.set_ylim(0.50, 1.80)
     ax.set_ylabel("Index, 2017 = 1.0")
-
-    legend_items = [
-        mpatches.Patch(color=C_ASSAULT, label="Felony Assault (focal — DV-driven)"),
-        mpatches.Patch(color=C_STRUCTURAL, label="Other violent felonies (Murder, Rape, Robbery)"),
-    ]
-    ax.legend(handles=legend_items, loc="upper left", frameon=False, fontsize=9)
+    # No legend — lines are direct-labeled
 
     chart_save(fig, "05_trajectories.png",
                title="Felony assault is the only violent-crime category showing a sustained rise.",
@@ -362,7 +378,7 @@ def chart_05_trajectories():
 
 
 # ---------------------------------------------------------------------------
-# 06 — Single precinct map + concentration stat
+# 06 — Precinct map + concentration stat
 # ---------------------------------------------------------------------------
 def chart_06_precinct_growth():
     import geopandas as gpd
@@ -393,6 +409,7 @@ def chart_06_precinct_growth():
                        left_on=id_col, right_index=True, how="left")
 
     fig, ax = plt.subplots(figsize=(11, 9))
+    ax.set_facecolor(C_BG)
     cmap = plt.colormaps["OrRd"]
     vmin, vmax = -50, 200
     merged.plot(ax=ax, column="pct_change", cmap=cmap, vmin=vmin, vmax=vmax,
@@ -400,20 +417,20 @@ def chart_06_precinct_growth():
                 missing_kwds={"color": "#EEEEEE"})
     ax.set_axis_off()
 
-    # Concentration stat callout
     callout = (f"How concentrated is the rise?\n"
                f"  • {n_pos} of 78 precincts saw growth\n"
                f"  • Largest single precinct: {top1_share:.0f}% of citywide growth\n"
                f"  • Top 10 precincts: {top10_share:.0f}% of citywide growth\n\n"
                "The rise is broadly distributed.")
     ax.text(0.02, 0.04, callout, transform=ax.transAxes, fontsize=10,
-            color=C_NEUTRAL,
-            bbox=dict(boxstyle="round,pad=0.6", fc="white", ec=C_LIGHT))
+            color=C_NEUTRAL, fontfamily="sans-serif",
+            bbox=dict(boxstyle="round,pad=0.6", fc=C_BG, ec=C_LIGHT))
 
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=vmin, vmax=vmax))
     sm._A = []
     cbar = fig.colorbar(sm, ax=ax, fraction=0.035, pad=0.02, orientation="horizontal")
-    cbar.set_label("% change in felony assault, 2017 to 2024", fontsize=8)
+    cbar.set_label("% change in felony assault, 2017 to 2024", fontsize=8,
+                   fontfamily="sans-serif", color=C_NEUTRAL)
 
     chart_save(fig, "06_precinct_growth.png",
                title="No single precinct drove the citywide felony-assault rise.",
@@ -423,32 +440,47 @@ def chart_06_precinct_growth():
 
 
 # ---------------------------------------------------------------------------
-# 07 — Bed capacity (was 08)
+# 07 — Bed capacity — orange for "what's needed", gray for "what exists"
 # ---------------------------------------------------------------------------
 def chart_07_beds():
     today_bth, today_sh = 100, 900
     rec_bth, rec_sh = 200, 1800
     target = 2000
     fig, ax = plt.subplots(figsize=(12, 5.4))
-    bars = ["Today", "Recommended (double over 18 months)"]
+    bars = ["Today (existing)", "Recommended (double over 18 months)"]
+
+    # Gray for what exists, orange for what's needed
+    colors_bth  = [C_NEUTRAL, C_ASSAULT]
+    colors_sh   = [C_LIGHT,   C_ASSAULT]
+
     bth = [today_bth, rec_bth]
-    sh = [today_sh, rec_sh]
-    ax.barh(bars, bth, color=C_DV, label="Bridge to Home (long-term supportive housing)")
-    ax.barh(bars, sh, left=bth, color=C_STRUCTURAL, label="Safe Haven (transitional shelter)")
-    for i, (b_val, s_val) in enumerate(zip(bth, sh)):
+    sh  = [today_sh,  rec_sh]
+
+    ax.barh(bars, bth, color=colors_bth, label="Bridge to Home (long-term supportive housing)")
+    ax.barh(bars, sh, left=bth, color=colors_sh, label="Safe Haven (transitional shelter)")
+
+    for i, (b_val, s_val, c_text) in enumerate(zip(bth, sh,
+                                                    [C_NEUTRAL, "white"])):
         ax.text(b_val + 30, i - 0.18, f"{b_val} BTH", ha="left", va="center",
-                color=C_DV, fontsize=10, fontweight="bold")
-        ax.text(b_val + s_val / 2, i, f"{s_val:,} Safe Haven beds", ha="center", va="center",
-                color="white", fontsize=10, fontweight="bold")
+                color=colors_bth[i], fontsize=10, fontweight="bold",
+                fontfamily="sans-serif")
+        ax.text(b_val + s_val / 2, i, f"{s_val:,} Safe Haven beds", ha="center",
+                va="center", color="white" if i == 1 else C_NEUTRAL,
+                fontsize=10, fontweight="bold", fontfamily="sans-serif")
         ax.text(b_val + s_val + 40, i, f"= {b_val + s_val:,} beds total",
-                va="center", fontsize=10, color=C_NEUTRAL)
+                va="center", fontsize=10, color=C_NEUTRAL,
+                fontfamily="sans-serif")
+
     ax.axvline(target, color=C_ASSAULT, ls="--", lw=2)
     ax.text(target + 30, 1.55, "2,000-person\nannounced target", fontsize=10,
-            color=C_ASSAULT, fontweight="bold")
+            color=C_ASSAULT, fontweight="bold", fontfamily="sans-serif")
     ax.set_xlim(0, target * 1.22)
     ax.invert_yaxis()
-    ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.02), frameon=False, fontsize=9, ncols=2)
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.02), frameon=False,
+              fontsize=9, ncols=2)
     ax.set_xlabel("Beds")
+    ax.xaxis.grid(False)
+    ax.yaxis.grid(False)
 
     chart_save(fig, "07_beds.png",
                title="NYC has fewer than 100 supportive-housing beds against a 2,000-person target.",
@@ -458,10 +490,9 @@ def chart_07_beds():
 
 
 # ---------------------------------------------------------------------------
-# 08 — Distal driver with aligned dual-axis scales (was 09)
+# 08 — Distal driver — increase right margin to avoid label cutoff
 # ---------------------------------------------------------------------------
 def chart_08_distal():
-    # Both series indexed to 2014 = 100, plotted on a single shared axis.
     bed_years = [2014, 2021]
     bed_values_raw = [3050, 2300]
     bed_index = [v / bed_values_raw[0] * 100 for v in bed_values_raw]
@@ -474,27 +505,27 @@ def chart_08_distal():
 
     fig, ax = plt.subplots(figsize=(13, 5.6))
 
-    # Felony assault (orange)
     ax.plot(fa_years, fa_index, color=C_ASSAULT, lw=2.6)
     ax.scatter(fa_years, fa_index, s=70, color=C_ASSAULT, zorder=3,
                edgecolor="white", linewidth=1.5)
     for y, v, raw in zip(fa_years, fa_index, fa_total.values):
         ax.annotate(f"{v:.0f}\n({int(raw):,})", (y, v),
                     textcoords="offset points", xytext=(0, 10),
-                    ha="center", fontsize=8.5, color=C_ASSAULT)
+                    ha="center", fontsize=8.5, color=C_ASSAULT,
+                    fontfamily="sans-serif")
 
-    # Psych beds (navy, dashed)
     ax.plot(bed_years, bed_index, color=C_STRUCTURAL, lw=2.6, ls="--")
     ax.scatter(bed_years, bed_index, s=80, color=C_STRUCTURAL, zorder=3,
                edgecolor="white", linewidth=1.5)
     for y, v, raw in zip(bed_years, bed_index, bed_values_raw):
         ax.annotate(f"{v:.0f}\n({raw:,})", (y, v),
                     textcoords="offset points", xytext=(0, -22),
-                    ha="center", fontsize=8.5, color=C_STRUCTURAL)
+                    ha="center", fontsize=8.5, color=C_STRUCTURAL,
+                    fontfamily="sans-serif")
 
-    # Reference line at 100 (2014 baseline)
     ax.axhline(100, color=C_NEUTRAL, lw=0.8, alpha=0.5)
-    ax.text(2024.4, 100, " 2014 = 100", va="center", fontsize=8.5, color=C_NEUTRAL)
+    ax.text(2024.4, 100, " 2014 = 100", va="center", fontsize=8.5, color=C_NEUTRAL,
+            fontfamily="sans-serif")
 
     legend_items = [
         mpatches.Patch(color=C_ASSAULT, label="NYC felony assault"),
@@ -506,15 +537,16 @@ def chart_08_distal():
     ax.set_ylim(60, 160)
     ax.set_ylabel("Index — both series, 2014 = 100")
 
+    # right=0.86 to avoid right-axis label cutoff
     chart_save(fig, "08_distal.png",
                title="As NY State inpatient psychiatric capacity contracted, NYC felony assault rose.",
                subtitle="Both series indexed to 2014 = 100, plotted on the same scale — psych beds dropped about 25% while felony assault rose about 46% over the same window.",
                source=f"Sources: NY State psych beds — Manhattan Institute deinstitutionalization paper ({URL_MANHATTAN_INSTITUTE}), 2014 and 2021 documented endpoints only. NYC felony assault — NYPD Complaint Data Historic ({URL_NYPD_HISTORIC}). Numbers next to each dot show index value (top) and raw count (bottom).",
-               top=0.80, left=0.10, right=0.95)
+               top=0.80, left=0.10, right=0.86)
 
 
 # ---------------------------------------------------------------------------
-# 09 — B-HEARD breakdown (was 10)
+# 09 — B-HEARD breakdown (Sankey-ish flow)
 # ---------------------------------------------------------------------------
 def chart_09_bheard_breakdown():
     fig, ax = plt.subplots(figsize=(13, 5.6))
@@ -528,22 +560,26 @@ def chart_09_bheard_breakdown():
     for label, val, color in segments:
         ax.barh(0, val, left=left, color=color, height=0.6, edgecolor="white", linewidth=2)
         ax.text(left + val / 2, 0, f"{label}\n{val:,} calls\n({val/total*100:.0f}%)",
-                ha="center", va="center", color="white", fontsize=10, fontweight="bold")
+                ha="center", va="center", color="white", fontsize=10, fontweight="bold",
+                fontfamily="sans-serif")
         left += val
     ax.set_xlim(0, total * 1.02)
     ax.set_yticks([])
     ax.set_xlabel("Eligible mental-health 911 calls per year (FY24)")
     ax.set_ylim(-1.0, 0.6)
+    ax.xaxis.grid(False)
+    ax.yaxis.grid(False)
 
-    # Two distinct levers, callouts below each segment
     ax.annotate("Why these calls go unmet\nis not tracked in the audit.\nCause-tracking is the fix.",
                 xy=(24071 + 13042/2, -0.32), xytext=(24071 + 13042/2, -0.85),
                 ha="center", fontsize=9, color=C_ASSAULT, fontweight="bold",
+                fontfamily="sans-serif",
                 arrowprops=dict(arrowstyle="->", color=C_ASSAULT))
     ax.annotate("Program does not operate overnight.\nExtending hours adds about 14,000\nreachable calls.",
                 xy=(24071 + 13042 + 14200/2, -0.32),
                 xytext=(24071 + 13042 + 14200/2, -0.85),
                 ha="center", fontsize=9, color=C_DV, fontweight="bold",
+                fontfamily="sans-serif",
                 arrowprops=dict(arrowstyle="->", color=C_DV))
 
     chart_save(fig, "09_bheard_breakdown.png",
@@ -554,7 +590,7 @@ def chart_09_bheard_breakdown():
 
 
 # ---------------------------------------------------------------------------
-# 10 — B-HEARD coverage map with real precinct list (was 11)
+# 10 — B-HEARD coverage map
 # ---------------------------------------------------------------------------
 def chart_10_bheard_coverage():
     import geopandas as gpd
@@ -574,16 +610,16 @@ def chart_10_bheard_coverage():
     merged = gdf.merge(fa[["addr_pct_cd", "n"]].rename(columns={"addr_pct_cd": "precinct"}),
                        left_on=id_col, right_on="precinct", how="left")
 
-    # Verified B-HEARD list (Comptroller audit Appendix II + Mayor's Office Nov 2025)
     bheard_pcts = (
-        [25, 26, 28, 30, 32, 33, 34]                                # Manhattan (7)
-        + [40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 52]          # Bronx (12)
-        + [63, 67, 69, 71, 73, 75]                                  # Brooklyn (6)
-        + [104, 108, 110, 112, 114, 115]                            # Queens (6)
+        [25, 26, 28, 30, 32, 33, 34]
+        + [40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 52]
+        + [63, 67, 69, 71, 73, 75]
+        + [104, 108, 110, 112, 114, 115]
     )
     merged["bheard"] = merged[id_col].isin(bheard_pcts)
 
     fig, ax = plt.subplots(figsize=(11, 10))
+    ax.set_facecolor(C_BG)
     cmap = plt.colormaps["Oranges"]
     vmin, vmax = 0, max(fa.n) if len(fa) else 1
     merged.plot(ax=ax, column="n", cmap=cmap, vmin=vmin, vmax=vmax,
@@ -605,12 +641,14 @@ def chart_10_bheard_coverage():
                 f"  Ratio: {ratio:.2f}×\n\n"
                 "B-HEARD covers higher-incidence precincts on average.",
                 transform=ax.transAxes, fontsize=10, color=C_NEUTRAL,
-                bbox=dict(boxstyle="round,pad=0.6", fc="white", ec=C_LIGHT))
+                fontfamily="sans-serif",
+                bbox=dict(boxstyle="round,pad=0.6", fc=C_BG, ec=C_LIGHT))
 
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=vmin, vmax=vmax))
     sm._A = []
     cbar = fig.colorbar(sm, ax=ax, fraction=0.035, pad=0.02, orientation="horizontal")
-    cbar.set_label("Felony-assault count per precinct, 2024", fontsize=8)
+    cbar.set_label("Felony-assault count per precinct, 2024", fontsize=8,
+                   fontfamily="sans-serif", color=C_NEUTRAL)
 
     chart_save(fig, "10_bheard_coverage.png",
                title="B-HEARD covers 31 of 78 precincts — and they are higher-incidence on average.",
@@ -620,15 +658,16 @@ def chart_10_bheard_coverage():
 
 
 # ---------------------------------------------------------------------------
-# 11 — Pilot timeline (was 14, Phase-2 notes stripped)
+# 11 — Timeline — orange for active/recommended, gray for placeholder
 # ---------------------------------------------------------------------------
 def chart_11_timeline():
+    # Color key: orange = active pilot / recommended action; gray = background/placeholder
     rows = [
-        ("Precinct selection +\ncivil-liberties impact assessment", 0, 6, C_DV),
+        ("Precinct selection +\ncivil-liberties impact assessment", 0, 6, C_NEUTRAL),
         ("Pilot rollout (4-6 precincts)", 6, 18, C_ASSAULT),
-        ("Interim evaluation", 16, 20, C_NEUTRAL),
-        ("Phase-1 evaluation cycle", 6, 30, C_STRUCTURAL),
-        ("Sunset gate", 29, 31, "#222222"),
+        ("Interim evaluation", 16, 20, C_LIGHT),
+        ("Phase-1 evaluation cycle", 6, 30, C_ASSAULT),
+        ("Sunset gate", 29, 31, C_STRUCTURAL),
     ]
     fig, ax = plt.subplots(figsize=(13, 5.6))
     n = len(rows)
@@ -641,11 +680,14 @@ def chart_11_timeline():
     ax.set_xlim(-1, 38)
     ax.set_ylim(-0.7, n - 0.3)
     ax.set_xticks([0, 6, 12, 18, 24, 30, 36])
-    ax.set_xticklabels(["M0", "M6", "M12", "M18", "M24", "M30", "M36"])
+    ax.set_xticklabels(["M0", "M6", "M12", "M18", "M24", "M30", "M36"],
+                       fontfamily="sans-serif")
     ax.set_xlabel("Months from pilot start")
     ax.axvline(30, color=C_NEUTRAL, ls="--", lw=1.5)
     ax.text(30.5, n - 0.4, "Sunset clause\nbinding at M30", color=C_NEUTRAL,
-            fontsize=9.5, fontweight="bold", va="top")
+            fontsize=9.5, fontweight="bold", va="top", fontfamily="sans-serif")
+    ax.xaxis.grid(False)
+    ax.yaxis.grid(False)
 
     chart_save(fig, "11_timeline.png",
                title="The pilot has a binding fund-or-de-fund decision at month 30.",
@@ -655,23 +697,23 @@ def chart_11_timeline():
 
 
 # ---------------------------------------------------------------------------
-# 12 — Ranked DV interventions (was 16)
+# 12 — Ranked DV interventions — orange for top-3, gray below
 # ---------------------------------------------------------------------------
 def chart_12_dv_rank():
     rows = [
         ("LAP (Maryland, Koppa JEBO 2024)", 40, 35, 45, C_ASSAULT,
          "Police screen DV calls with an 11-question lethality scale; high-risk survivors get a live advocate hotline call on scene.",
          "$3-8M / yr"),
-        ("Mandatory arrest (Sherman & Berk MDVE)", 13.0, 5, 21, C_STRUCTURAL,
+        ("Mandatory arrest (Sherman & Berk MDVE)", 13.0, 5, 21, C_ASSAULT,
          "Police arrest rather than separate parties at DV incidents.",
          "Statutory — minimal cost"),
         ("OFDVI (High Point, Sechrist & Weil 2018)", 20, 12, 28, C_ASSAULT,
          "Focused-deterrence call-in: high-risk offenders are warned of consequences and offered services.",
          "$2-5M / yr"),
-        ("Batterer programs (Duluth / CBT)", 0, -5, 5, C_LIGHT,
+        ("Batterer programs (Duluth / CBT)", 0, -5, 5, C_NEUTRAL,
          "Court-mandated cognitive-behavioral group programs for DV offenders.",
          "$3-7M / yr"),
-        ("CVI / credible-messenger for DV", 0, 0, 0, "#999999",
+        ("CVI / credible-messenger for DV", 0, 0, 0, C_NEUTRAL,
          "Community-based credible-messenger intervention adapted from gun violence to DV.",
          "Untested — no cost basis"),
     ]
@@ -680,20 +722,23 @@ def chart_12_dv_rank():
         if hi > 0 and not (lo == 0 and hi == 0):
             ax.barh(i, max(hi - lo, 1), left=lo, color=color, height=0.55, alpha=0.85)
             ax.text(hi + 1.5, i + 0.05, f"{lo}–{hi}%", va="center", fontsize=11,
-                    fontweight="bold", color=color)
+                    fontweight="bold", color=color, fontfamily="sans-serif")
         else:
             ax.text(2, i + 0.05, "untested or null", va="center", fontsize=11,
-                    color=color, fontweight="bold")
-        ax.text(-1, i + 0.05, label, va="center", ha="right", fontsize=10)
+                    color=color, fontweight="bold", fontfamily="sans-serif")
+        ax.text(-1, i + 0.05, label, va="center", ha="right", fontsize=10,
+                fontfamily="sans-serif")
         ax.text(54, i + 0.05, rows[i][5], va="center", fontsize=8.5,
-                style="italic", color=C_NEUTRAL)
+                style="italic", color=C_NEUTRAL, fontfamily="sans-serif")
         ax.text(54, i - 0.30, f"Cost: {rows[i][6]}", va="center", fontsize=8.5,
-                color=C_NEUTRAL, fontweight="bold")
+                color=C_NEUTRAL, fontweight="bold", fontfamily="sans-serif")
     ax.axvline(0, color=C_LIGHT, lw=1)
     ax.set_xlim(-2, 110)
     ax.set_ylim(len(rows) - 0.3, -0.6)
     ax.set_xlabel("Source-study effect size (%)")
     ax.set_yticks([])
+    ax.xaxis.grid(False)
+    ax.yaxis.grid(False)
 
     chart_save(fig, "12_dv_rank.png",
                title="LAP and OFDVI are the recommended DV interventions — they have the strongest evidence.",
@@ -703,7 +748,7 @@ def chart_12_dv_rank():
 
 
 # ---------------------------------------------------------------------------
-# 13 — Program quadrant (was 15)
+# 13 — Program quadrant — recommended programs orange, faint quadrant fill
 # ---------------------------------------------------------------------------
 def chart_13_quadrant():
     programs = [
@@ -719,6 +764,10 @@ def chart_13_quadrant():
         ("NYC Ceasefire", 1.60, 0.30, C_NEUTRAL, 380),
     ]
     fig, ax = plt.subplots(figsize=(13, 7.5))
+
+    # Faint quadrant background fill for the top-right quadrant
+    ax.fill_between([1.5, 3.4], 1.5, 3.4, color=PALETTE["light"], alpha=0.35, zorder=0)
+
     for label, x, y, color, size in programs:
         is_anchor = "LAP" in label or "OFDVI" in label
         ax.scatter(x, y, s=size, color=color, alpha=0.88, edgecolor="white",
@@ -726,17 +775,20 @@ def chart_13_quadrant():
         ax.annotate(label, (x, y), textcoords="offset points", xytext=(11, 6),
                     fontsize=10 if is_anchor else 9,
                     fontweight="bold" if is_anchor else "normal",
-                    color=color if is_anchor else C_NEUTRAL)
+                    color=color if is_anchor else C_NEUTRAL,
+                    fontfamily="sans-serif")
     ax.axhline(1.5, color=C_LIGHT, lw=1)
     ax.axvline(1.5, color=C_LIGHT, lw=1)
     ax.set_xlim(0, 3.4)
     ax.set_ylim(0, 3.4)
-    ax.set_xlabel("Evidence quality →  (RCT > quasi-experimental > pre/post > null or untested)")
-    ax.set_ylabel("DV relevance →")
+    ax.set_xlabel("Evidence quality (RCT > quasi-experimental > pre/post > null or untested)")
+    ax.set_ylabel("DV relevance")
     ax.text(2.4, 3.30, "TOP RIGHT — DV-evaluated, strong evidence", fontsize=10,
-            color=C_ASSAULT, fontweight="bold")
-    ax.text(0.15, 3.30, "DV-relevant but untested", fontsize=10, color=C_DV)
-    ax.text(2.4, 0.05, "Strong evidence, not for DV", fontsize=10, color=C_STRUCTURAL)
+            color=C_ASSAULT, fontweight="bold", fontfamily="sans-serif")
+    ax.text(0.15, 3.30, "DV-relevant but untested", fontsize=10, color=C_DV,
+            fontfamily="sans-serif")
+    ax.text(2.4, 0.05, "Strong evidence, not for DV", fontsize=10, color=C_STRUCTURAL,
+            fontfamily="sans-serif")
 
     acronyms = (
         "Acronym key — "
@@ -756,7 +808,7 @@ def chart_13_quadrant():
 
 
 # ---------------------------------------------------------------------------
-# 14 — Multi-baseline + national context (was 18)
+# 14 — Multi-baseline + national context — orange for NYC, mute for peers
 # ---------------------------------------------------------------------------
 def chart_14_baselines():
     sub = pd.read_parquet(AGG / "felony_assault_subcategory_yearly.parquet")
@@ -773,37 +825,45 @@ def chart_14_baselines():
 
     fig, axes = plt.subplots(1, 4, figsize=(15, 5.6))
 
-    axes[0].bar(["1-year"], [yoy_pct], color=C_LIGHT, width=0.5)
+    # Panel 1 — 1-year (mute/neutral — small move)
+    axes[0].bar(["1-year"], [yoy_pct], color=C_ASSAULT, width=0.5)
     axes[0].text(0, yoy_pct + 0.6, f"{yoy_pct:+.1f}%", ha="center",
-                 fontsize=18, fontweight="bold", color=C_NEUTRAL)
-    axes[0].set_title("NYC: 1-year\n(2023→2024)", fontsize=10)
+                 fontsize=18, fontweight="bold", color=C_ASSAULT,
+                 fontfamily="sans-serif")
+    axes[0].set_title("NYC: 1-year\n(2023->2024)", fontsize=10)
     axes[0].set_ylim(0, 22)
     axes[0].set_ylabel("% change in felony / aggravated assault")
 
+    # Panel 2 — 5-year (orange)
     axes[1].bar(["5-year"], [five_pct], color=C_ASSAULT, width=0.5)
     axes[1].text(0, five_pct + 1.0, f"{five_pct:+.1f}%", ha="center",
-                 fontsize=18, fontweight="bold", color=C_ASSAULT)
-    axes[1].set_title("NYC: 5-year\n(2019→2024)", fontsize=10)
+                 fontsize=18, fontweight="bold", color=C_ASSAULT,
+                 fontfamily="sans-serif")
+    axes[1].set_title("NYC: 5-year\n(2019->2024)", fontsize=10)
     axes[1].set_ylim(0, 55)
 
+    # Panel 3 — Decade (headline gray, adjusted orange)
     axes[2].bar(["headline", "adjusted"], [decade_naive, decade_adj],
-                color=[C_LIGHT, C_DV], width=0.5)
+                color=[C_LIGHT, C_ASSAULT], width=0.5)
     axes[2].text(0, decade_naive + 2.0, f"{decade_naive:+.0f}%", ha="center",
-                 fontsize=15, fontweight="bold", color=C_NEUTRAL)
+                 fontsize=15, fontweight="bold", color=C_NEUTRAL,
+                 fontfamily="sans-serif")
     axes[2].text(1, decade_adj + 2.0, f"{decade_adj:+.0f}%", ha="center",
-                 fontsize=15, fontweight="bold", color=C_DV)
-    axes[2].set_title("NYC: decade\n(2010→2024)", fontsize=10)
+                 fontsize=15, fontweight="bold", color=C_ASSAULT,
+                 fontfamily="sans-serif")
+    axes[2].set_title("NYC: decade\n(2010->2024)", fontsize=10)
     axes[2].set_ylim(0, 95)
 
-    # National context panel
-    bench = ["NYC\n(adjusted)", "US national\n(2010→2024)", "24-city avg\n(since 2019)", "LA\n(2024 YoY)"]
+    # Panel 4 — National context: NYC orange, peers mute
+    bench = ["NYC\n(adjusted)", "US national\n(2010->2024)", "24-city avg\n(since 2019)", "LA\n(2024 YoY)"]
     bench_vals = [decade_adj, 1.5, 4, -10]
-    bench_colors = [C_DV, C_NEUTRAL, C_NEUTRAL, C_NEUTRAL]
+    bench_colors = [C_ASSAULT, C_NEUTRAL, C_NEUTRAL, C_NEUTRAL]
     axes[3].bar(bench, bench_vals, color=bench_colors, width=0.55)
     for i, v in enumerate(bench_vals):
         offset = 2 if v >= 0 else -3
         axes[3].text(i, v + offset, f"{v:+.0f}%", ha="center", fontsize=12,
-                     fontweight="bold", color=bench_colors[i])
+                     fontweight="bold", color=bench_colors[i],
+                     fontfamily="sans-serif")
     axes[3].axhline(0, color=C_LIGHT, lw=0.8)
     axes[3].set_title("National context", fontsize=10)
     axes[3].set_ylim(-15, 65)
