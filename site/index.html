@@ -332,7 +332,78 @@
   <h3>Reproducibility</h3>
   <p>The full source repository is on GitHub (link in footer). All aggregate parquet files and CSVs that drive the charts are committed. Raw NYPD data is regenerable from NYC OpenData with a free SODA application token. The memo, the chart-rendering scripts, the build script for this site, and the round-by-round adversarial critique transcripts are all in the repo.</p>
 </section>
-        <section id="appendix"><h2>Appendix</h2><!-- Task 11 --></section>
+<section id="appendix">
+  <h2>Appendix</h2>
+
+  <h3>What New York City has already tried</h3>
+  <table>
+    <thead>
+      <tr><th>Program</th><th>Scope</th><th>Evidence</th><th>Verdict</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Crisis Management System / Cure Violence</td><td>$86M, 29 precincts (shootings)</td><td>21% reduction in shootings (Comptroller Lander 2024); 37 to 50% gun-injury reductions in S. Bronx and East NY (John Jay 2017).</td><td>Proven model for <em>gun violence</em>. CVI-for-DV has no published evaluation; do not port.</td></tr>
+      <tr><td>B-HEARD</td><td>31 of 78 precincts; FY24: 14,900 calls</td><td>35% of in-hours eligible calls unserved with <strong>untracked causes</strong> (Comptroller 2024 audit). Roughly 14,200 separate overnight eligible calls outside operating hours. 2025 <em>Psychiatric Services</em> study shows ED diversion.</td><td><strong>Expand 24-hour operations and implement audit-recommended cause-tracking.</strong></td></tr>
+      <tr><td>Subway Safety Surge / NYPD CRT</td><td>Plus 1,000 officers per day; CRT 18 officers</td><td>No published causal evaluation. NYPD Inspector General (2024) flagged operational issues.</td><td>Tactical, not evaluated.</td></tr>
+      <tr><td>NYC Ceasefire (Group Violence Intervention)</td><td>Brooklyn, Bronx, Staten Island, NNSC partnership</td><td>Boston Ceasefire achieved 63 to 68% reduction in youth gun violence; NYC-specific evaluation thin.</td><td>Strong elsewhere. NYC scope is too small to evaluate, but <strong>NNSC's NYC infrastructure is the natural launchpad for an OFDVI.</strong></td></tr>
+      <tr><td>Bridge to Home / supportive housing</td><td>100 beds plus 900 Safe Haven; $650M plan announced January 2025</td><td>Too new for outcome data.</td><td><strong>Scale up, fast.</strong></td></tr>
+      <tr><td>ENDGBV / family justice centers / DV hotlines</td><td>Citywide service network; spending flat in real terms FY17 to FY24</td><td>Fragmented; no precinct-targeted outcome evaluation; no LAP or focused-deterrence program.</td><td><strong>The DV gap. The recommended LAP plus OFDVI fills it.</strong></td></tr>
+      <tr><td>Lethality Assessment Program (LAP)</td><td>Not deployed at NYC scale</td><td>Koppa 2024 staggered-DiD on the Maryland LAP rollout: <strong>35 to 45% reduction in female intimate-partner-homicide rate, jurisdiction-level.</strong> CrimeSolutions rates LAP-Oklahoma "Promising." Quasi-experimental, not randomized.</td><td><strong>Pilot in four to six high-incidence precincts with DiD evaluation built in.</strong></td></tr>
+      <tr><td>High Point OFDVI / focused-deterrence for IPV</td><td>Not deployed in NYC</td><td>Sechrist and Weil 2018: single-jurisdiction before-after, about 20% IPDV-call/arrest reduction, no contemporaneous comparator.</td><td><strong>Pilot via NNSC partnership with rigorous matched-comparison evaluation. Do not assume citywide deployment grade.</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Strength of supporting evidence</h3>
+  <table>
+    <thead>
+      <tr><th>Claim</th><th>Supported by</th><th>Strength</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Felony assault has a real behavioral rise of about 40 to 47% from 2010 to 2024, after adjusting for reclassification.</td><td>Direct count from NYPD Complaint Data Historic; sub-category drill-down; research on additional reclassification streams.</td><td>Strong</td></tr>
+      <tr><td>Felony assault is the only violent-felony category showing a sustained rise (2017 to 2024).</td><td>Indexing of violent felonies to 2017 equal to 1.0 across 2017 to 2024.</td><td>Strong</td></tr>
+      <tr><td>76 of 78 precincts saw felony-assault growth 2017 to 2024; top-1 precinct equals about 6% of citywide growth, top-10 about 36%.</td><td>Per-precinct decomposition.</td><td>Strong</td></tr>
+      <tr><td>The Mayor's "felony assault minus 1.9%" figure was the October 2024 monthly stat, not the year-end number.</td><td>Reconciled directly against NYPD's October 2024 press release.</td><td>Strong</td></tr>
+      <tr><td>Roughly 35% of the +72% headline is statutory creation (Strangulation 1st, NYPL section 121.13).</td><td>Sub-category drill-down across 2010 to 2024.</td><td>Strong</td></tr>
+      <tr><td>Domestic violence is the dominant felony-assault driver (about 73% DV growth versus about 40% other; about 39% of all NYC felony assault is household-related).</td><td>Vital City, Gothamist, and the Brennan Center each cite the same DCJS feed; corroboration is structurally one source reported three times.</td><td>Strong (single-source claim, three independent secondary citations)</td></tr>
+      <tr><td>The "35 to 45% LAP" figure comes from Koppa (<em>JEBO</em> 2024) staggered-DiD on Maryland (jurisdiction-level female-IPH rate), not from Messing's Oklahoma study.</td><td>Citation accuracy correction.</td><td>Strong (corrects a prior misattribution)</td></tr>
+      <tr><td>LAP, OFDVI, and CMS effect sizes come from quasi-experimental observational studies, not from RCTs.</td><td>Koppa 2024 staggered-DiD; Sechrist and Weil 2018 single-jurisdiction before-after; Comptroller 2024 Callaway-Sant'Anna DiD with visual-only parallel-trends.</td><td>Strong</td></tr>
+      <tr><td>Focused-deterrence transportability: matched-design effects are about 28% of non-matched-design effects.</td><td>Braga-Weisburd 2019 Campbell review.</td><td>Strong</td></tr>
+      <tr><td>The cited effect sizes use heterogeneous denominators, so citywide projection is arithmetically undefined without scope adjustment.</td><td>Per-effect denominator analysis.</td><td>Strong</td></tr>
+      <tr><td>CVI / credible-messenger work has no published evaluation against DV.</td><td>Cure Violence Global's 50 plus sites all target community / gun violence.</td><td>Strong</td></tr>
+      <tr><td><strong>NYC felony-assault rise is an outlier, not part of a national trend.</strong> National rate roughly flat 2010 to 2024; CCJ 24-city average plus 4% since 2019; LA, Chicago, Philadelphia all moving in the opposite direction.</td><td>FBI UCR; CCJ Year-End 2024; LAPD 2024 EOY; UChicago Crime Lab 2024.</td><td>Strong (verified independently)</td></tr>
+      <tr><td><strong>B-HEARD operates in 31 of NYC's 78 precincts, not 28.</strong></td><td>Comptroller 2024 audit Appendix II; reaffirmed by Mayor's Office Nov 2025 release; corroborated by NYC IBO Jan 2026 brief.</td><td>Strong (verified)</td></tr>
+      <tr><td><strong>NYC DV-services real spending is flat FY17 to FY24 while DV felony assault rose about 73%.</strong> Per-incident real spending fell about 42%.</td><td>NYC Council Finance Committee HRA reports; CPI-U inflation adjustment.</td><td>Strong (medium confidence on aggregation, given the HRA "DV Services" line conflates ENDGBV and DV shelters)</td></tr>
+      <tr><td>LAP and OFDVI piloted in NYC will produce about a 10 to 15% effect (post-attenuation).</td><td>Inference from source-study effects plus the Braga-Weisburd 2019 attenuation factor.</td><td>External-evidence projection; substantial uncertainty</td></tr>
+      <tr><td>Cost figures: $3 to $8M LAP pilot, $2 to $5M OFDVI pilot, $30 to $50M B-HEARD scaling, $650M housing already authorized.</td><td>Order-of-magnitude pilot estimates.</td><td>Rough estimates; plus or minus 50% uncertainty</td></tr>
+      <tr><td>NYC FY26 has a $4.22B projected budget gap.</td><td>Comptroller projection.</td><td>Strong</td></tr>
+      <tr><td>NYC's pilot-termination track record: located cases (B-HEARD, CMS, Patternizr, SCOUT) all continued or expanded despite mixed or null evaluations.</td><td>Open-records research.</td><td>Strong (informs sunset-clause design)</td></tr>
+      <tr><td>Plausible long-run NYC-borne cost offsets from LAP plus OFDVI pilots are in the $5 to $35M range.</td><td>Mechanism-by-mechanism build (avoided ED, incarceration, shelter, ACS).</td><td>Directional only. Verification disputed several unit-cost figures. Treat as illustrative, not estimable.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Findings worth flagging</h3>
+  <p>Findings discovered in research that materially changed the memo's recommendation or methodology.</p>
+  <ol>
+    <li><strong>Community Violence Intervention has no published DV evaluation.</strong> Cure Violence Global's 50-plus international sites all target community or gun violence. An earlier draft of this memo proposed porting NYC's CMS architecture to DV; the research base does not support it. This finding caused the central recommendation to switch from "deploy DV-CMS" to "pilot LAP and OFDVI."</li>
+    <li><strong>NYC DV investment is flat in real terms while DV cases rose about 73%.</strong> Per-incident real spending fell about 42% from FY17 to FY24, and Council-requested DV expansions were zeroed in three consecutive Mayoral Executive Budgets. This is the second pillar of the Complication.</li>
+    <li><strong>NYC's pilot-termination track record is poor.</strong> Located cases (B-HEARD, CMS, Patternizr, SCOUT) all continued or expanded despite mixed, null, or absent evaluations. Load-bearing for the sunset clause: the kill-switch must be encoded in procurement-contract language with automatic de-funding triggers, or it will be politically unenforceable.</li>
+    <li><strong>The Maryland LAP figure is widely misattributed.</strong> The 35 to 45% female-IPH rate reduction comes from Koppa, <em>Journal of Economic Behavior &amp; Organization</em> (2024), a peer-reviewed staggered-rollout DiD on Maryland's adoption, not from Messing's Oklahoma study (which has no homicide endpoint). The misattribution is common in policy summaries; the memo cites Koppa directly.</li>
+    <li><strong>Strangulation 1st reclassification accounts for about 35% of the +72% headline.</strong> The November 2010 New York Penal Law section 121.13 created a brand-new felony class that contributed about 4,400 of the 12,364 added cases between 2010 and 2024. The reclassification adjustment is what produces the +47% behavioral figure.</li>
+    <li><strong>NYC versus national outlier.</strong> NYC's reclass-adjusted +47% felony-assault rise sits well above any peer benchmark. National aggravated assault is roughly flat, the 24-city average is plus 4% since 2019, and LA, Chicago, Philadelphia all moved in the opposite direction in 2024. This strengthens the structural-driver framing: the rise is NYC-specific, not part of a national trend.</li>
+    <li><strong>B-HEARD count corrected to 31 of 78 precincts.</strong> The "28" figure that appears in some press summaries is not supported by any primary source. Comptroller audit Appendix II lists all 31 explicitly. The memo references the verified figure throughout.</li>
+  </ol>
+
+  <h3>Limits of the data</h3>
+  <ul>
+    <li><strong>Sub-category attribution within the catch-all <code>pd_cd 109</code> (Assault 2/1/Unclassified).</strong> We cannot distinguish intimate-partner from street from transit assault at the level NYPD publishes. The 73% / 40% DV-versus-non-DV split comes from Vital City's deeper analysis of NYPD data; we cite it but did not re-derive it.</li>
+    <li><strong>DV split corroboration is structurally one source.</strong> The Brennan Center's 2025 Trends report and Gothamist's reporting both cite the same DCJS feed Vital City uses. Three publications carry the figure; one underlying source produces it. If the DCJS feed has a methodology issue, three citations would all share it.</li>
+    <li><strong>DV-spending aggregation.</strong> The HRA "Domestic Violence Services" program area conflates ENDGBV operations with DV shelter operations. ENDGBV's standalone budget is not published as a clean line; the FY26 Adopted Schedule C requires ENDGBV to begin reporting its budget by program area precisely because the line is opaque. The "real spending is flat" finding therefore rests on a medium-confidence aggregation rather than a precise per-agency figure.</li>
+    <li><strong>Long-run cost-offset estimate is illustrative, not estimable.</strong> Verification flagged several unit-cost issues (incarceration $480K versus Comptroller $556K; ED $1,800 versus AHRQ $530 average; LAP 7% ED-reduction not from Messing). Use the directional read, not the dollar figures.</li>
+    <li><strong>National comparison.</strong> "Felony assault" (NY Penal Law) is not identical to FBI UCR "aggravated assault." The FBI's UCR-to-NIBRS transition (2021) introduces measurement breaks; many large cities did not report to NIBRS in 2022.</li>
+  </ul>
+
+  <h3>Why hot-spots policing is not in the recommendation</h3>
+  <p>A note on the exclusion. Hot-spots policing concentrates police presence on specific street blocks, intersections, or small geographic areas where crime is observed to cluster. The strategy works for offenses driven by physical place (open-air drug markets, street robberies, gun-violence corners). The "place as driver" assumption does not fit DV. A 2024 Oxford study on domestic-abuse hot spots found that DV concentrates around households, not blocks; the spatial signature does not match what hot-spots strategies were designed to address. NYC's data confirms the same pattern at the precinct level. Of NYC's 78 precincts, 76 saw growth in felony-assault counts between 2017 and 2024. The largest single precinct accounts for only about 6% of the citywide increase, and the top 10 precincts together account for only about 36%. There is no concentrated set of places to target. A categorical lever is the appropriate fit; a geographic concentration strategy is not.</p>
+</section>
       </main>
 
     </div>
