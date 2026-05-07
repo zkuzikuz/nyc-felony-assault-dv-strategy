@@ -306,21 +306,22 @@ def chart_04_complication_stacked():
             va="center", fontsize=9, color=C_NEUTRAL, fontfamily="sans-serif")
     ax.annotate("Strangulation acts existed before 2010\nbut were charged under Assault 2nd\nor as a misdemeanor — the new class\nis statutory reclassification.",
                 xy=(2010.6, baseline_2010 + 700),
-                xytext=(2014.5, 27000),
-                fontsize=8.5, color=C_STRUCTURAL, fontfamily="sans-serif",
+                xytext=(2011.5, 30500),
+                fontsize=9, color=C_STRUCTURAL, fontfamily="sans-serif",
                 arrowprops=dict(arrowstyle="->", color=C_STRUCTURAL, lw=1))
     ax.set_xticks([2010, 2014, 2019, 2024])
-    ax.set_ylim(0, 34000)
+    ax.set_ylim(0, 36000)
     ax.set_xlim(2008.5, 2026.5)
     ax.set_ylabel("Annual count")
-    # Legend upper-right, 2-column layout
-    ax.legend(loc="upper right", frameon=False, fontsize=9, ncols=2)
+    # Legend below the chart in a single horizontal block
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.14),
+              frameon=False, fontsize=9.5, ncols=3)
 
     chart_save(fig, "04_complication_stacked.png",
                title="The +72% headline includes a new felony class and a DV surge inside the catch-all.",
                subtitle="DV cases inside the catch-all (magenta) doubled since 2010, while Strangulation 1st (navy) is a 2010 statutory creation that accounts for ~35% of the headline rise.",
                source=f"Sources: NYPD Complaint Data Historic ({URL_NYPD_HISTORIC}) drilled by pd_cd for sub-category counts. DV share applies Vital City's ~39% household-share estimate ({URL_VITAL_CITY}) to total felony-assault count per year, capped at catch-all size. Strangulation 1st = NYPL §121.13 (created November 2010). Bars at actual data years; widths = 1.2 years for visual breathing room.",
-               top=0.78, bottom=0.14)
+               top=0.82, bottom=0.24)
 
 
 # ---------------------------------------------------------------------------
@@ -466,9 +467,10 @@ def chart_07_beds():
                 fontfamily="sans-serif")
 
     ax.axvline(target, color=C_ASSAULT, ls="--", lw=2)
-    ax.text(target + 30, 1.55, "2,000-person\nannounced target", fontsize=10,
+    ax.text(target + 40, 0.5, "2,000-person\nannounced target",
+            fontsize=10, ha="left", va="center",
             color=C_ASSAULT, fontweight="bold", fontfamily="sans-serif")
-    ax.set_xlim(0, target * 1.22)
+    ax.set_xlim(0, target * 1.32)
     ax.invert_yaxis()
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.02), frameon=False,
               fontsize=9, ncols=2)
@@ -546,8 +548,8 @@ def chart_09_bheard_breakdown():
     fig, ax = plt.subplots(figsize=(10, 5.0))
     segments = [
         ("Got a B-HEARD team", 24071, C_STRUCTURAL),
-        ("In-hours, did not get B-HEARD", 13042, C_ASSAULT),
-        ("Overnight, program does not operate", 14200, C_DV),
+        ("In-hours, no B-HEARD", 13042, C_ASSAULT),
+        ("Overnight (no service)", 14200, C_DV),
     ]
     total = sum(s[1] for s in segments)
     left = 0
@@ -722,12 +724,12 @@ def chart_12_dv_rank():
                     color=color, fontweight="bold", fontfamily="sans-serif")
         ax.text(-1, i + 0.05, label, va="center", ha="right", fontsize=10,
                 fontfamily="sans-serif")
-        ax.text(54, i + 0.05, rows[i][5], va="center", fontsize=8.5,
+        ax.text(64, i + 0.05, rows[i][5], va="center", fontsize=8.5,
                 style="italic", color=C_NEUTRAL, fontfamily="sans-serif")
-        ax.text(54, i - 0.30, f"Cost: {rows[i][6]}", va="center", fontsize=8.5,
+        ax.text(64, i - 0.30, f"Cost: {rows[i][6]}", va="center", fontsize=8.5,
                 color=C_NEUTRAL, fontweight="bold", fontfamily="sans-serif")
     ax.axvline(0, color=C_LIGHT, lw=1)
-    ax.set_xlim(-2, 110)
+    ax.set_xlim(-2, 130)
     ax.set_ylim(len(rows) - 0.3, -0.6)
     ax.set_xlabel("Source-study effect size (%)")
     ax.set_yticks([])
