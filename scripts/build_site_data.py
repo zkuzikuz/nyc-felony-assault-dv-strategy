@@ -68,6 +68,7 @@ def build_precinct_stats(parquet_path: Path, out_path: Path) -> None:
         c2017 = float(pivot.loc[pct].get(2017, 0))
         c2024 = float(pivot.loc[pct].get(2024, 0))
         if c2017 == 0:
+            print(f"Skipping precinct {int(pct)}: no 2017 baseline")
             continue
         rows.append({
             "precinct": int(pct),

@@ -62,3 +62,12 @@ def test_geojson_copied():
     copy_geojson(src, dst)
     assert dst.exists()
     assert dst.stat().st_size > 1000
+
+
+def test_copy_charts_raises_on_missing_source(tmp_path):
+    """copy_charts must surface a clear FileNotFoundError when a source PNG is absent."""
+    from scripts.build_site_data import copy_charts
+    empty_src = tmp_path / "empty"
+    empty_src.mkdir()
+    with pytest.raises(FileNotFoundError, match="Missing source chart"):
+        copy_charts(empty_src, tmp_path / "out")
