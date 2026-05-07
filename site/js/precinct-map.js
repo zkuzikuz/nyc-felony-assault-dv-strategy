@@ -83,6 +83,11 @@
     });
     container.innerHTML = "";
     container.appendChild(plot);
+    var svg = container.querySelector("svg");
+    if (svg) {
+      svg.setAttribute("role", "img");
+      svg.setAttribute("aria-label", "NYC precinct map: percent change in felony assault from 2017 to 2024, broken down by police precinct.");
+    }
     attachPinHandlers(container, geojson);
   }
 

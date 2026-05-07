@@ -73,6 +73,11 @@
     });
     container.innerHTML = "";
     container.appendChild(plot);
+    var svg = container.querySelector("svg");
+    if (svg) {
+      svg.setAttribute("role", "img");
+      svg.setAttribute("aria-label", "Multi-baseline bar chart: how NYC's felony-assault rise looks at different time scales versus national peers.");
+    }
   }
 
   async function init() {
