@@ -59,6 +59,7 @@
           y: "value",
           fill: "fill",
           title: function (d) { return d.label + ": " + d.value + "%"; },
+          tip: true,
         }),
         Plot.ruleY([0]),
         Plot.text(data, {

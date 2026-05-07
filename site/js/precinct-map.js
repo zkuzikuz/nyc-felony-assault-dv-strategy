@@ -63,7 +63,6 @@
         type: "linear",
         scheme: "Oranges",
         domain: [-50, 0, 100, 200],
-        legend: true,
         label: "Percent change in felony assault, 2017 to 2024",
       },
       marks: [
@@ -83,6 +82,18 @@
     });
     container.innerHTML = "";
     container.appendChild(plot);
+    // Render the color legend separately so the choropleth SVG contains only
+    // choropleth paths — keeping the path-index zip with geojson.features reliable.
+    var legendEl = Plot.legend({
+      color: {
+        type: "linear",
+        scheme: "Oranges",
+        domain: [-50, 0, 100, 200],
+        label: "Percent change in felony assault, 2017 to 2024",
+      },
+    });
+    legendEl.style.marginTop = "8px";
+    container.appendChild(legendEl);
     var svg = container.querySelector("svg");
     if (svg) {
       svg.setAttribute("role", "img");
@@ -135,7 +146,12 @@
     }
 
     paths.forEach(function (path, idx) {
+      var f = features[idx];
+      var p = f ? f.properties : {};
       path.style.cursor = "pointer";
+      path.setAttribute("tabindex", "0");
+      path.setAttribute("role", "button");
+      path.setAttribute("aria-label", "Precinct " + p.precinct + ", " + p.pct_change + "% change");
       path.addEventListener("click", function (e) {
         e.stopPropagation();
         if (pinnedIdx === idx) {
@@ -147,6 +163,22 @@
         pinnedIdx = idx;
         var rect = container.getBoundingClientRect();
         showPinned(idx, e.clientX - rect.left + 10, e.clientY - rect.top + 10);
+      });
+      path.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          if (e.key === " ") e.preventDefault();
+          e.stopPropagation();
+          if (pinnedIdx === idx) {
+            unpin();
+            return;
+          }
+          paths.forEach(function (p) { p.classList.remove("pinned"); });
+          path.classList.add("pinned");
+          pinnedIdx = idx;
+          var rect = container.getBoundingClientRect();
+          var pathRect = path.getBoundingClientRect();
+          showPinned(idx, pathRect.left - rect.left + 10, pathRect.top - rect.top + 10);
+        }
       });
     });
 

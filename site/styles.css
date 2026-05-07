@@ -65,7 +65,7 @@ body {
   letter-spacing: 0.2px;
 }
 
-/* ---------- hero (Task 3 fills in) ---------- */
+/* ---------- hero ---------- */
 .hero {
   padding: var(--space-7) var(--space-5) var(--space-6);
   max-width: 900px;
@@ -300,7 +300,6 @@ body {
   border-top: 1px solid var(--light);
   font-size: 13px;
   color: var(--mute);
-  text-align: center;
 }
 .site-footer a { color: var(--navy); text-decoration: none; }
 .site-footer a:hover { text-decoration: underline; }
@@ -440,5 +439,9 @@ a:focus-visible, button:focus-visible {
   border-radius: 2px;
 }
 .toc a:focus-visible {
+  outline-offset: 1px;
+}
+#chart-06-container svg path:focus-visible {
+  outline: 2px solid var(--orange);
   outline-offset: 1px;
 }
