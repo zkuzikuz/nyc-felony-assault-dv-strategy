@@ -96,7 +96,7 @@ def chart_01_hero():
     pct_adj = (fa_excl.iloc[-1] / fa_excl.iloc[0] - 1) * 100
 
     fig, (ax_num, ax_spark) = plt.subplots(
-        1, 2, figsize=(14, 5.8),
+        1, 2, figsize=(10.5, 5.0),
         gridspec_kw={"width_ratios": [1.1, 1.1]},
     )
 
@@ -207,7 +207,7 @@ def chart_03_dv_split():
     dv_2024 = int(round(total_2024 * dv_share))
     other_2024 = total_2024 - dv_2024
 
-    fig, (ax_left, ax_right) = plt.subplots(1, 2, figsize=(13, 5.0),
+    fig, (ax_left, ax_right) = plt.subplots(1, 2, figsize=(10.5, 4.6),
                                             gridspec_kw={"width_ratios": [1.2, 1]})
 
     # ---- Left: growth rates ----
@@ -270,7 +270,7 @@ def chart_04_complication_stacked():
     other = pivot.drop(columns=plot_cols, errors="ignore").sum(axis=1)
     pivot["OTHER NEW SUBCATS"] = other
 
-    fig, ax = plt.subplots(figsize=(13, 6.0))
+    fig, ax = plt.subplots(figsize=(10.5, 5.6))
     bottoms = np.zeros(len(pivot))
     x = pivot.index.values
     width = 1.2  # narrower for breathing room
@@ -320,7 +320,7 @@ def chart_04_complication_stacked():
                title="The +72% headline includes a new felony class and a DV surge inside the catch-all.",
                subtitle="DV cases inside the catch-all (magenta) doubled since 2010, while Strangulation 1st (navy) is a 2010 statutory creation that accounts for ~35% of the headline rise.",
                source=f"Sources: NYPD Complaint Data Historic ({URL_NYPD_HISTORIC}) drilled by pd_cd for sub-category counts. DV share applies Vital City's ~39% household-share estimate ({URL_VITAL_CITY}) to total felony-assault count per year, capped at catch-all size. Strangulation 1st = NYPL §121.13 (created November 2010). Bars at actual data years; widths = 1.2 years for visual breathing room.",
-               top=0.78)
+               top=0.78, bottom=0.14)
 
 
 # ---------------------------------------------------------------------------
@@ -408,7 +408,7 @@ def chart_06_precinct_growth():
     merged = gdf.merge(pivot[["pct_change"]],
                        left_on=id_col, right_index=True, how="left")
 
-    fig, ax = plt.subplots(figsize=(11, 11))
+    fig, ax = plt.subplots(figsize=(9, 10))
     ax.set_facecolor(C_BG)
     cmap = plt.colormaps["OrRd"]
     vmin, vmax = -50, 200
@@ -440,7 +440,7 @@ def chart_07_beds():
     today_bth, today_sh = 100, 900
     rec_bth, rec_sh = 200, 1800
     target = 2000
-    fig, ax = plt.subplots(figsize=(12, 5.4))
+    fig, ax = plt.subplots(figsize=(10, 4.6))
     bars = ["Today (existing)", "Recommended (double over 18 months)"]
 
     # Gray for what exists, orange for what's needed
@@ -497,7 +497,7 @@ def chart_08_distal():
     fa_2014 = fa_total.loc[2014]
     fa_index = (fa_total.values / fa_2014 * 100).tolist()
 
-    fig, ax = plt.subplots(figsize=(13, 5.6))
+    fig, ax = plt.subplots(figsize=(10, 5.0))
 
     ax.plot(fa_years, fa_index, color=C_ASSAULT, lw=2.6)
     ax.scatter(fa_years, fa_index, s=70, color=C_ASSAULT, zorder=3,
@@ -543,7 +543,7 @@ def chart_08_distal():
 # 09 — B-HEARD breakdown (Sankey-ish flow)
 # ---------------------------------------------------------------------------
 def chart_09_bheard_breakdown():
-    fig, ax = plt.subplots(figsize=(13, 5.6))
+    fig, ax = plt.subplots(figsize=(10, 5.0))
     segments = [
         ("Got a B-HEARD team", 24071, C_STRUCTURAL),
         ("In-hours, did not get B-HEARD", 13042, C_ASSAULT),
@@ -663,7 +663,7 @@ def chart_11_timeline():
         ("Phase-1 evaluation cycle", 6, 30, C_ASSAULT),
         ("Sunset gate", 29, 31, C_STRUCTURAL),
     ]
-    fig, ax = plt.subplots(figsize=(13, 5.6))
+    fig, ax = plt.subplots(figsize=(10.5, 5.0))
     n = len(rows)
     for i, (label, start, end, color) in enumerate(rows):
         y = n - i - 1
@@ -687,7 +687,7 @@ def chart_11_timeline():
                title="The pilot has a binding fund-or-de-fund decision at month 30.",
                subtitle="If the pre-registered endpoint is not met, funding ends automatically. The sunset is encoded in procurement-contract language.",
                source="Derived from memo Section 3 design constraints. Civil-liberties impact assessment precedes precinct rollout. Interim evaluation at month 18 informs course-correction. Phase-1 endpoint at month 30 is the binding decision point — Callaway-Sant'Anna staggered difference-in-differences with formal pretrend tests on DV-felony rate change in matched comparison precincts.",
-               top=0.82, bottom=0.14, left=0.24)
+               top=0.82, bottom=0.16, left=0.24)
 
 
 # ---------------------------------------------------------------------------
@@ -711,7 +711,7 @@ def chart_12_dv_rank():
          "Community-based credible-messenger intervention adapted from gun violence to DV.",
          "Untested — no cost basis"),
     ]
-    fig, ax = plt.subplots(figsize=(14, 6.4))
+    fig, ax = plt.subplots(figsize=(10.5, 5.0))
     for i, (label, mid, lo, hi, color, _desc, _cost) in enumerate(rows):
         if hi > 0 and not (lo == 0 and hi == 0):
             ax.barh(i, max(hi - lo, 1), left=lo, color=color, height=0.55, alpha=0.85)
@@ -757,7 +757,7 @@ def chart_13_quadrant():
         ("BAM (Heller)", 2.95, 0.25, C_NEUTRAL, 380),
         ("NYC Ceasefire", 1.60, 0.30, C_NEUTRAL, 380),
     ]
-    fig, ax = plt.subplots(figsize=(13, 7.5))
+    fig, ax = plt.subplots(figsize=(10, 7.0))
 
     # Faint quadrant background fill for the top-right quadrant
     ax.fill_between([1.5, 3.4], 1.5, 3.4, color=PALETTE["light"], alpha=0.35, zorder=0)
@@ -817,7 +817,7 @@ def chart_14_baselines():
     strang_2024 = sub[(sub.pd_desc == "STRANGULATION 1ST") & (sub.year == 2024)].n.sum()
     decade_adj = ((fa.loc[2024] - strang_2024) / (fa.loc[2010] - strang_2010) - 1) * 100
 
-    fig, axes = plt.subplots(1, 4, figsize=(15, 5.6))
+    fig, axes = plt.subplots(1, 4, figsize=(11.5, 5.6))
     fig.subplots_adjust(wspace=0.30)
 
     # Panel 1 — 1-year (mute/neutral — small move)
@@ -867,7 +867,7 @@ def chart_14_baselines():
                title="The choice of time window decides whether NYC's felony-assault rise looks small, big, or like an outlier.",
                subtitle="Even with the strangulation adjustment, NYC sits well above any peer benchmark — and the 24-city panel actually fell 4% year-over-year in 2024 while NYC posted +5.8%.",
                source=f"Sources: NYC — NYPD Complaint Data Historic ({URL_NYPD_HISTORIC}); adjusted decade subtracts Strangulation 1st (NYPL §121.13) from both endpoints. National — FBI 2024 release ({URL_FBI_2024}). 24-city average — Council on Criminal Justice Year-End 2024 ({URL_CCJ_2024}); the same panel was −4% YoY in 2024. LA — LAPD 2024 EOY release ({URL_LAPD_2024}).",
-               top=0.78)
+               top=0.78, bottom=0.16)
 
 
 # ---------------------------------------------------------------------------

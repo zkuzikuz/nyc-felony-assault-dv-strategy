@@ -112,9 +112,9 @@ def apply_theme() -> None:
         "font.family":           "serif",
         "font.serif":            ["Newsreader", "Georgia", "DejaVu Serif", "serif"],
         "font.sans-serif":       ["Inter", "Helvetica Neue", "Helvetica", "Arial", "DejaVu Sans"],
-        "font.size":             10,
+        "font.size":             13,
         # --- Axes titles / labels ---
-        "axes.titlesize":        11,
+        "axes.titlesize":        14,
         "axes.titleweight":      "600",
         "axes.titlecolor":       PALETTE["ink"],
         "axes.labelcolor":       PALETTE["ink"],
@@ -129,8 +129,8 @@ def apply_theme() -> None:
         # --- Ticks ---
         "xtick.color":           PALETTE["mute"],
         "ytick.color":           PALETTE["mute"],
-        "xtick.labelsize":       9,
-        "ytick.labelsize":       9,
+        "xtick.labelsize":       12,
+        "ytick.labelsize":       12,
         "xtick.major.size":      3,
         "ytick.major.size":      3,
         "xtick.major.width":     0.8,
@@ -169,7 +169,7 @@ def style_axes(ax: "matplotlib.axes.Axes") -> None:
     # Tick label font → Inter (sans-serif)
     for label in ax.get_xticklabels() + ax.get_yticklabels():
         label.set_fontfamily("sans-serif")
-        label.set_fontsize(9)
+        label.set_fontsize(12)
 
     # Axis labels → Inter weight 500
     ax.xaxis.label.set_fontfamily("sans-serif")
@@ -220,7 +220,7 @@ def editorial_save(
     fig.text(
         left, 0.96, title,
         ha="left", va="top",
-        fontsize=17, fontweight="600",
+        fontsize=22, fontweight="600",
         color=PALETTE["ink"],
         fontfamily="serif",
     )
@@ -228,7 +228,7 @@ def editorial_save(
     fig.text(
         left, 0.91, subtitle,
         ha="left", va="top",
-        fontsize=11.5, fontweight="400",
+        fontsize=15, fontweight="400",
         color=PALETTE["mute"],
         fontfamily="sans-serif",
     )
