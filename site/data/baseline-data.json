@@ -1,0 +1,26 @@
+{
+  "one_year": {
+    "label": "1-year (2023 to 2024)",
+    "value": 5.8,
+    "note": "NYPD year-end 2024 reporting."
+  },
+  "five_year": {
+    "label": "5-year (2019 to 2024)",
+    "value": 41.4,
+    "note": "Indexed off 2019 (pre-COVID baseline)."
+  },
+  "decade": {
+    "headline": 72,
+    "adjusted": 47,
+    "label": "Decade (2010 to 2024)",
+    "note": "Adjusted figure subtracts Strangulation 1st reclassification from both endpoints."
+  },
+  "national": {
+    "label": "National context",
+    "nyc_adjusted": 47,
+    "us_national": 2,
+    "ccj_24_city": 4,
+    "la_yoy": -10,
+    "note": "NYC's reclassification-adjusted decade rise vs FBI national rate, Council on Criminal Justice 24-city sample, and LAPD 2024 year-over-year."
+  }
+}
