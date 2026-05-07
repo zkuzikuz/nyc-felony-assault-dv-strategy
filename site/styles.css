@@ -304,3 +304,35 @@ body {
 }
 .site-footer a { color: var(--navy); text-decoration: none; }
 .site-footer a:hover { text-decoration: underline; }
+
+/* ---------- recommendation list (In brief) ---------- */
+.body ol.recommendation-list {
+  counter-reset: rec;
+  list-style: none;
+  padding-left: 0;
+  margin: var(--space-4) 0;
+}
+.body ol.recommendation-list > li {
+  counter-increment: rec;
+  position: relative;
+  padding-left: var(--space-6);
+  margin-bottom: var(--space-4);
+}
+.body ol.recommendation-list > li::before {
+  content: counter(rec);
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--orange);
+  background: var(--paper);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--orange);
+}
