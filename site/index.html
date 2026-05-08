@@ -100,7 +100,11 @@
 
   <p><strong>Felony assault is NYC's largest violent-felony category.</strong> In 2024 there were 29,501 felony-assault reports. That is roughly twice the next-largest violent felony (robbery at 16,567) and an order of magnitude more than rape (1,534) or murder (363). Grand Larceny at 47,808 is larger overall, but it is a property crime. Among the felonies that capture interpersonal harm, felony assault is by far the biggest. It is the highest felony-assault count NYC has recorded in the modern era.</p>
 
-  <figure>
+  <figure id="chart-02-container" data-chart="felony-categories" aria-label="Bar chart: felony assault dwarfs other violent-felony categories.">
+    <div class="chart-title-block">
+      <h3 class="chart-title">Felony assault is the largest violent-felony category in NYC.</h3>
+      <p class="chart-subtitle">At ~30,000 reports in 2024, felony assault is roughly twice as common as robbery and dwarfs murder and rape combined.</p>
+    </div>
     <img src="assets/charts/02-majors.png" alt="Bar chart: felony assault dwarfs other violent-felony categories. 29,501 felony-assault reports in 2024, vs 16,567 robberies, 1,534 rapes, and 363 murders.">
     <figcaption>Felony assault dwarfs other violent-felony categories in 2024.
       <p class="source">Source: <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i">NYPD Complaint Data Historic</a>. Comparison covers the four violent-felony categories. Grand Larceny is larger overall (47,808 in 2024) but is a property crime, not a violent one.</p>
@@ -225,7 +229,11 @@
 
   <p><strong>Lever 3: Pilot LAP and a NYC OFDVI program in four to six precincts.</strong> Among the DV-specific policing and advocacy interventions, LAP and OFDVI are the strongest-evidence options. They also carry implementation risks that the source studies did not measure. The pilot is meant to gather rigorous evidence about what works in NYC, not to deploy a known formula citywide.</p>
 
-  <figure>
+  <figure id="chart-12-container" data-chart="dv-rank" aria-label="Horizontal bar chart ranking DV intervention effects.">
+    <div class="chart-title-block">
+      <h3 class="chart-title">LAP and OFDVI are the recommended DV interventions — they have the strongest evidence.</h3>
+      <p class="chart-subtitle">The two programs in orange show positive, DV-specific effects in published evaluations — every other option is mixed, null, or untested.</p>
+    </div>
     <img src="assets/charts/12-dv-rank.png" alt="Horizontal bar chart ranking DV intervention effects. LAP (Maryland, Koppa JEBO 2024): 35-45% reduction in female intimate-partner-homicide rate. Mandatory arrest (MDVE): 5-21%. OFDVI (High Point): 12-28%. Batterer programs: -5 to +5% (null). CVI for DV: untested.">
     <figcaption>DV-intervention effect sizes, ranked.
       <p class="source">Sources: <a href="https://www.sciencedirect.com/science/article/abs/pii/S0167268123004018">Koppa 2024</a>; <a href="https://www.jstor.org/stable/2095575">Sherman &amp; Berk MDVE</a>; <a href="https://pubmed.ncbi.nlm.nih.gov/29332533/">Sechrist &amp; Weil 2018</a>; <a href="https://pubmed.ncbi.nlm.nih.gov/31359840/">Cheng et al. 2021 meta-analysis</a>; <a href="https://cvg.org/what-we-do/">Cure Violence Global</a>. Cost figures are order-of-magnitude estimates for a NYC pilot at 4–6 precincts.</p>
@@ -472,6 +480,9 @@
 </footer>
 
   <script src="js/progress-bar.js" defer></script>
+  <script src="js/chart-theme.js" defer></script>
+  <script src="js/chart-02.js" defer></script>
+  <script src="js/chart-12.js" defer></script>
   <script src="js/precinct-map.js" defer></script>
   <script src="js/multi-baseline.js" defer></script>
 

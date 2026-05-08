@@ -186,7 +186,7 @@ body {
 /* ---------- figures / charts ---------- */
 .body figure {
   margin: var(--space-5) 0;
-  padding: var(--space-3);
+  padding: var(--space-4) var(--space-3) var(--space-3);
   background: var(--paper);
   border-radius: 4px;
 }
@@ -202,8 +202,75 @@ body {
   font-style: italic;
   color: var(--mute);
   line-height: 1.5;
-  margin-top: var(--space-2);
+  margin-top: var(--space-3);
 }
+/* In-figure title block — used by Plot-rendered charts so the headline lives
+   in HTML (serif) rather than baked into the PNG. */
+.body figure .chart-title-block {
+  margin: 0 0 var(--space-3);
+  padding: 0 4px;
+}
+.body figure .chart-title {
+  font-family: var(--font-body);
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.2px;
+  margin: 0 0 6px;
+}
+.body figure .chart-subtitle {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.45;
+  color: #555;
+  font-style: italic;
+  margin: 0;
+}
+.body figure .chart-render {
+  display: block;
+  width: 100%;
+}
+.body figure .chart-render svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  font-family: var(--font-ui);
+}
+
+/* Chart 12 detail grid — cost + mechanism for each row */
+.chart-12-detail {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  column-gap: var(--space-3);
+  row-gap: var(--space-2);
+  margin: var(--space-3) 0 0;
+  padding: var(--space-3) 0 0;
+  border-top: 1px solid var(--light);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.chart-12-detail dt {
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.2px;
+}
+.chart-12-detail dt.is-recommended { color: var(--orange); }
+.chart-12-detail dd {
+  margin: 0;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.chart-12-detail .detail-cost {
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 12px;
+}
+.chart-12-detail .detail-desc { color: #555; }
 
 /* ---------- tables ---------- */
 .body table {

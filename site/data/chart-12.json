@@ -1,0 +1,53 @@
+[
+  {
+    "label": "LAP (Maryland, Koppa JEBO 2024)",
+    "short": "LAP",
+    "lo": 35,
+    "hi": 45,
+    "mid": 40,
+    "cost": "$3-8M / yr",
+    "description": "Police screen DV calls with an 11-question lethality scale; high-risk survivors get a live advocate hotline call on scene.",
+    "recommended": true
+  },
+  {
+    "label": "OFDVI (High Point, Sechrist & Weil 2018)",
+    "short": "OFDVI",
+    "lo": 12,
+    "hi": 28,
+    "mid": 20,
+    "cost": "$2-5M / yr",
+    "description": "Focused-deterrence call-in: high-risk offenders are warned of consequences and offered services.",
+    "recommended": true
+  },
+  {
+    "label": "Mandatory arrest (Sherman & Berk MDVE)",
+    "short": "MDVE",
+    "lo": 5,
+    "hi": 21,
+    "mid": 13,
+    "cost": "Statutory \u2014 minimal cost",
+    "description": "Police arrest rather than separate parties at DV incidents.",
+    "recommended": false
+  },
+  {
+    "label": "Batterer programs (Duluth / CBT)",
+    "short": "Batterer",
+    "lo": -5,
+    "hi": 5,
+    "mid": 0,
+    "cost": "$3-7M / yr",
+    "description": "Court-mandated cognitive-behavioral group programs for DV offenders.",
+    "recommended": false
+  },
+  {
+    "label": "CVI / credible-messenger for DV",
+    "short": "CVI-DV",
+    "lo": 0,
+    "hi": 0,
+    "mid": 0,
+    "cost": "Untested \u2014 no cost basis",
+    "description": "Community-based credible-messenger intervention adapted from gun violence to DV.",
+    "recommended": false,
+    "untested": true
+  }
+]
