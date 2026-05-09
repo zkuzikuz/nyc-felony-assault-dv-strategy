@@ -52,6 +52,11 @@
     var Plot = window.Plot;
     if (!Plot) return null;
     try {
+      var values = data.map(function (d) { return d.value; });
+      var minV = Math.min.apply(null, values);
+      var maxV = Math.max.apply(null, values);
+      var pad = Math.max(5, (maxV - minV) * 0.12);
+      var yDomain = [Math.min(0, minV - pad), Math.max(maxV + pad, 5)];
       var plot = Plot.plot({
         width: width || 720,
         height: 280,
@@ -59,13 +64,14 @@
         y: {
           label: "Percent change",
           grid: true,
-          domain: data.length > 1 ? null : [0, Math.max(10, data[0].value * 1.2)],
+          domain: yDomain,
         },
+        color: { type: "identity" },
         marks: [
           Plot.barY(data, {
             x: "label",
             y: "value",
-            fill: "fill",
+            fill: function (d) { return d.fill; },
             title: function (d) { return d.label + ": " + d.value + "%"; },
           }),
           Plot.ruleY([0]),

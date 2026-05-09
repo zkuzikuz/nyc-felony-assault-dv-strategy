@@ -353,6 +353,161 @@ body {
 }
 .chart-12-detail .detail-desc { color: #555; }
 
+/* Chart 03 — DV split, two-panel grid */
+.chart-03-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+.chart-03-grid .chart-03-panel {
+  min-width: 0;
+}
+.chart-03-grid .chart-03-panel svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+.chart-03-grid .panel-title {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-style: italic;
+  color: var(--mute);
+  margin: 0 0 var(--space-2);
+}
+@media (max-width: 600px) {
+  .chart-03-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- chart 01 hero (big-number + sparkline) ---------- */
+/* Hero figure lives outside .body, so generic .body figure rules don't apply.
+   Replicate the relevant title-block + render styles here. */
+.hero-figure .chart-title-block {
+  margin: 0 0 var(--space-3);
+  padding: 0 4px;
+}
+.hero-figure .chart-title {
+  font-family: var(--font-body);
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.2px;
+  margin: 0 0 6px;
+}
+.hero-figure .chart-subtitle {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.45;
+  color: #555;
+  font-style: italic;
+  margin: 0;
+}
+.hero-figure .chart-render {
+  display: block;
+  width: 100%;
+}
+.hero-figure .chart-render svg {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  font-family: var(--font-ui);
+}
+.chart-01-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1.1fr;
+  gap: var(--space-4);
+  align-items: center;
+}
+.chart-01-bignum {
+  text-align: center;
+  font-family: var(--font-body);
+  padding: var(--space-2) 0;
+  line-height: 1;
+}
+.chart-01-naive {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+.chart-01-naive-num {
+  font-size: 96px;
+  font-weight: 700;
+  color: var(--light);
+  letter-spacing: -3px;
+  line-height: 1;
+  display: inline-block;
+}
+.chart-01-strike {
+  position: absolute;
+  left: -4%;
+  right: -4%;
+  top: 46%;
+  height: 5px;
+  background: #000;
+  border-radius: 2px;
+  transform: rotate(-4deg);
+  pointer-events: none;
+}
+.chart-01-adj {
+  font-size: 140px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: -5px;
+  line-height: 1;
+  margin: 8px 0 14px;
+}
+.chart-01-cap {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--orange);
+  letter-spacing: 0.1px;
+}
+.chart-01-cap-sub {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-style: italic;
+  color: var(--mute);
+  margin-top: 4px;
+}
+.chart-01-spark {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.chart-01-spark-title {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+  font-weight: 600;
+}
+.chart-01-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--neutral, #5a6473);
+  margin-bottom: 2px;
+}
+.chart-01-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.chart-01-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 4px;
+  border-radius: 1px;
+}
+@media (max-width: 600px) {
+  .chart-01-grid { grid-template-columns: 1fr; gap: var(--space-3); }
+  .chart-01-naive-num { font-size: 72px; }
+  .chart-01-adj { font-size: 104px; }
+}
+
 /* ---------- tables ---------- */
 .body table {
   width: 100%;
@@ -613,4 +768,106 @@ a:focus-visible, button:focus-visible {
 #chart-06-container svg path:focus-visible {
   outline: 2px solid var(--orange);
   outline-offset: 1px;
+}
+
+/* Chart 04 — stacked sub-categories legend */
+.chart-04-legend {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-3) 0 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px 18px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--neutral, #5a6473);
+  line-height: 1.35;
+}
+.chart-04-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.chart-04-swatch {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 10px;
+  border-radius: 1px;
+}
+.chart-04-legend-label {
+  min-width: 0;
+}
+@media (max-width: 720px) {
+  .chart-04-legend { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 420px) {
+  .chart-04-legend { grid-template-columns: 1fr; }
+}
+
+.chart-10-stats {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--neutral, #5a6473);
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  background: #fff;
+  border: 1px solid var(--light);
+  border-radius: 4px;
+  line-height: 1.6;
+}
+.chart-10-stats strong { color: var(--ink); }
+.chart-10-stats .ratio { color: var(--orange); font-weight: 700; }
+
+/* Chart 09 — B-HEARD breakdown.
+   SVG bar on top, HTML annotation blocks below with segment-center anchored
+   up-arrows. The arrow + lines form a single block whose left edge sits at
+   the segment center, with translateX(-50%) to center the block over it. */
+.chart-09-wrapper {
+  position: relative;
+  width: 100%;
+}
+.chart-09-svg-wrap {
+  display: block;
+  width: 100%;
+}
+.chart-09-svg-wrap svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.chart-09-annotations {
+  position: relative;
+  width: 100%;
+  margin-top: 0;
+  min-height: 88px;
+}
+.chart-09-annotation {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.35;
+  width: 200px;
+  max-width: 32%;
+}
+.chart-09-arrow {
+  display: block;
+  font-size: 20px;
+  line-height: 1;
+  margin-bottom: 2px;
+  font-weight: 400;
+}
+.chart-09-annotation-line {
+  display: block;
+}
+
+@media (max-width: 540px) {
+  .chart-09-annotation {
+    width: 150px;
+    font-size: 10px;
+  }
 }
