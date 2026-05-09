@@ -13,7 +13,10 @@
 (function (global) {
   "use strict";
 
-  const PLOT_CDN = "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/dist/plot.umd.min.js";
+  // Plot's UMD bundle expects d3 to already be on `window`. We load d3 first,
+  // then Plot. Both pinned to compatible versions to avoid surprise breakage.
+  const D3_CDN = "https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js";
+  const PLOT_CDN = "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.17/dist/plot.umd.min.js";
 
   const palette = {
     orange: "#FF6319",
@@ -32,15 +35,32 @@
     ui: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
   };
 
-  function loadPlot() {
+  function _loadScript(src) {
     return new Promise(function (resolve, reject) {
-      if (global.Plot) { resolve(); return; }
       const s = document.createElement("script");
-      s.src = PLOT_CDN;
+      s.src = src;
       s.onload = resolve;
-      s.onerror = function () { reject(new Error("Plot CDN load failed")); };
+      s.onerror = function () { reject(new Error("Script load failed: " + src)); };
       document.head.appendChild(s);
     });
+  }
+
+  let _plotLoadPromise = null;
+  function loadPlot() {
+    if (global.Plot && global.Plot.barX) return Promise.resolve();
+    if (_plotLoadPromise) return _plotLoadPromise;
+    _plotLoadPromise = (async function () {
+      if (!global.d3 || !global.d3.timeSecond) {
+        await _loadScript(D3_CDN);
+      }
+      if (!global.Plot || !global.Plot.barX) {
+        await _loadScript(PLOT_CDN);
+      }
+      if (!global.Plot || !global.Plot.barX) {
+        throw new Error("Plot did not initialise (missing barX after load)");
+      }
+    })();
+    return _plotLoadPromise;
   }
 
   function _styleOneSvg(svg) {

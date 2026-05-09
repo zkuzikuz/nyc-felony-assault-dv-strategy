@@ -11,17 +11,14 @@
   "use strict";
 
   const CONTAINER_ID = "chart-14-container";
-  const PLOT_CDN = "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/dist/plot.umd.min.js";
 
-  function loadScript(src) {
-    return new Promise(function (resolve, reject) {
-      if (window.Plot) { resolve(); return; }
-      const s = document.createElement("script");
-      s.src = src;
-      s.onload = resolve;
-      s.onerror = reject;
-      document.head.appendChild(s);
-    });
+  // Delegate to the shared loader so d3 + Plot load in the right order with a
+  // single dedupe'd promise across all chart modules.
+  function loadScript() {
+    if (window.NYCStrategyChart && window.NYCStrategyChart.loadPlot) {
+      return window.NYCStrategyChart.loadPlot();
+    }
+    return Promise.reject(new Error("chart-theme.js not loaded"));
   }
 
   function panelData(key, all) {
@@ -69,12 +66,8 @@
             x: "label",
             y: "value",
             fill: "fill",
-          }),
-          Plot.tip(data, Plot.pointer({
-            x: "label",
-            y: "value",
             title: function (d) { return d.label + ": " + d.value + "%"; },
-          })),
+          }),
           Plot.ruleY([0]),
           Plot.text(data, {
             x: "label",
@@ -88,6 +81,7 @@
       });
       return plot;
     } catch (e) {
+      console.warn("Chart 14 panel render error:", e);
       return null;
     }
   }
@@ -106,7 +100,7 @@
     const figureWidth = figure.clientWidth || 720;
 
     try {
-      await loadScript(PLOT_CDN);
+      await loadScript();
       if (!window.Plot) throw new Error("Plot did not load");
       const resp = await fetch("data/baseline-data.json");
       if (!resp.ok) throw new Error("Failed to fetch baseline data");

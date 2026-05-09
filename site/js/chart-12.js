@@ -28,8 +28,8 @@
 
     const svg = Plot.plot({
       width,
-      height: 280,
-      marginLeft: 230,
+      height: 300,
+      marginLeft: 280,
       marginRight: 90,
       marginTop: 12,
       marginBottom: 40,

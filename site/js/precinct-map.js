@@ -12,17 +12,12 @@
   "use strict";
 
   const CONTAINER_ID = "chart-06-container";
-  const PLOT_CDN = "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/dist/plot.umd.min.js";
 
-  function loadScript(src) {
-    return new Promise(function (resolve, reject) {
-      if (window.Plot) { resolve(); return; }
-      const s = document.createElement("script");
-      s.src = src;
-      s.onload = resolve;
-      s.onerror = reject;
-      document.head.appendChild(s);
-    });
+  function loadScript() {
+    if (window.NYCStrategyChart && window.NYCStrategyChart.loadPlot) {
+      return window.NYCStrategyChart.loadPlot();
+    }
+    return Promise.reject(new Error("chart-theme.js not loaded"));
   }
 
   async function loadData() {
@@ -193,7 +188,7 @@
     var figureWidth = figure.clientWidth || 720;
 
     try {
-      await loadScript(PLOT_CDN);
+      await loadScript();
       if (!window.Plot) throw new Error("Observable Plot did not load");
       var geojson = await loadData();
 
