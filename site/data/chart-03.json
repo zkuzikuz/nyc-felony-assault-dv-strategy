@@ -1,0 +1,20 @@
+{
+  "growth": [
+    {
+      "label": "Domestic + elder assault",
+      "pct": 73,
+      "color": "dv"
+    },
+    {
+      "label": "Other felony assault",
+      "pct": 40,
+      "color": "neutral"
+    }
+  ],
+  "share": {
+    "total_2024": 29501,
+    "dv_share_pct": 39,
+    "dv_count": 11505,
+    "other_count": 17996
+  }
+}

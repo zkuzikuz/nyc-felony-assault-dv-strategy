@@ -1,0 +1,41 @@
+{
+  "rows": [
+    {
+      "year": 2010,
+      "dv_in_catchall": 6683,
+      "other_in_catchall": 8457,
+      "police_assault": 1851,
+      "strangulation": 146,
+      "other_subcats": 0,
+      "total": 17137
+    },
+    {
+      "year": 2014,
+      "dv_in_catchall": 7899,
+      "other_in_catchall": 8099,
+      "police_assault": 1814,
+      "strangulation": 2442,
+      "other_subcats": 0,
+      "total": 20254
+    },
+    {
+      "year": 2019,
+      "dv_in_catchall": 8266,
+      "other_in_catchall": 7330,
+      "police_assault": 1526,
+      "strangulation": 3411,
+      "other_subcats": 331,
+      "total": 21195
+    },
+    {
+      "year": 2024,
+      "dv_in_catchall": 11689,
+      "other_in_catchall": 10292,
+      "police_assault": 2502,
+      "strangulation": 4546,
+      "other_subcats": 472,
+      "total": 29973
+    }
+  ],
+  "baseline_2010": 17137
+}

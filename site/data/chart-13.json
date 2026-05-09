@@ -1,0 +1,84 @@
+{
+  "rows": [
+    {
+      "label": "LAP (Maryland)",
+      "x": 2.55,
+      "y": 3.05,
+      "color": "assault",
+      "size": 540,
+      "is_anchor": true
+    },
+    {
+      "label": "OFDVI (High Point)",
+      "x": 2.1,
+      "y": 2.75,
+      "color": "assault",
+      "size": 440,
+      "is_anchor": true
+    },
+    {
+      "label": "Mandatory arrest (MDVE)",
+      "x": 2.85,
+      "y": 2.85,
+      "color": "neutral",
+      "size": 380,
+      "is_anchor": false
+    },
+    {
+      "label": "Batterer programs",
+      "x": 2.45,
+      "y": 2.55,
+      "color": "light",
+      "size": 380,
+      "is_anchor": false
+    },
+    {
+      "label": "CMS-for-DV",
+      "x": 0.4,
+      "y": 2.4,
+      "color": "dv",
+      "size": 380,
+      "is_anchor": false
+    },
+    {
+      "label": "CMS / Cure Violence",
+      "x": 2.5,
+      "y": 0.55,
+      "color": "neutral",
+      "size": 380,
+      "is_anchor": false
+    },
+    {
+      "label": "B-HEARD",
+      "x": 2.0,
+      "y": 1.2,
+      "color": "neutral",
+      "size": 380,
+      "is_anchor": false
+    },
+    {
+      "label": "Hot-spots policing",
+      "x": 3.0,
+      "y": 0.4,
+      "color": "neutral",
+      "size": 380,
+      "is_anchor": false
+    },
+    {
+      "label": "BAM (Heller)",
+      "x": 2.95,
+      "y": 0.25,
+      "color": "neutral",
+      "size": 380,
+      "is_anchor": false
+    },
+    {
+      "label": "NYC Ceasefire",
+      "x": 1.6,
+      "y": 0.3,
+      "color": "neutral",
+      "size": 380,
+      "is_anchor": false
+    }
+  ]
+}

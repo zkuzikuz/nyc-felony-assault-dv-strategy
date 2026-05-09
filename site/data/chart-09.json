@@ -1,0 +1,20 @@
+{
+  "segments": [
+    {
+      "label": "Got a B-HEARD team",
+      "value": 24071,
+      "color": "structural"
+    },
+    {
+      "label": "In-hours, no B-HEARD",
+      "value": 13042,
+      "color": "assault"
+    },
+    {
+      "label": "Overnight (no service)",
+      "value": 14200,
+      "color": "dv"
+    }
+  ],
+  "total": 51313
+}

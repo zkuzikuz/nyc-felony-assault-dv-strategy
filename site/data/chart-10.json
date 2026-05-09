@@ -1,0 +1,401 @@
+{
+  "stats": [
+    {
+      "precinct": 1,
+      "count_2024": 193,
+      "bheard": false
+    },
+    {
+      "precinct": 5,
+      "count_2024": 233,
+      "bheard": false
+    },
+    {
+      "precinct": 6,
+      "count_2024": 170,
+      "bheard": false
+    },
+    {
+      "precinct": 7,
+      "count_2024": 235,
+      "bheard": false
+    },
+    {
+      "precinct": 9,
+      "count_2024": 211,
+      "bheard": false
+    },
+    {
+      "precinct": 10,
+      "count_2024": 133,
+      "bheard": false
+    },
+    {
+      "precinct": 13,
+      "count_2024": 235,
+      "bheard": false
+    },
+    {
+      "precinct": 14,
+      "count_2024": 536,
+      "bheard": false
+    },
+    {
+      "precinct": 17,
+      "count_2024": 115,
+      "bheard": false
+    },
+    {
+      "precinct": 18,
+      "count_2024": 293,
+      "bheard": false
+    },
+    {
+      "precinct": 19,
+      "count_2024": 204,
+      "bheard": false
+    },
+    {
+      "precinct": 20,
+      "count_2024": 125,
+      "bheard": false
+    },
+    {
+      "precinct": 22,
+      "count_2024": 12,
+      "bheard": false
+    },
+    {
+      "precinct": 23,
+      "count_2024": 479,
+      "bheard": false
+    },
+    {
+      "precinct": 24,
+      "count_2024": 163,
+      "bheard": false
+    },
+    {
+      "precinct": 25,
+      "count_2024": 478,
+      "bheard": true
+    },
+    {
+      "precinct": 26,
+      "count_2024": 177,
+      "bheard": true
+    },
+    {
+      "precinct": 28,
+      "count_2024": 288,
+      "bheard": true
+    },
+    {
+      "precinct": 30,
+      "count_2024": 242,
+      "bheard": true
+    },
+    {
+      "precinct": 32,
+      "count_2024": 498,
+      "bheard": true
+    },
+    {
+      "precinct": 33,
+      "count_2024": 237,
+      "bheard": true
+    },
+    {
+      "precinct": 34,
+      "count_2024": 352,
+      "bheard": true
+    },
+    {
+      "precinct": 40,
+      "count_2024": 1034,
+      "bheard": true
+    },
+    {
+      "precinct": 41,
+      "count_2024": 619,
+      "bheard": true
+    },
+    {
+      "precinct": 42,
+      "count_2024": 741,
+      "bheard": true
+    },
+    {
+      "precinct": 43,
+      "count_2024": 772,
+      "bheard": true
+    },
+    {
+      "precinct": 44,
+      "count_2024": 1068,
+      "bheard": true
+    },
+    {
+      "precinct": 45,
+      "count_2024": 333,
+      "bheard": true
+    },
+    {
+      "precinct": 46,
+      "count_2024": 891,
+      "bheard": true
+    },
+    {
+      "precinct": 47,
+      "count_2024": 826,
+      "bheard": true
+    },
+    {
+      "precinct": 48,
+      "count_2024": 739,
+      "bheard": true
+    },
+    {
+      "precinct": 49,
+      "count_2024": 490,
+      "bheard": true
+    },
+    {
+      "precinct": 50,
+      "count_2024": 250,
+      "bheard": true
+    },
+    {
+      "precinct": 52,
+      "count_2024": 785,
+      "bheard": true
+    },
+    {
+      "precinct": 60,
+      "count_2024": 361,
+      "bheard": false
+    },
+    {
+      "precinct": 61,
+      "count_2024": 267,
+      "bheard": false
+    },
+    {
+      "precinct": 62,
+      "count_2024": 256,
+      "bheard": false
+    },
+    {
+      "precinct": 63,
+      "count_2024": 180,
+      "bheard": true
+    },
+    {
+      "precinct": 66,
+      "count_2024": 199,
+      "bheard": false
+    },
+    {
+      "precinct": 67,
+      "count_2024": 851,
+      "bheard": true
+    },
+    {
+      "precinct": 68,
+      "count_2024": 126,
+      "bheard": false
+    },
+    {
+      "precinct": 69,
+      "count_2024": 203,
+      "bheard": true
+    },
+    {
+      "precinct": 70,
+      "count_2024": 380,
+      "bheard": false
+    },
+    {
+      "precinct": 71,
+      "count_2024": 275,
+      "bheard": true
+    },
+    {
+      "precinct": 72,
+      "count_2024": 318,
+      "bheard": false
+    },
+    {
+      "precinct": 73,
+      "count_2024": 645,
+      "bheard": true
+    },
+    {
+      "precinct": 75,
+      "count_2024": 1073,
+      "bheard": true
+    },
+    {
+      "precinct": 76,
+      "count_2024": 122,
+      "bheard": false
+    },
+    {
+      "precinct": 77,
+      "count_2024": 389,
+      "bheard": false
+    },
+    {
+      "precinct": 78,
+      "count_2024": 159,
+      "bheard": false
+    },
+    {
+      "precinct": 79,
+      "count_2024": 431,
+      "bheard": false
+    },
+    {
+      "precinct": 81,
+      "count_2024": 285,
+      "bheard": false
+    },
+    {
+      "precinct": 83,
+      "count_2024": 416,
+      "bheard": false
+    },
+    {
+      "precinct": 84,
+      "count_2024": 335,
+      "bheard": false
+    },
+    {
+      "precinct": 88,
+      "count_2024": 229,
+      "bheard": false
+    },
+    {
+      "precinct": 90,
+      "count_2024": 315,
+      "bheard": false
+    },
+    {
+      "precinct": 94,
+      "count_2024": 130,
+      "bheard": false
+    },
+    {
+      "precinct": 100,
+      "count_2024": 153,
+      "bheard": false
+    },
+    {
+      "precinct": 101,
+      "count_2024": 356,
+      "bheard": false
+    },
+    {
+      "precinct": 102,
+      "count_2024": 331,
+      "bheard": false
+    },
+    {
+      "precinct": 103,
+      "count_2024": 790,
+      "bheard": false
+    },
+    {
+      "precinct": 104,
+      "count_2024": 303,
+      "bheard": true
+    },
+    {
+      "precinct": 105,
+      "count_2024": 442,
+      "bheard": false
+    },
+    {
+      "precinct": 106,
+      "count_2024": 406,
+      "bheard": false
+    },
+    {
+      "precinct": 107,
+      "count_2024": 277,
+      "bheard": false
+    },
+    {
+      "precinct": 108,
+      "count_2024": 263,
+      "bheard": true
+    },
+    {
+      "precinct": 109,
+      "count_2024": 494,
+      "bheard": false
+    },
+    {
+      "precinct": 110,
+      "count_2024": 780,
+      "bheard": true
+    },
+    {
+      "precinct": 111,
+      "count_2024": 101,
+      "bheard": false
+    },
+    {
+      "precinct": 112,
+      "count_2024": 117,
+      "bheard": true
+    },
+    {
+      "precinct": 113,
+      "count_2024": 386,
+      "bheard": false
+    },
+    {
+      "precinct": 114,
+      "count_2024": 588,
+      "bheard": true
+    },
+    {
+      "precinct": 115,
+      "count_2024": 646,
+      "bheard": true
+    },
+    {
+      "precinct": 116,
+      "count_2024": 10,
+      "bheard": false
+    },
+    {
+      "precinct": 120,
+      "count_2024": 483,
+      "bheard": false
+    },
+    {
+      "precinct": 121,
+      "count_2024": 214,
+      "bheard": false
+    },
+    {
+      "precinct": 122,
+      "count_2024": 161,
+      "bheard": false
+    },
+    {
+      "precinct": 123,
+      "count_2024": 98,
+      "bheard": false
+    }
+  ],
+  "summary": {
+    "covered_count": 31,
+    "uncovered_count": 47,
+    "covered_mean": 540,
+    "uncovered_mean": 271,
+    "ratio": 1.99
+  }
+}

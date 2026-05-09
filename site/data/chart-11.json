@@ -1,0 +1,35 @@
+{
+  "rows": [
+    {
+      "label": "Precinct selection + civil-liberties impact assessment",
+      "start": 0,
+      "end": 6,
+      "color": "neutral"
+    },
+    {
+      "label": "Pilot rollout (4\u20136 precincts)",
+      "start": 6,
+      "end": 18,
+      "color": "assault"
+    },
+    {
+      "label": "Interim evaluation",
+      "start": 16,
+      "end": 20,
+      "color": "light"
+    },
+    {
+      "label": "Phase-1 evaluation cycle",
+      "start": 6,
+      "end": 30,
+      "color": "assault"
+    },
+    {
+      "label": "Sunset gate",
+      "start": 29,
+      "end": 31,
+      "color": "structural"
+    }
+  ],
+  "sunset_at": 30
+}

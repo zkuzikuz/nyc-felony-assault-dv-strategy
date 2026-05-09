@@ -38,9 +38,7 @@
       },
       x: {
         domain: [0, xMax],
-        label: "Reports in 2024",
-        labelAnchor: "right",
-        labelOffset: 28,
+        label: null,
         tickFormat: function (d) {
           if (d === 0) return "0";
           if (d >= 1000) return (d / 1000) + "k";
