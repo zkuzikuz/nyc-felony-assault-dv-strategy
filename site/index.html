@@ -100,12 +100,59 @@
 
   <p><strong>Felony assault is NYC's largest violent-felony category.</strong> In 2024 there were 29,501 felony-assault reports. That is roughly twice the next-largest violent felony (robbery at 16,567) and an order of magnitude more than rape (1,534) or murder (363). Grand Larceny at 47,808 is larger overall, but it is a property crime. Among the felonies that capture interpersonal harm, felony assault is by far the biggest. It is the highest felony-assault count NYC has recorded in the modern era.</p>
 
+  <p style="font-family: var(--font-ui); font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--mute); margin: var(--space-4) 0 -10px;">Pilot A — SVG (Observable Plot)</p>
+
   <figure id="chart-02-container" data-chart="felony-categories" aria-label="Bar chart: felony assault dwarfs other violent-felony categories.">
     <div class="chart-title-block">
       <h3 class="chart-title">Felony assault is the largest violent-felony category in NYC.</h3>
       <p class="chart-subtitle">At ~30,000 reports in 2024, felony assault is roughly twice as common as robbery and dwarfs murder and rape combined.</p>
     </div>
     <img src="assets/charts/02-majors.png" alt="Bar chart: felony assault dwarfs other violent-felony categories. 29,501 felony-assault reports in 2024, vs 16,567 robberies, 1,534 rapes, and 363 murders.">
+    <figcaption>Felony assault dwarfs other violent-felony categories in 2024.
+      <p class="source">Source: <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i">NYPD Complaint Data Historic</a>. Comparison covers the four violent-felony categories. Grand Larceny is larger overall (47,808 in 2024) but is a property crime, not a violent one.</p>
+    </figcaption>
+  </figure>
+
+  <p style="font-family: var(--font-ui); font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--mute); margin: var(--space-4) 0 -10px;">Pilot B — Pure HTML + CSS (no JS, no SVG)</p>
+
+  <figure class="chart-css" aria-label="Bar chart: felony assault dwarfs other violent-felony categories.">
+    <div class="chart-title-block">
+      <h3 class="chart-title">Felony assault is the largest violent-felony category in NYC.</h3>
+      <p class="chart-subtitle">At ~30,000 reports in 2024, felony assault is roughly twice as common as robbery and dwarfs murder and rape combined.</p>
+    </div>
+    <div class="chart-css-body">
+      <ul class="bar-rows" role="list">
+        <li class="bar-row is-focal">
+          <span class="bar-label">Felony Assault</span>
+          <span class="bar-track"><span class="bar-fill" style="--bar-width: 98.3%"></span></span>
+          <span class="bar-value">29,501</span>
+        </li>
+        <li class="bar-row">
+          <span class="bar-label">Robbery</span>
+          <span class="bar-track"><span class="bar-fill" style="--bar-width: 55.2%"></span></span>
+          <span class="bar-value">16,567</span>
+        </li>
+        <li class="bar-row">
+          <span class="bar-label">Rape</span>
+          <span class="bar-track"><span class="bar-fill" style="--bar-width: 5.1%"></span></span>
+          <span class="bar-value">1,534</span>
+        </li>
+        <li class="bar-row">
+          <span class="bar-label">Murder</span>
+          <span class="bar-track"><span class="bar-fill" style="--bar-width: 1.2%"></span></span>
+          <span class="bar-value">363</span>
+        </li>
+      </ul>
+      <div class="bar-axis" aria-hidden="true">
+        <span></span>
+        <span class="axis-ticks">
+          <span>0</span><span>10k</span><span>20k</span><span>30k</span>
+        </span>
+        <span></span>
+        <span></span>
+        <span class="axis-label">Reports in 2024 →</span>
+      </div>
+    </div>
     <figcaption>Felony assault dwarfs other violent-felony categories in 2024.
       <p class="source">Source: <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i">NYPD Complaint Data Historic</a>. Comparison covers the four violent-felony categories. Grand Larceny is larger overall (47,808 in 2024) but is a property crime, not a violent one.</p>
     </figcaption>
