@@ -79,11 +79,11 @@
     legend.innerHTML =
       '<span class="chart-01-legend-item">' +
         '<span class="chart-01-swatch" style="background:' + T.palette.light + '"></span>' +
-        'naive total' +
+        'as officially reported (+' + Math.round(data.headline_pct) + '%)' +
       '</span>' +
       '<span class="chart-01-legend-item">' +
         '<span class="chart-01-swatch" style="background:' + T.palette.orange + '"></span>' +
-        'excluding Strangulation 1st' +
+        'reclassification removed (+' + Math.round(data.adjusted_pct) + '%)' +
       '</span>';
 
     // Plot width: when stacked, fill full figure width; when side-by-side,
@@ -179,6 +179,43 @@
           fontSize: 10.5,
           fill: T.palette.neutral,
           textAnchor: "middle",
+        }),
+        // Gap connector at 2024 — the reclassification, drawn between the lines
+        Plot.ruleX(dataYearRows.filter(function (d) { return d.year === 2024; }), {
+          x: "year",
+          y1: "adjusted",
+          y2: "naive",
+          stroke: T.palette.neutral,
+          strokeWidth: 1.2,
+          strokeDasharray: "3 3",
+        }),
+        // Annotate the adjusted (orange) endpoint below its dot, so +47% is legible
+        Plot.text(dataYearRows.filter(function (d) { return d.year === 2024; }), {
+          x: "year",
+          y: "adjusted",
+          text: function (d) { return fmtInt(d.adjusted); },
+          dy: 16,
+          fontSize: 10.5,
+          fill: T.palette.orange,
+          fontWeight: 700,
+          textAnchor: "middle",
+        }),
+        // In-chart explanation, placed in the empty mid-left. Rendered as three
+        // single-line marks because this Plot setup does not honor "\n" in text.
+        Plot.text([{ x: 2010.3, y: yMin + (yMax - yMin) * 0.74 }], {
+          x: "x", y: "y", dy: 0,
+          text: function () { return "Gap between the lines = the 2010"; },
+          textAnchor: "start", fontSize: 10.5, fill: T.palette.neutral,
+        }),
+        Plot.text([{ x: 2010.3, y: yMin + (yMax - yMin) * 0.74 }], {
+          x: "x", y: "y", dy: 14,
+          text: function () { return "strangulation reclassification"; },
+          textAnchor: "start", fontSize: 10.5, fill: T.palette.neutral,
+        }),
+        Plot.text([{ x: 2010.3, y: yMin + (yMax - yMin) * 0.74 }], {
+          x: "x", y: "y", dy: 28,
+          text: function () { return "(a law change, not new behavior)"; },
+          textAnchor: "start", fontSize: 10.5, fill: T.palette.neutral,
         }),
       ],
     });

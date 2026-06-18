@@ -136,9 +136,9 @@ def chart_01_hero():
 
     ax_spark.set_title("Annual felony-assault count, 2010–2024", fontsize=11)
     ax_spark.legend(handles=[
-        mpatches.Patch(color=C_LIGHT, label="naive total"),
-        mpatches.Patch(color=C_ASSAULT, label="excluding Strangulation 1st"),
-    ], loc="upper center", bbox_to_anchor=(0.5, 0.97), ncols=2, frameon=False, fontsize=9)
+        mpatches.Patch(color=C_LIGHT, label=f"as officially reported (+{pct_naive:.0f}%)"),
+        mpatches.Patch(color=C_ASSAULT, label=f"reclassification removed (+{pct_adj:.0f}%)"),
+    ], loc="upper left", bbox_to_anchor=(0.0, 1.0), ncols=1, frameon=False, fontsize=8.5)
     ax_spark.plot(full_years, naive_full.values, lw=2.0, color=C_LIGHT)
     ax_spark.plot(full_years, excl_full.values, lw=3.0, color=C_ASSAULT)
     ax_spark.scatter(data_years, fa_total.values, s=38, color=C_LIGHT, zorder=3,
@@ -149,13 +149,26 @@ def chart_01_hero():
         ax_spark.annotate(f"{int(fa_total.loc[y]):,}", (y, fa_total.loc[y]),
                           textcoords="offset points", xytext=(0, 7), ha="center",
                           fontsize=8.5, color=C_NEUTRAL, fontfamily="sans-serif")
+    # Orange (reclassification-removed) endpoint label below its dot, so +47% is legible
+    ax_spark.annotate(f"{int(fa_excl.loc[2024]):,}", (2024, fa_excl.loc[2024]),
+                      textcoords="offset points", xytext=(0, -13), ha="center",
+                      fontsize=8.5, color=C_ASSAULT, fontweight="bold",
+                      fontfamily="sans-serif")
+    # Gap connector at 2024 — the reclassification, drawn between the two lines
+    ax_spark.plot([2024, 2024], [fa_excl.loc[2024], fa_total.loc[2024]],
+                  color=C_NEUTRAL, ls=":", lw=1.2, zorder=2)
+    # In-chart explanation in the empty upper-left
+    ax_spark.text(0.02, 0.60,
+                  "Gap between the lines = the 2010\nstrangulation reclassification\n(a law change, not new behavior)",
+                  transform=ax_spark.transAxes, fontsize=8.5, color=C_NEUTRAL,
+                  va="top", ha="left", fontfamily="sans-serif")
     even_year_axis(ax_spark, 2010, 2024, 2)
     ax_spark.set_ylabel("Reports per year")
 
     chart_save(fig, "01_hero_bignumber.png",
                title="The +72% headline overstates how much NYC felony assault has actually grown.",
                subtitle="One-third of the headline rise is a 2010 statutory reclassification, not new behavior — the real behavioral increase is 47%.",
-               source=f"Source: NYPD Complaint Data Historic ({URL_NYPD_HISTORIC}). Strangulation 1st (NYPL §121.13) was created November 2010; subtracted from both endpoints. Dots mark actual data years (2010, 2014, 2019, 2024); line interpolates between.",
+               source=f"Source: NYPD Complaint Data Historic ({URL_NYPD_HISTORIC}). Strangulation 1st (NYPL §121.13) was created November 2010, so it barely existed at the start of the window — almost the entire ~4,500-case adjustment falls on recent years. Dots mark actual data years (2010, 2014, 2019, 2024); line interpolates between.",
                top=0.78, left=0.08, right=0.96)
 
 

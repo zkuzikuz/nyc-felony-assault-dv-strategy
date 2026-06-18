@@ -657,6 +657,53 @@ body {
   .site-footer .footer-grid { grid-template-columns: 1fr; gap: var(--space-3); }
 }
 
+/* ---------- short-essay layout (single column, no TOC) ---------- */
+.essay-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 var(--space-5) var(--space-7);
+}
+.essay-wrap .body { max-width: none; }
+/* lead paragraph — a touch larger, to open the essay */
+.essay-wrap .body > p:first-of-type {
+  font-size: 21px;
+  line-height: 1.6;
+}
+.essay-wrap .body > p:first-of-type::first-letter {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 0.9;
+  float: left;
+  padding: 6px 10px 0 0;
+  color: var(--orange);
+}
+
+/* sources & method endnote */
+.endnote {
+  margin-top: var(--space-7);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--light);
+  font-family: var(--font-ui);
+}
+.endnote h2 {
+  font-family: var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--mute);
+  margin: 0 0 var(--space-3);
+}
+.endnote p {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--mute);
+  margin: 0 0 var(--space-3);
+}
+.endnote a { color: var(--navy); text-decoration: underline; text-decoration-color: var(--light); text-underline-offset: 2px; }
+.endnote a:hover { text-decoration-color: var(--orange); }
+
 /* ---------- precinct-map pinned tooltip ---------- */
 .chart-06-render { position: relative; }
 .precinct-pin-tip {
