@@ -1,17 +1,11 @@
 {
   "rows": [
     {
-      "label": "Today (existing)",
+      "label": "Announced plan",
       "bth": 100,
       "safehaven": 900,
       "total": 1000
-    },
-    {
-      "label": "Recommended (double over 18 months)",
-      "bth": 200,
-      "safehaven": 1800,
-      "total": 2000
     }
   ],
-  "target": 2000
+  "target": null
 }

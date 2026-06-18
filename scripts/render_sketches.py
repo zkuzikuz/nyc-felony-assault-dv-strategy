@@ -166,6 +166,10 @@ def chart_02_situation():
     fy = pd.read_parquet(AGG / "felony_yearly.parquet")
     violent = ["MURDER & NON-NEGL. MANSLAUGHTER", "RAPE", "ROBBERY", "FELONY ASSAULT"]
     fy24 = fy[(fy.year == 2024) & (fy.ofns_desc.isin(violent))].copy()
+    # Use NYPD official year-end 2024 counts for murder/rape (the complaint-data
+    # historic file undercounts these vs the official year-end report).
+    _official_2024 = {"MURDER & NON-NEGL. MANSLAUGHTER": 377, "RAPE": 1742}
+    fy24["n"] = [_official_2024.get(d, n) for d, n in zip(fy24.ofns_desc, fy24.n)]
     # Sort ascending so Felony Assault lands on TOP (largest, plotted last in barh)
     fy24 = fy24.sort_values("n", ascending=True)
     label_map = {
@@ -201,8 +205,8 @@ def chart_02_situation():
 # 03 — DV split — pie replaced with horizontal stacked bar
 # ---------------------------------------------------------------------------
 def chart_03_dv_split():
-    # 2024 total felony assault = 29,501. About 40% involves the same household.
-    total_2024 = 29501
+    # 2025 felony assault = 29,841 (Vital City/DCJS). About 39% classified as DV.
+    total_2024 = 29841
     dv_share = 0.39
     dv_2024 = int(round(total_2024 * dv_share))
     other_2024 = total_2024 - dv_2024
@@ -226,15 +230,15 @@ def chart_03_dv_split():
     ax_left.yaxis.grid(False)
 
     # ---- Right: replace pie with horizontal stacked bar ----
-    ax_right.set_title(f"2024 share of all {total_2024:,} felony assaults", fontsize=11)
+    ax_right.set_title(f"2025 share of all {total_2024:,} felony assaults", fontsize=11)
 
     # Single-row stacked bar
-    ax_right.barh(0, dv_2024, color=C_DV, height=0.55, label=f"DV / household ({dv_share*100:.0f}%)")
+    ax_right.barh(0, dv_2024, color=C_DV, height=0.55, label=f"Domestic violence ({dv_share*100:.0f}%)")
     ax_right.barh(0, other_2024, left=dv_2024, color=C_LIGHT, height=0.55, label=f"Other ({(1-dv_share)*100:.0f}%)")
 
     # Inline labels
     ax_right.text(dv_2024 / 2, 0,
-                  f"DV / household\n{dv_2024:,} cases\n(~39%)",
+                  f"Domestic violence\n{dv_2024:,} cases\n(~39%)",
                   ha="center", va="center", fontsize=10, color="white",
                   fontweight="bold", fontfamily="sans-serif")
     ax_right.text(dv_2024 + other_2024 / 2, 0,
@@ -245,7 +249,7 @@ def chart_03_dv_split():
     ax_right.set_xlim(0, total_2024 * 1.02)
     ax_right.set_ylim(-0.6, 0.6)
     ax_right.set_yticks([])
-    ax_right.set_xlabel("2024 felony-assault reports")
+    ax_right.set_xlabel("2025 felony-assault reports (DCJS classification)")
     ax_right.xaxis.grid(False)
     ax_right.yaxis.grid(False)
     # Hide spines for stacked bar — it reads as a proportion, no axis needed
@@ -253,9 +257,9 @@ def chart_03_dv_split():
         spine.set_visible(False)
 
     chart_save(fig, "03_dv_split.png",
-               title="Domestic violence is the dominant driver of NYC's felony-assault rise.",
-               subtitle="DV grew nearly twice as fast as other felony assault since 2017 and accounts for roughly 11,500 of 29,501 cases in 2024.",
-               source=f"Sources: Vital City analysis of NYPD data ({URL_VITAL_CITY}), citing NY Division of Criminal Justice Services DV feed ({URL_DCJS}). NYPD's public dataset has no victim-relationship field, so the DV share is sourced from the DCJS feed. Stacked bar applies Vital City's ~39% household-share figure to the 2024 total.",
+               title="Domestic violence is the largest component of NYC's felony-assault rise.",
+               subtitle="Domestic and elder assault grew nearly twice as fast as other felony assault since 2017; DV alone was about 39% of felony assaults in 2025.",
+               source=f"Sources: Vital City analysis of NYPD data ({URL_VITAL_CITY}), citing NY Division of Criminal Justice Services DV feed ({URL_DCJS}). NYPD's public dataset has no victim-relationship field, so the DV share is sourced from the DCJS feed. The 73% growth figure combines domestic and elder assault; the 39% share is for domestic violence in 2025.",
                top=0.80, left=0.18)
 
 
@@ -282,7 +286,7 @@ def chart_04_complication_stacked():
     dv_layer = np.minimum(dv_layer, catch_all)
     other_catch = catch_all - dv_layer
 
-    ax.bar(x, dv_layer, bottom=bottoms, color=C_DV, label="DV-driven (catch-all, ~39% share)",
+    ax.bar(x, dv_layer, bottom=bottoms, color=C_DV, label="Estimated DV-related (catch-all, ~39% share)",
            width=width, edgecolor="white")
     bottoms = bottoms + dv_layer
     ax.bar(x, other_catch, bottom=bottoms, color=C_ASSAULT,
@@ -318,9 +322,9 @@ def chart_04_complication_stacked():
               frameon=False, fontsize=9.5, ncols=3)
 
     chart_save(fig, "04_complication_stacked.png",
-               title="The +72% headline includes a new felony class and a DV surge inside the catch-all.",
-               subtitle="DV cases inside the catch-all (magenta) doubled since 2010, while Strangulation 1st (navy) is a 2010 statutory creation that accounts for ~35% of the headline rise.",
-               source=f"Sources: NYPD Complaint Data Historic ({URL_NYPD_HISTORIC}) drilled by pd_cd for sub-category counts. DV share applies Vital City's ~39% household-share estimate ({URL_VITAL_CITY}) to total felony-assault count per year, capped at catch-all size. Strangulation 1st = NYPL §121.13 (created November 2010). Bars at actual data years; widths = 1.2 years for visual breathing room.",
+               title="The +72% headline includes a new felony class and a growing domestic-violence component.",
+               subtitle="The estimated DV component inside the catch-all (magenta) roughly doubled since 2010, while Strangulation 1st (navy) is a 2010 statutory creation that accounts for ~35% of the headline rise.",
+               source=f"Sources: NYPD Complaint Data Historic ({URL_NYPD_HISTORIC}) drilled by pd_cd for sub-category counts. The DV-related band is an estimate applying Vital City's ~39% domestic-violence share ({URL_VITAL_CITY}) to felony-assault count per year, capped at catch-all size; NYPD's public data has no victim-relationship field. Strangulation 1st = NYPL §121.13 (created November 2010). Bars at actual data years; widths = 1.2 years for visual breathing room.",
                top=0.82, bottom=0.24)
 
 
@@ -438,51 +442,40 @@ def chart_06_precinct_growth():
 # 07 — Bed capacity — orange for "what's needed", gray for "what exists"
 # ---------------------------------------------------------------------------
 def chart_07_beds():
-    today_bth, today_sh = 100, 900
-    rec_bth, rec_sh = 200, 1800
-    target = 2000
+    # The announced January 2025 plan is ~1,000 street beds. There is no
+    # separate 2,000-bed target; the recommendation is to operationalize and
+    # prioritize this capacity, not to chase a higher count.
+    bth, sh = 100, 900
     fig, ax = plt.subplots(figsize=(10, 4.6))
-    bars = ["Today (existing)", "Recommended (double over 18 months)"]
+    bars = ["Announced plan"]
 
-    # Gray for what exists, orange for what's needed
-    colors_bth  = [C_NEUTRAL, C_ASSAULT]
-    colors_sh   = [C_LIGHT,   C_ASSAULT]
+    ax.barh(bars, [bth], color=[C_NEUTRAL], height=0.5,
+            label="Bridge to Home (long-term supportive housing)")
+    ax.barh(bars, [sh], left=[bth], color=[C_LIGHT], height=0.5,
+            label="Safe Haven (transitional shelter)")
 
-    bth = [today_bth, rec_bth]
-    sh  = [today_sh,  rec_sh]
+    ax.text(bth + 20, -0.30, f"{bth} Bridge to Home", ha="left", va="center",
+            color=C_NEUTRAL, fontsize=10, fontweight="bold", fontfamily="sans-serif")
+    ax.text(bth + sh / 2, 0, f"{sh:,} Safe Haven beds", ha="center", va="center",
+            color=C_NEUTRAL, fontsize=10, fontweight="bold", fontfamily="sans-serif")
+    ax.text(bth + sh + 25, 0, f"= {bth + sh:,} beds total", va="center",
+            fontsize=10, color=C_NEUTRAL, fontfamily="sans-serif")
 
-    ax.barh(bars, bth, color=colors_bth, label="Bridge to Home (long-term supportive housing)")
-    ax.barh(bars, sh, left=bth, color=colors_sh, label="Safe Haven (transitional shelter)")
-
-    for i, (b_val, s_val, c_text) in enumerate(zip(bth, sh,
-                                                    [C_NEUTRAL, "white"])):
-        ax.text(b_val + 30, i - 0.18, f"{b_val} BTH", ha="left", va="center",
-                color=colors_bth[i], fontsize=10, fontweight="bold",
-                fontfamily="sans-serif")
-        ax.text(b_val + s_val / 2, i, f"{s_val:,} Safe Haven beds", ha="center",
-                va="center", color="white" if i == 1 else C_NEUTRAL,
-                fontsize=10, fontweight="bold", fontfamily="sans-serif")
-        ax.text(b_val + s_val + 40, i, f"= {b_val + s_val:,} beds total",
-                va="center", fontsize=10, color=C_NEUTRAL,
-                fontfamily="sans-serif")
-
-    ax.axvline(target, color=C_ASSAULT, ls="--", lw=2)
-    ax.text(target + 40, 0.5, "2,000-person\nannounced target",
-            fontsize=10, ha="left", va="center",
-            color=C_ASSAULT, fontweight="bold", fontfamily="sans-serif")
-    ax.set_xlim(0, target * 1.32)
+    ax.set_xlim(0, 1200)
+    ax.set_xticks([0, 300, 600, 900, 1200])
+    ax.set_ylim(-0.6, 0.6)
     ax.invert_yaxis()
-    ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.02), frameon=False,
+    ax.legend(loc="lower center", bbox_to_anchor=(0.5, -0.55), frameon=False,
               fontsize=9, ncols=2)
     ax.set_xlabel("Beds")
     ax.xaxis.grid(False)
     ax.yaxis.grid(False)
 
     chart_save(fig, "07_beds.png",
-               title="NYC has fewer than 100 supportive-housing beds against a 2,000-person target.",
-               subtitle="Doubling Bridge to Home capacity is a throughput problem, not a funding problem — the $650M is already announced.",
+               title="NYC's $650M plan funds about 1,000 supportive-housing beds.",
+               subtitle="About 100 Bridge to Home beds plus 900 Safe Haven beds. The priority is standing them up and prioritizing survivors, not a higher bed target.",
                source=f"Source: NYC Mayor's January 2025 Care, Community, Action announcement ({URL_MAYOR_BTH}). BTH = Bridge to Home (long-term supportive housing); Safe Haven = transitional shelter. Tsemberis Pathways-to-Housing RCT and replications underpin the supportive-housing evidence base.",
-               top=0.78, left=0.20)
+               top=0.80, bottom=0.22, left=0.20)
 
 
 # ---------------------------------------------------------------------------

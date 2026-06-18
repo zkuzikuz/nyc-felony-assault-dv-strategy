@@ -189,7 +189,7 @@
     const rightTitle = document.createElement("p");
     rightTitle.className = "panel-title";
     rightTitle.textContent =
-      "2024 share of all " + share.total_2024.toLocaleString() + " felony assaults";
+      "2025 share of all " + share.total_2025.toLocaleString() + " felony assaults";
     rightPanel.appendChild(rightTitle);
     rightPanel.appendChild(rightSvg);
 
