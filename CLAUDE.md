@@ -57,7 +57,13 @@ Required env vars (in `.env`):
 
 ## Current Status
 
-WIP — Phase 0 (evidence discovery). See `/home/zkuzma8/.claude/plans/let-s-go-with-a-fizzy-cascade.md` for the approved plan.
+Phases 0-2 complete and merged to `master`. The published artifact lives at `site/index.html` — a single-page editorial memo (sticky TOC, reading-progress bar, 14 interactive Observable Plot charts + interactive precinct map, SEO/OG metadata, accessibility pass) with static PNG fallbacks.
+
+Thesis: NYC has a sustained felony-assault crisis with a large domestic-violence component, and the city's response is not scaling. It rests on two verified legs — the NYC-specific rise (~+47% behavioral, 2010-2024) and a flat real DV-prevention budget while need rose.
+
+The artifact passed an independent two-stage adversarial review (`memos/external_adversarial_review.md` + `memos/adversarial_review_verdict.md`): the thesis survived; the over-claimed "DV-driven" framing and several mis-sourced numbers were corrected in commit `f34ccbe`.
+
+**Not yet deployed.** Static files under `site/` are deploy-ready for `zarrenkuzma.com/nyc-strategy/` (GitHub Pages / Netlify / existing host — TBD).
 
 ## Known Issues
 
@@ -67,4 +73,6 @@ WIP — Phase 0 (evidence discovery). See `/home/zkuzma8/.claude/plans/let-s-go-
 
 ## Notes
 
-Plan is committed at `/home/zkuzma8/.claude/plans/let-s-go-with-a-fizzy-cascade.md`. Phases 1-3 (Minto structuring → visual design → HTML build) follow Phase 0; do not start them until the evidence memo picks a thesis.
+Phase-0 plan: `/home/zkuzma8/.claude/plans/let-s-go-with-a-fizzy-cascade.md`. HTML-build spec/plan: `docs/superpowers/specs/2026-05-06-html-artifact-design.md` and `docs/superpowers/plans/2026-05-07-html-artifact.md` (executed; checkboxes were never ticked but the work shipped).
+
+Charts render at runtime from `site/data/chart-*.json` via Observable Plot; the JS replaces the PNG on success, so the PNG under `site/assets/charts/` is a no-JS/social/print fallback. When chart numbers change, update both the JSON and `scripts/render_sketches.py`, then regenerate PNGs (`.venv/bin/python scripts/render_sketches.py`) and copy into `site/assets/charts/`. Next step is deployment.
