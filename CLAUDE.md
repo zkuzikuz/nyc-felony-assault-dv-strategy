@@ -57,13 +57,11 @@ Required env vars (in `.env`):
 
 ## Current Status
 
-Phases 0-2 complete and merged to `master`. The published artifact lives at `site/index.html` — a single-page editorial memo (sticky TOC, reading-progress bar, 14 interactive Observable Plot charts + interactive precinct map, SEO/OG metadata, accessibility pass) with static PNG fallbacks.
-
-Thesis: NYC has a sustained felony-assault crisis with a large domestic-violence component, and the city's response is not scaling. It rests on two verified legs — the NYC-specific rise (~+47% behavioral, 2010-2024) and a flat real DV-prevention budget while need rose.
-
-The artifact passed an independent two-stage adversarial review (`memos/external_adversarial_review.md` + `memos/adversarial_review_verdict.md`): the thesis survived; the over-claimed "DV-driven" framing and several mis-sourced numbers were corrected in commit `f34ccbe`.
-
-**Not yet deployed.** Static files under `site/` are deploy-ready for `zarrenkuzma.com/nyc-strategy/` (GitHub Pages / Netlify / existing host — TBD).
+Phases 0-2 complete, merged to `master`.
+- `site/index.html` is now a ~750-word essay (literary register) with 4 charts; the full 14-chart memo is preserved in git history / on `phase-2-html-build`.
+- Thesis: a sustained felony-assault crisis with a large DV component, on two verified legs — the NYC-specific ~+47% rise (2010-2024) and a flat real DV-prevention budget.
+- Passed an independent two-stage adversarial review (`memos/`); the over-claimed "DV-driven" framing and mis-sourced numbers were corrected.
+- **Not yet deployed** — `site/` is deploy-ready for `zarrenkuzma.com/nyc-strategy/`.
 
 ## Known Issues
 
