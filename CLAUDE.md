@@ -58,10 +58,10 @@ Required env vars (in `.env`):
 ## Current Status
 
 Phases 0-2 complete, merged to `master`.
-- `site/index.html` is now a ~750-word essay (literary register) with 4 charts; the full 14-chart memo is preserved in git history / on `phase-2-html-build`.
-- Thesis: a sustained felony-assault crisis with a large DV component, on two verified legs — the NYC-specific ~+47% rise (2010-2024) and a flat real DV-prevention budget.
+- `site/index.html` is now an ~800-word essay (literary register, no em dashes) with 3 charts, anchored to a 2017 baseline (the window where category + DV data are consistent); the full 14-chart memo is preserved in git history / on `phase-2-html-build`.
+- Thesis: a sustained felony-assault crisis with a large DV component, on two verified legs: the NYC-specific rise (about +46% since 2017) and a flat real DV-prevention budget. The 2010 decade figure (+72%, or +47% adjusted for the strangulation reclassification) is context only.
 - Passed an independent two-stage adversarial review (`memos/`); the over-claimed "DV-driven" framing and mis-sourced numbers were corrected.
-- **Not yet deployed** — `site/` is deploy-ready for `zarrenkuzma.com/nyc-strategy/`.
+- **Not yet deployed.** `site/` is deploy-ready for `zarrenkuzma.com/nyc-strategy/`.
 
 ## Known Issues
 
