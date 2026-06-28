@@ -644,7 +644,7 @@ body {
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: var(--space-5);
   align-items: start;
 }
@@ -664,11 +664,7 @@ body {
   padding: 0 var(--space-5) var(--space-7);
 }
 .essay-wrap .body { max-width: none; }
-/* lead paragraph — a touch larger, to open the essay */
-.essay-wrap .body > p:first-of-type {
-  font-size: 21px;
-  line-height: 1.6;
-}
+/* lead paragraph — drop cap only; matches body size */
 .essay-wrap .body > p:first-of-type::first-letter {
   font-family: var(--font-body);
   font-weight: 700;
