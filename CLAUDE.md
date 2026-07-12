@@ -9,7 +9,7 @@ Python 3.11, Jupyter, DuckDB, pandas/pyarrow, geopandas, sodapy, scipy/statsmode
 `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`, then `cp .env.example .env` (set `SODA_APP_TOKEN`, `CENSUS_API_KEY`), then `.venv/bin/jupyter lab`.
 
 ## Status
-Phases 0-2 complete on `master`. `site/index.html` is an ~800-word essay with 3 charts (2017 baseline); thesis is a sustained felony-assault crisis with large DV component (+46% since 2017, flat real DV-prevention budget). Adversarially reviewed. Not yet deployed; `site/` is deploy-ready for zarrenkuzma.com/nyc-strategy/.
+Phases 0-2 complete on `master`. `site/index.html` is an ~800-word essay with 3 charts (2017 baseline); thesis is a sustained felony-assault crisis with large DV component (+46% since 2017, flat real DV-prevention budget). Adversarially reviewed. Live at zarrenkuzma.com/nyc-felony-assault-crisis/ (restyled to the zarrenkuzma.com home idiom + Fathom events 2026-07-12; deploy via tools/deploy.sh, creds in gitignored .deploy.env).
 
 ## Known Issues
 - NYPD YTD dataset `5uac-w243` has spurious dates (year 1014, 2052); filter on acquisition.
