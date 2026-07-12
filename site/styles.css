@@ -1,916 +1,145 @@
-/* ---------- variables + reset ---------- */
+/* ============================================================
+   NYC felony-assault essay — zarrenkuzma.com minimal Inter idiom.
+   Tokens and link treatments mirror the home page. Contains only
+   selectors this page (or its chart JS at runtime) uses.
+   ============================================================ */
+
 :root {
-  --orange: #FF6319;
-  --magenta: #D8127B;
-  --navy: #003C71;
-  --ink: #1a1a1a;
-  --paper: #fafaf7;
-  --mute: #888888;
-  --light: #e8e8e8;
-
-  --font-body: 'Newsreader', Georgia, 'Times New Roman', serif;
-  --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-
-  --content-max: 720px;
-  --toc-width: 200px;
-  --content-gap: 60px;
-
-  --space-1: 6px;
-  --space-2: 12px;
-  --space-3: 18px;
-  --space-4: 24px;
-  --space-5: 36px;
-  --space-6: 48px;
-  --space-7: 72px;
+  --bg: #fcfcfc;
+  --ink: #18181b;
+  --muted: #71717a;
+  --hair: #d4d4d8;
+  --rule: #e4e4e7;
+  --measure: 40rem;
 }
 
+/* ---------- reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
 body {
-  font-family: var(--font-body);
-  font-size: 18px;
-  line-height: 1.65;
+  margin: 0;
+  background: var(--bg);
   color: var(--ink);
-  background: #fff;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  padding: 0 1.25rem 3rem;
 }
+img { display: block; max-width: 100%; height: auto; }
 
-/* ---------- progress bar ---------- */
-.progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  width: 0;
-  background: var(--orange);
-  z-index: 100;
-  transition: width 60ms linear;
+/* ---------- links ----------
+   Two treatments, mirroring the home page's split:
+   default (prose, citations, endnote) = hairline border-bottom;
+   topbar + footer = underline, hairline color, 3px offset. */
+a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--hair); }
+a:hover { border-bottom-color: var(--muted); }
+.topbar a, .site-footer a {
+  border-bottom: none;
+  text-decoration: underline;
+  text-decoration-color: var(--hair);
+  text-underline-offset: 3px;
 }
+.topbar a:hover, .site-footer a:hover { text-decoration-color: var(--muted); }
+a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 2px; }
 
-/* ---------- top bar ---------- */
+/* ---------- topbar ---------- */
 .topbar {
-  font-family: var(--font-ui);
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--rule);
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: var(--space-3) var(--space-5);
-  border-bottom: 1px solid var(--light);
-  font-size: 13px;
-  color: var(--mute);
+  align-items: baseline;
+  font-size: .85rem;
+  color: var(--muted);
 }
-.topbar .site-mark {
-  font-weight: 600;
-  color: var(--ink);
-  letter-spacing: 0.2px;
-}
+.site-mark { color: var(--muted); }
 
 /* ---------- hero ---------- */
-.hero {
-  padding: var(--space-7) var(--space-5) var(--space-6);
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-/* ---------- body grid ---------- */
-.body-grid {
-  display: grid;
-  grid-template-columns: var(--toc-width) 1fr;
-  gap: var(--content-gap);
-  padding: 0 var(--space-5) var(--space-7);
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-@media (max-width: 880px) {
-  .body-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-4);
-  }
-}
-
-/* ---------- TOC ---------- */
-.toc {
-  font-family: var(--font-ui);
-  position: sticky;
-  top: var(--space-4);
-  align-self: start;
-  font-size: 14px;
-  line-height: 1.7;
-}
-.toc .toc-label {
+.hero { max-width: var(--measure); margin: 0 auto; padding-top: 3rem; }
+.kicker {
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  letter-spacing: 1.4px;
-  font-size: 10px;
-  color: var(--mute);
+  color: var(--muted);
+  margin: 0 0 .75rem;
+}
+.hero h1 {
+  font-size: 1.5rem;
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: -.01em;
+  margin: 0 0 .75rem;
+}
+.dek { color: var(--muted); font-size: 1rem; margin: 0 0 1rem; }
+.byline { color: var(--muted); font-size: .85rem; margin: 0 0 2rem; }
+
+/* ---------- figures (hero figure + body figure) ---------- */
+figure {
+  margin: 2.5rem 0;
+  padding: 1.25rem 0 1rem;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.chart-title-block { margin: 0 0 1rem; }
+.chart-title {
+  font-size: .95rem;
   font-weight: 600;
-  margin-bottom: var(--space-2);
-}
-.toc ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  border-left: 2px solid var(--light);
-}
-.toc li { margin: 0; }
-.toc a {
-  display: block;
-  padding: 4px 0 4px 14px;
-  color: var(--mute);
-  text-decoration: none;
-  transition: color 100ms ease;
-}
-.toc a:hover { color: var(--ink); }
-.toc li.active a {
-  color: var(--ink);
-  font-weight: 600;
-  border-left: 2px solid var(--orange);
-  margin-left: -2px;
-  padding-left: 14px;
-}
-
-@media (max-width: 880px) {
-  .toc {
-    position: static;
-    border-bottom: 1px solid var(--light);
-    padding-bottom: var(--space-3);
-    margin-bottom: var(--space-3);
-  }
-}
-
-/* ---------- main body ---------- */
-.body {
-  max-width: var(--content-max);
-}
-.body h2 {
-  font-family: var(--font-body);
-  font-size: 30px;
-  line-height: 1.20;
-  font-weight: 700;
-  margin: var(--space-6) 0 var(--space-3);
-  color: var(--ink);
-  letter-spacing: -0.3px;
-  scroll-margin-top: var(--space-4);
-}
-.body h3 {
-  font-family: var(--font-body);
-  font-size: 22px;
-  line-height: 1.30;
-  font-weight: 700;
-  margin: var(--space-5) 0 var(--space-2);
-  color: var(--ink);
-  letter-spacing: -0.2px;
-}
-.body p {
-  margin: 0 0 var(--space-3);
-}
-.body p strong { font-weight: 700; color: var(--ink); }
-.body p em { font-style: italic; }
-.body a {
-  color: var(--navy);
-  text-decoration: underline;
-  text-decoration-color: var(--light);
-  text-underline-offset: 2px;
-  transition: text-decoration-color 120ms ease;
-}
-.body a:hover { text-decoration-color: var(--orange); }
-
-.body ul, .body ol {
-  padding-left: var(--space-4);
-  margin: 0 0 var(--space-3);
-}
-.body ul li, .body ol li {
-  margin: 0 0 var(--space-2);
-}
-
-/* ---------- figures / charts ---------- */
-.body figure {
-  margin: var(--space-5) 0;
-  padding: var(--space-4) var(--space-3) var(--space-3);
-  background: var(--paper);
-  border-radius: 4px;
-}
-.body figure img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 3px;
-}
-.body figcaption {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  font-style: italic;
-  color: var(--mute);
-  line-height: 1.5;
-  margin-top: var(--space-3);
-}
-/* In-figure title block — used by Plot-rendered charts so the headline lives
-   in HTML (serif) rather than baked into the PNG. */
-.body figure .chart-title-block {
-  margin: 0 0 var(--space-3);
-  padding: 0 4px;
-}
-.body figure .chart-title {
-  font-family: var(--font-body);
-  font-size: 22px;
-  line-height: 1.25;
-  font-weight: 700;
-  color: var(--ink);
-  letter-spacing: -0.2px;
-  margin: 0 0 6px;
-}
-.body figure .chart-subtitle {
-  font-family: var(--font-body);
-  font-size: 16px;
   line-height: 1.45;
-  color: #555;
-  font-style: italic;
-  margin: 0;
-}
-.body figure .chart-render {
-  display: block;
-  width: 100%;
-}
-.body figure .chart-render svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  font-family: var(--font-ui);
-}
-
-/* ---------- HTML + CSS native chart pattern ----------
-   Pure HTML/CSS bar chart. No SVG, no JS. The bar widths are passed via the
-   inline `--bar-width` custom property on each row. Y-axis labels live in
-   their own column so they truncate / wrap predictably. */
-.chart-css {
-  font-family: var(--font-ui);
-}
-.chart-css .chart-css-body {
-  margin-top: var(--space-3);
-}
-.chart-css .bar-rows {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.chart-css .bar-row {
-  display: grid;
-  grid-template-columns: 110px minmax(0, 1fr) 64px;
-  gap: 14px;
-  align-items: center;
-  font-size: 14px;
-  line-height: 1.3;
-}
-.chart-css .bar-label {
-  color: #555;
-  text-align: right;
-  font-weight: 500;
-}
-.chart-css .bar-track {
-  height: 28px;
-  background: transparent;
-  position: relative;
-  display: block;
-}
-.chart-css .bar-fill {
-  display: block;
-  height: 100%;
-  width: var(--bar-width, 0%);
-  background: var(--light);
-  border-radius: 1px;
-  transition: width 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.chart-css .bar-row.is-focal .bar-label { color: var(--ink); font-weight: 600; }
-.chart-css .bar-row.is-focal .bar-fill { background: var(--orange); }
-.chart-css .bar-value {
-  color: var(--mute);
-  font-weight: 500;
-  text-align: left;
-  font-variant-numeric: tabular-nums;
-}
-.chart-css .bar-row.is-focal .bar-value { color: var(--orange); font-weight: 700; }
-.chart-css .bar-axis {
-  display: grid;
-  grid-template-columns: 110px minmax(0, 1fr) 64px;
-  gap: 14px;
-  margin-top: var(--space-2);
-  padding-top: 6px;
-  border-top: 1px solid var(--light);
-  font-size: 12px;
-  color: var(--mute);
-  font-variant-numeric: tabular-nums;
-}
-.chart-css .bar-axis .axis-ticks {
-  display: flex;
-  justify-content: space-between;
-}
-.chart-css .bar-axis .axis-label {
-  grid-column: 2;
-  text-align: right;
-  margin-top: 2px;
-  color: var(--mute);
-}
-
-@media (max-width: 540px) {
-  .chart-css .bar-row,
-  .chart-css .bar-axis { grid-template-columns: 90px minmax(0, 1fr) 56px; gap: 8px; }
-}
-
-/* Chart 12 detail grid — cost + mechanism for each row */
-.chart-12-detail {
-  display: grid;
-  grid-template-columns: 110px 1fr;
-  column-gap: var(--space-3);
-  row-gap: var(--space-2);
-  margin: var(--space-3) 0 0;
-  padding: var(--space-3) 0 0;
-  border-top: 1px solid var(--light);
-  font-family: var(--font-ui);
-  font-size: 13px;
-  line-height: 1.5;
-}
-.chart-12-detail dt {
-  font-weight: 700;
   color: var(--ink);
-  letter-spacing: 0.2px;
+  margin: 0 0 .25rem;
 }
-.chart-12-detail dt.is-recommended { color: var(--orange); }
-.chart-12-detail dd {
-  margin: 0;
-  color: #555;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.chart-12-detail .detail-cost {
-  font-weight: 600;
-  color: var(--ink);
-  font-size: 12px;
-}
-.chart-12-detail .detail-desc { color: #555; }
+.chart-subtitle { font-size: .85rem; color: var(--muted); line-height: 1.55; margin: 0; }
+.chart-render { display: block; width: 100%; }
+.chart-render svg { display: block; height: auto; max-width: 100%; }
+figcaption { margin-top: .75rem; }
+.source { font-size: .8rem; color: var(--muted); line-height: 1.55; margin: 0; }
 
-/* Chart 03 — DV split, two-panel grid */
+/* Chart 03 — two-panel grid built at runtime by js/chart-03.js.
+   Keep the gap at 1.5rem (24px): chart-03.js assumes a 24px gap when
+   computing each panel's SVG width. 640px viewport ~= 600px figure
+   width (40rem measure minus body padding), the same threshold
+   chart-03.js uses to switch to single-column sizing. */
 .chart-03-grid {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
-  gap: var(--space-4);
+  gap: 1.5rem;
   align-items: start;
 }
-.chart-03-grid .chart-03-panel {
-  min-width: 0;
-}
-.chart-03-grid .chart-03-panel svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-}
-.chart-03-grid .panel-title {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-style: italic;
-  color: var(--mute);
-  margin: 0 0 var(--space-2);
-}
-@media (max-width: 600px) {
+.chart-03-panel { min-width: 0; }
+.chart-03-panel svg { display: block; width: 100%; height: auto; max-width: 100%; }
+.panel-title { font-size: .75rem; color: var(--muted); margin: 0 0 .5rem; }
+@media (max-width: 640px) {
   .chart-03-grid { grid-template-columns: 1fr; }
 }
 
-/* ---------- chart 01 hero (big-number + sparkline) ---------- */
-/* Hero figure lives outside .body, so generic .body figure rules don't apply.
-   Replicate the relevant title-block + render styles here. */
-.hero-figure .chart-title-block {
-  margin: 0 0 var(--space-3);
-  padding: 0 4px;
-}
-.hero-figure .chart-title {
-  font-family: var(--font-body);
-  font-size: 24px;
-  line-height: 1.25;
-  font-weight: 700;
-  color: var(--ink);
-  letter-spacing: -0.2px;
-  margin: 0 0 6px;
-}
-.hero-figure .chart-subtitle {
-  font-family: var(--font-body);
-  font-size: 17px;
-  line-height: 1.45;
-  color: #555;
-  font-style: italic;
-  margin: 0;
-}
-.hero-figure .chart-render {
-  display: block;
-  width: 100%;
-}
-.hero-figure .chart-render svg {
-  display: block;
-  height: auto;
-  max-width: 100%;
-  font-family: var(--font-ui);
-}
-.chart-01-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 1.1fr;
-  gap: var(--space-4);
-  align-items: center;
-}
-.chart-01-bignum {
-  text-align: center;
-  font-family: var(--font-body);
-  padding: var(--space-2) 0;
-  line-height: 1;
-}
-.chart-01-naive {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 12px;
-}
-.chart-01-naive-num {
-  font-size: 96px;
-  font-weight: 700;
-  color: var(--light);
-  letter-spacing: -3px;
-  line-height: 1;
-  display: inline-block;
-}
-.chart-01-strike {
-  position: absolute;
-  left: -4%;
-  right: -4%;
-  top: 46%;
-  height: 5px;
-  background: #000;
-  border-radius: 2px;
-  transform: rotate(-4deg);
-  pointer-events: none;
-}
-.chart-01-adj {
-  font-size: 140px;
-  font-weight: 700;
-  color: var(--orange);
-  letter-spacing: -5px;
-  line-height: 1;
-  margin: 8px 0 14px;
-}
-.chart-01-cap {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  color: var(--orange);
-  letter-spacing: 0.1px;
-}
-.chart-01-cap-sub {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-style: italic;
-  color: var(--mute);
-  margin-top: 4px;
-}
-.chart-01-spark {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.chart-01-spark-title {
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: var(--ink);
-  font-weight: 600;
-}
-.chart-01-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: var(--neutral, #5a6473);
-  margin-bottom: 2px;
-}
-.chart-01-legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.chart-01-swatch {
-  display: inline-block;
-  width: 14px;
-  height: 4px;
-  border-radius: 1px;
-}
-@media (max-width: 600px) {
-  .chart-01-grid { grid-template-columns: 1fr; gap: var(--space-3); }
-  .chart-01-naive-num { font-size: 72px; }
-  .chart-01-adj { font-size: 104px; }
-}
+/* ---------- essay body ---------- */
+.essay-wrap { max-width: var(--measure); margin: 0 auto; }
+.body p { margin: 0 0 1.25rem; }
 
-/* ---------- tables ---------- */
-.body table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: var(--font-ui);
-  font-size: 14px;
-  margin: var(--space-4) 0;
-}
-.body table th,
-.body table td {
-  padding: var(--space-2) var(--space-3);
-  border-bottom: 1px solid var(--light);
-  text-align: left;
-  vertical-align: top;
-  line-height: 1.5;
-}
-.body table th {
+/* ---------- endnote ---------- */
+.endnote { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+.endnote h2 {
+  font-size: .7rem;
   font-weight: 600;
-  color: var(--ink);
-  border-bottom: 2px solid var(--ink);
-}
-
-/* ---------- hero content ---------- */
-.hero .kicker {
-  font-family: var(--font-ui);
-  font-size: 12px;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  letter-spacing: 1.6px;
-  color: var(--orange);
-  font-weight: 600;
-  margin-bottom: var(--space-3);
+  color: var(--muted);
+  margin: 0 0 .75rem;
 }
-.hero h1 {
-  font-family: var(--font-body);
-  font-size: 44px;
-  line-height: 1.15;
-  font-weight: 700;
-  margin: 0 0 var(--space-3);
-  color: var(--ink);
-  letter-spacing: -0.6px;
-}
-.hero .dek {
-  font-family: var(--font-body);
-  font-size: 22px;
-  line-height: 1.5;
-  font-style: italic;
-  color: #444;
-  margin: 0 0 var(--space-5);
-}
-.hero .byline {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  color: var(--mute);
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--light);
-  margin-bottom: var(--space-6);
-}
-.hero .byline a {
-  color: var(--mute);
-  text-decoration: underline;
-  text-decoration-color: var(--light);
-  text-underline-offset: 2px;
-}
-.hero-figure {
-  margin: 0;
-}
-.hero-figure img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border: 1px solid var(--light);
-  border-radius: 4px;
-}
-.hero-figure figcaption {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  font-style: italic;
-  color: var(--mute);
-  line-height: 1.5;
-  margin-top: var(--space-2);
-}
-
-@media (max-width: 880px) {
-  .hero h1 { font-size: 32px; letter-spacing: -0.4px; }
-  .hero .dek { font-size: 18px; }
-}
+.endnote p { font-size: .85rem; color: var(--muted); margin: 0 0 .75rem; }
+.endnote p:last-child { margin-bottom: 0; }
 
 /* ---------- footer ---------- */
 .site-footer {
-  font-family: var(--font-ui);
-  background: var(--paper);
-  padding: var(--space-6) var(--space-5);
-  border-top: 1px solid var(--light);
-  font-size: 13px;
-  color: var(--mute);
+  max-width: var(--measure);
+  margin: 3.5rem auto 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-size: .85rem;
+  color: var(--muted);
 }
-.site-footer a { color: var(--navy); text-decoration: none; }
-.site-footer a:hover { text-decoration: underline; }
-
-/* ---------- recommendation list (In brief) ---------- */
-.body ol.recommendation-list {
-  counter-reset: rec;
-  list-style: none;
-  padding-left: 0;
-  margin: var(--space-4) 0;
-}
-.body ol.recommendation-list > li {
-  counter-increment: rec;
-  position: relative;
-  padding-left: var(--space-6);
-  margin-bottom: var(--space-4);
-}
-.body ol.recommendation-list > li::before {
-  content: counter(rec);
-  position: absolute;
-  left: 0;
-  top: 2px;
-  font-family: var(--font-ui);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--orange);
-  background: var(--paper);
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1.5px solid var(--orange);
-}
-
-.site-footer { text-align: left; }
-.site-footer .footer-grid {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-5);
-  align-items: start;
-}
-.site-footer .footer-bio { font-size: 14px; line-height: 1.6; color: var(--ink); }
-.site-footer .footer-bio strong { color: var(--ink); font-weight: 600; }
-.site-footer .footer-meta { font-size: 12px; line-height: 1.7; color: var(--mute); }
-.site-footer .footer-copyright { margin-top: var(--space-2); font-size: 11px; color: #aaa; }
-
-@media (max-width: 720px) {
-  .site-footer .footer-grid { grid-template-columns: 1fr; gap: var(--space-3); }
-}
-
-/* ---------- short-essay layout (single column, no TOC) ---------- */
-.essay-wrap {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 0 var(--space-5) var(--space-7);
-}
-.essay-wrap .body { max-width: none; }
-/* lead paragraph — drop cap only; matches body size */
-.essay-wrap .body > p:first-of-type::first-letter {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 56px;
-  line-height: 0.9;
-  float: left;
-  padding: 6px 10px 0 0;
-  color: var(--orange);
-}
-
-/* sources & method endnote */
-.endnote {
-  margin-top: var(--space-7);
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--light);
-  font-family: var(--font-ui);
-}
-.endnote h2 {
-  font-family: var(--font-ui);
-  text-transform: uppercase;
-  letter-spacing: 1.4px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--mute);
-  margin: 0 0 var(--space-3);
-}
-.endnote p {
-  font-size: 13px;
-  line-height: 1.65;
-  color: var(--mute);
-  margin: 0 0 var(--space-3);
-}
-.endnote a { color: var(--navy); text-decoration: underline; text-decoration-color: var(--light); text-underline-offset: 2px; }
-.endnote a:hover { text-decoration-color: var(--orange); }
-
-/* ---------- precinct-map pinned tooltip ---------- */
-.chart-06-render { position: relative; }
-.precinct-pin-tip {
-  position: absolute;
-  background: var(--ink);
-  color: #fff;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  line-height: 1.4;
-  padding: 10px 14px;
-  border-radius: 4px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-  min-width: 140px;
-  pointer-events: auto;
-}
-.precinct-pin-tip strong { color: #fff; font-size: 13px; }
-.precinct-pin-tip .pct { color: var(--orange); font-weight: 700; margin-top: 4px; }
-.precinct-pin-tip .unpin-btn {
-  position: absolute;
-  top: 4px;
-  right: 6px;
-  background: transparent;
-  border: 0;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 2px 6px;
-  line-height: 1;
-}
-.precinct-pin-tip .unpin-btn:hover { color: var(--orange); }
-.chart-06-render svg path.pinned {
-  stroke: var(--ink);
-  stroke-width: 2;
-}
-
-/* ---------- multi-baseline interactive chart ---------- */
-.baseline-tabs {
-  display: flex;
-  gap: var(--space-2);
-  flex-wrap: wrap;
-  margin-bottom: var(--space-3);
-}
-.baseline-tab {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  font-weight: 500;
-  padding: 6px 14px;
-  background: #fff;
-  border: 1px solid var(--light);
-  color: var(--mute);
-  border-radius: 999px;
-  cursor: pointer;
-  transition: all 100ms ease;
-}
-.baseline-tab:hover { color: var(--ink); border-color: var(--mute); }
-.baseline-tab.active {
-  background: var(--ink);
-  color: #fff;
-  border-color: var(--ink);
-}
-.baseline-title {
-  font-family: var(--font-ui);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: var(--space-2);
-}
-.baseline-plot { background: #fff; border-radius: 3px; }
-.baseline-note {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-style: italic;
-  color: var(--mute);
-  line-height: 1.5;
-  margin-top: var(--space-2);
-}
-
-/* ---------- figcaption source line ---------- */
-figcaption .source {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  color: var(--mute);
-  font-style: italic;
-  line-height: 1.5;
-  margin-top: var(--space-2);
-  margin-bottom: 0;
-}
-figcaption .source a {
-  color: var(--mute);
-  text-decoration: underline;
-  text-decoration-color: var(--light);
-  text-underline-offset: 2px;
-}
-figcaption .source a:hover {
-  color: var(--ink);
-  text-decoration-color: var(--ink);
-}
-
-/* ---------- focus styles ---------- */
-a:focus-visible, button:focus-visible {
-  outline: 2px solid var(--orange);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-.toc a:focus-visible {
-  outline-offset: 1px;
-}
-#chart-06-container svg path:focus-visible {
-  outline: 2px solid var(--orange);
-  outline-offset: 1px;
-}
-
-/* Chart 04 — stacked sub-categories legend */
-.chart-04-legend {
-  list-style: none;
-  padding: 0;
-  margin: var(--space-3) 0 0;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px 18px;
-  font-family: var(--font-ui);
-  font-size: 12px;
-  color: var(--neutral, #5a6473);
-  line-height: 1.35;
-}
-.chart-04-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-}
-.chart-04-swatch {
-  flex: 0 0 auto;
-  width: 14px;
-  height: 10px;
-  border-radius: 1px;
-}
-.chart-04-legend-label {
-  min-width: 0;
-}
-@media (max-width: 720px) {
-  .chart-04-legend { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 420px) {
-  .chart-04-legend { grid-template-columns: 1fr; }
-}
-
-.chart-10-stats {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  color: var(--neutral, #5a6473);
-  margin-top: var(--space-3);
-  padding: var(--space-3);
-  background: #fff;
-  border: 1px solid var(--light);
-  border-radius: 4px;
-  line-height: 1.6;
-}
-.chart-10-stats strong { color: var(--ink); }
-.chart-10-stats .ratio { color: var(--orange); font-weight: 700; }
-
-/* Chart 09 — B-HEARD breakdown.
-   SVG bar on top, HTML annotation blocks below with segment-center anchored
-   up-arrows. The arrow + lines form a single block whose left edge sits at
-   the segment center, with translateX(-50%) to center the block over it. */
-.chart-09-wrapper {
-  position: relative;
-  width: 100%;
-}
-.chart-09-svg-wrap {
-  display: block;
-  width: 100%;
-}
-.chart-09-svg-wrap svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.chart-09-annotations {
-  position: relative;
-  width: 100%;
-  margin-top: 0;
-  min-height: 88px;
-}
-.chart-09-annotation {
-  position: absolute;
-  top: 0;
-  transform: translateX(-50%);
-  text-align: center;
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.35;
-  width: 200px;
-  max-width: 32%;
-}
-.chart-09-arrow {
-  display: block;
-  font-size: 20px;
-  line-height: 1;
-  margin-bottom: 2px;
-  font-weight: 400;
-}
-.chart-09-annotation-line {
-  display: block;
-}
-
-@media (max-width: 540px) {
-  .chart-09-annotation {
-    width: 150px;
-    font-size: 10px;
-  }
-}
+.footer-meta div { margin: .25rem 0; }
+.footer-copyright { margin-top: .5rem; font-size: .8rem; }

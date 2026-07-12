@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fcfcfc">
   <title>NYC has a sustained felony-assault crisis with a large domestic-violence component | Zarren Kuzma</title>
   <meta name="description" content="A NYC strategy essay on the felony-assault rise since 2017, its large domestic-violence component, and a DV-prevention budget that has stayed flat. A public artifact by Zarren Kuzma.">
   <meta property="og:type" content="article">
@@ -24,13 +25,17 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Fathom - beautiful, simple website analytics -->
+  <script src="https://cdn.usefathom.com/script.js" data-site="YPUMKBBD" defer></script>
+  <!-- / Fathom -->
 </head>
 <body>
 
   <header class="topbar">
-    <div class="site-mark">zarrenkuzma.com</div>
+    <a class="site-mark" href="https://www.zarrenkuzma.com/">zarrenkuzma.com</a>
     <div class="reading-time">4 min read</div>
   </header>
 
@@ -77,17 +82,6 @@
 
         <p>And yet the money exists; it is simply aimed elsewhere. In 2025 the city announced a separate plan, six hundred and fifty million dollars for roughly a thousand supportive-housing and shelter beds, written for people living on the street and in psychiatric crisis, not for survivors of domestic violence. That is a different budget line from the prevention dollars the Council kept asking for. But a safe place to stay is exactly what a person fleeing a violent home needs, and survivors could be made a priority for those beds.</p>
 
-        <figure id="chart-07-container" data-chart="beds" aria-label="Stacked horizontal bar chart of the announced supportive-housing plan: about 100 Bridge to Home beds plus 900 Safe Haven beds, roughly 1,000 beds total.">
-          <div class="chart-title-block">
-            <h3 class="chart-title">NYC's $650M plan funds about 1,000 supportive-housing beds.</h3>
-            <p class="chart-subtitle">About 100 Bridge to Home beds plus 900 Safe Haven beds. The priority is standing them up, keeping them full, and prioritizing survivors, not a higher bed target.</p>
-          </div>
-          <img src="assets/charts/07-beds.png" alt="Stacked horizontal bar chart. The announced plan: 100 Bridge to Home beds plus 900 Safe Haven beds, about 1,000 beds total.">
-          <figcaption>
-            <p class="source">Source: <a href="https://www.nyc.gov/mayors-office/news/2025/01/mayor-adams-takes-unprecedented-action-curb-street-homelessness-support-people-severe">NYC Mayor's January 2025 Care, Community, Action announcement</a>. BTH = Bridge to Home (long-term supportive housing); Safe Haven = transitional shelter. Tsemberis Pathways-to-Housing RCT and replications underpin the supportive-housing evidence base.</p>
-          </figcaption>
-        </figure>
-
         <p>The beds are mostly still on paper. Build them, fill them, and put the survivor first in line. To the 911 call that is a breakdown and not a crime, send help that does not arrive carrying a gun, and send it at three in the morning, not only at noon. Where we do not yet know what works, try a few things the evidence will actually bear, in a handful of precincts: a danger screen at the scene, and a hard, focused word to those most likely to do violence. And promise, in writing, to end whatever fails.</p>
 
         <p>None of this is beyond us. The cost is a rounding error against the city's budget gap. The obstacle has never been money, and it has never quite been knowledge. It is attention. What a city counts is what it has agreed to value, and what it refuses to count is what it has decided it can live without seeing. The figures here say that we have agreed not to see the people in the most danger from those closest to them. I am asking the city to look. To look is not yet to save anyone, but nothing has ever been saved that was not first looked at, and looked at plainly.</p>
@@ -116,7 +110,14 @@
   <script src="js/chart-theme.js" defer></script>
   <script src="js/chart-03.js" defer></script>
   <script src="js/chart-05.js" defer></script>
-  <script src="js/chart-07.js" defer></script>
+
+  <!-- Fathom click events: outbound clicks, named by destination host -->
+  <script>
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a');
+    if (a && window.fathom) fathom.trackEvent('NYC Essay: ' + new URL(a.href).hostname.replace(/^www\./, ''));
+  });
+  </script>
 
 </body>
 </html>
